@@ -1,0 +1,89 @@
+<div class="reg-body">
+    <div class="registration-form">
+        <div class="control-div">
+
+            <h5>{{'Login Through Reference Number' | translate}}</h5>
+
+            <div class="row">
+ 
+                <div class="col-md-6">
+                    <label for="txtReferenceNo" class="form-label"> <span class="text-danger">*</span> {{'Reference Number' | translate}}</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtReferenceNo" [(ngModel)]="referenceNo"
+                            [maxlength]="maxLghNm" [minlength]="minLghNm" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="">
+                        <button class="btn btn-success me-2" (click)="verifyReferenceNo();">{{'Login' | translate}}</button>
+                    </div>
+                    <div class="">
+                        <a routerLink="/manufacture-portal/login">{{'Back to Login' | translate}} </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+<ng-template #someModal id="someModal" let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Verify Reference Number</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-row align-items-center">
+            <div class="row">
+                <div class="col-4">
+                    <label class="mt-2" for="txtOtp"><span class="mandatory">*</span> Enter OTP</label>
+
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP"
+                            [maxlength]="maxLghotp" [minlength]="minLghotp" (keypress)="vldChkLst.isNumberKey($event)">
+                        <p class="mb-0 "><strong class="text-danger">{{timeInMin}}</strong> Seconds Left....</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="text-danger" style="font-size: smaller;">* OTP has been sent to the registered mobile
+                        number.</div>
+                    <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10 mins.</div>
+                    <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been resent to
+                        the mobile number registered in your Aadhaar.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-success" (click)="verifyOTP();">Verify</button>
+                    <button type="button" class="btn btn-default" (click)="resendOtp()" [disabled]="!editable"
+                        mdbWavesEffect>Resend OTP</button>
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+        <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+
+    </div>
+
+</ng-template>
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

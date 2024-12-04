@@ -1,0 +1,13 @@
+.content-section h1,.content-section h2,.content-section h3,.content-section h4,.content-section h5,.content-section h6{
+    margin-bottom: 1rem;
+    color:#000;
+}
+.content-section p {
+    line-height: 1.8em;
+    text-align:justify;
+}
+
+.content-section{
+
+}
+

@@ -1,0 +1,211 @@
+<app-header></app-header>
+<div class="container">
+    <div class="page-container">
+<div class="text-center py-5  mt-5">
+    <h1 class="text-success mb-2"  style="font-size:5rem"><i class="icon-check-circle"></i></h1>
+    <h1  class="text-success mb-5">Congratulations !</h1>
+    <p>You have successfully applied for <strong> {{applctnNm}} </strong></p>
+    <p class="mb-5">Please use your Application ID  <strong><span class="text-success">{{applctnNo}}</span></strong> for further tracking of application status</p>
+
+</div>
+<div class="accordion-item table-responsive"  *ngIf="schemeId == seedDBT">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="5px">Sl#</th>
+                            <th>Dealer Name</th>
+                            <th>Seed to be purchased </th>
+                            <th>Seed Variety</th>
+                            <th>Bag Size (Kg)</th>
+                            <th>No. of Bag </th>
+                            <th>Quantity (Kg) </th>
+                            <th>Subsidy Amount (Rs.) </th>
+                            <th>Lot No. </th>
+                            <th>Voucher Status</th>
+                            </tr></thead>
+                            <tbody>
+
+                <ng-container *ngFor="let voucherInfo of voucherDetails;let ctr = index">
+                 <tr>
+                        <td>{{ctr+1}}</td>
+                        <td>{{voucherDetails[ctr]['vchDealerName']}}</td>
+                        <!-- <td><a class="text-primary" href="javascript:void(0)" (click)="getVoucherDetailsByID(voucherDetails[ctr]['intVoucherId'])">{{voucherDetails[ctr]['vchCropName']}}</a> </td> -->
+                        <td>{{voucherDetails[ctr]['vchCropName']}}</td>
+                        <td>{{voucherDetails[ctr]['vchVarietyName']}}</td>
+                        <td>{{voucherDetails[ctr]['vchBagSize']}}</td>
+                        <td>{{voucherDetails[ctr]['intNoOfBag']}}</td>
+                        <td>{{voucherDetails[ctr]['vchTotalQuantity']}}</td>
+                        <td>{{voucherDetails[ctr]['decTotalAmount']}}</td>
+                        <td>{{voucherDetails[ctr]['vchLotNo']}}</td>
+
+                       <td>
+                          <ng-container *ngIf="(voucherDetails[ctr]['tinVoucherStatus'] ==1 || voucherDetails[ctr]['tinVoucherStatus'] ==4 || voucherDetails[ctr]['tinVoucherStatus']==7);else second"><span class="text-warning">Initiated</span></ng-container>
+                          <ng-template #second>
+                              <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 2;else three"><span class="text-primary">Generated</span></ng-container>
+                          </ng-template>
+                          <ng-template #three>
+                            <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 3;else five"><span class="text-danger">Failure</span></ng-container>
+                        </ng-template>
+                       
+                          <ng-template #five>
+                            <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 5;else six"><span class="text-success">Redeemed</span></ng-container>
+                         </ng-template>
+                         <ng-template #six>
+                            <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 6;else seven"><span class="text-danger">Revoked</span></ng-container>
+                         </ng-template>
+                         <ng-template #seven>
+                            <ng-container><span class="text-warning">--</span></ng-container>
+                         </ng-template>
+                        </td> 
+                     
+                    </tr> 
+                </ng-container>
+            </tbody>
+            </table>
+            
+    <ng-template #someSeedDBTVoucherModal id="someSeedDBTVoucherModal" let-modal [hidden]="IsmodelShow" [hidden]="IsmodelShow">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Voucher Details</h4>
+            <div class="p-none">
+                <a (click)="printSeedDBTVoucherPage()" href="javascript:void(0)" class="h5 text-info  mx-3"><i class="icon-print-solid"></i></a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <i class="icon-times-solid"></i>
+            </button>
+                </div>
+            
+        </div>
+        <div id="printSeedDBTVoucher" class="modal-body">
+            <table class="table table-bordered">
+                <tr>
+                <th width="20%">Dealer Name</th>
+                <td>: {{voucherModalDetails['vchDealerName']}}</td>
+                </tr>
+                <tr>   
+                <th width="20%">Dealer Contact Number</th>
+                <td>: {{voucherModalDetails['vchDealerMobileNo']}}</td>
+                </tr>
+                <tr>
+                    <th width="20%">Type of Seed</th>
+                    <td>: {{(voucherModalDetails['tinCropCode'] == 1) ? 'Paddy':'Non-Paddy'}}</td>
+                    </tr>
+                    <tr>
+                    <th width="30%">Seed to be Purchased</th>
+                    <td>: {{voucherModalDetails['vchCropName']}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%">Seed Variety</th>
+                        <td>: {{voucherModalDetails['vchVarietyName']}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%">Lot No.</th>
+                        <td>: {{voucherModalDetails['vchLotNo']}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%">Bag Size (Kg)</th>
+                        <td>: {{voucherModalDetails['vchBagSize']}}</td>
+                        </tr>
+                       
+                            <tr>
+                                <th width="20%">No. of Bag</th>
+                                <td>: {{voucherModalDetails['intNoOfBag']}}</td>
+                            </tr>
+                            <tr>
+                                <th width="20%">Quantity (Kg)</th>
+                                <td>: {{voucherModalDetails['vchTotalQuantity']}}</td>
+                                </tr>
+                                  
+    
+                                <tr>
+                                    <th width="20%">Total Cost (Rs.)</th>
+                                    <td>: {{voucherModalDetails['vchseedFinalTotCost']}}</td>
+                                </tr>
+    
+                                <tr>
+                                    <th width="20%">Subsidy Amount (Rs.)</th>
+                                    <td>: {{voucherModalDetails['decTotalAmount']}}</td>
+                                </tr>
+    
+                                <tr>
+                                    <th width="20%">Payable Amount by Farmer (Rs.)</th>
+                                    <td>: {{voucherModalDetails['vchpayableAmtFarmer']}}</td>
+                                </tr>
+                                    
+                                        <tr>
+                                            <th width="20%" >Voucher Status</th>
+                                            <td>:
+                                                <ng-container *ngIf="(voucherModalDetails['tinVoucherStatus'] ==1 || voucherModalDetails['tinVoucherStatus'] ==4);else second"><span class="text-warning">Initiated</span></ng-container>
+                                                <ng-template #second>
+                                                    <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 2;else three"><span class="text-primary">Generated</span></ng-container>
+                                                </ng-template>
+                                                <ng-template #three>
+                                                  <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 3;else five"><span class="text-danger">Failure</span></ng-container>
+                                              </ng-template>
+                                             
+                                                <ng-template #five>
+                                                  <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 5;else six"><span class="text-success">Redeemed</span></ng-container>
+                                               </ng-template>
+                                               <ng-template #six>
+                                                  <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 6;else seven"><span class="text-danger">Revoked</span></ng-container>
+                                               </ng-template>
+                                               <ng-template #seven>
+                                                  <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 7;"><span class="text-warning">Processed</span></ng-container>
+                                               </ng-template>
+                                                </td>
+                                           </tr>
+    
+                                     
+                                      
+                                            
+                        
+            </table>
+        </div>
+    </ng-template>
+</div>
+
+<!-- <div class="row" *ngIf="schemeId == seedDBTPre"><a href="{{receiptUrl}}" target="_blank" class="h5 text-danger text-right" title="Receipt Download"><i class="icon-file-pdf"></i></a></div> -->
+<div class="accordion-item table-responsive"  *ngIf="schemeId == seedDBTPre">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th width="5px">Sl#</th>
+                <th>Dealer Name</th>
+                <th>Seed to be purchased </th>
+                <th>Seed Variety</th>
+                <th>Intended Month of Purchase</th>
+                <th>Bag Size (Kg)</th>
+                <th>No. of Bag </th>
+                <th>Quantity (Kg) </th>
+                <th>Booking Cost (Rs.) </th>
+                </tr>
+            </thead>
+    <tbody>
+
+    <ng-container *ngFor="let voucherInfo of voucherDetails;let ctr = index">
+     <tr>
+            <td>{{ctr+1}}</td>
+            <td>{{voucherDetails[ctr]['vchDealerName']}}</td>
+            <td>{{voucherDetails[ctr]['vchCropName']}}</td>
+            <td>{{voucherDetails[ctr]['vchVarietyName']}}</td>
+            <td>{{voucherDetails[ctr]['vchIntendedMonth']}}</td>
+            <td>{{voucherDetails[ctr]['vchBagSize']}}</td>
+            <td>{{voucherDetails[ctr]['intNoOfBag']}}</td>
+            <td>{{voucherDetails[ctr]['vchTotalQuantity']}}</td>
+            <td>{{voucherDetails[ctr]['decTotalAmount']}}</td>
+        </tr> 
+    </ng-container>
+</tbody>
+</table>
+</div>
+<div class="text-center py-5"> 
+    <a routerLink="/home"  class="btn btn-warning">Go to Home</a>&nbsp;
+    <a href="{{receiptUrl}}" target="_blank" class="btn btn-success text-right" title="Receipt Download" *ngIf="schemeId == seedDBTPre"><i class="icon-file-pdf"></i> Download Receipt</a>
+</div>
+</div>
+</div>
+<app-footer></app-footer> 
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>
+

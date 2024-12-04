@@ -1,0 +1,368 @@
+<div class="reg-body">
+    <div class="lang__btns">
+
+        <select class="form-select" #langSelect (change)="changeLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                [selected]="lang === translate.currentLang">{{ lang == 'Odia'?'ଓଡିଆ':lang }}</option>
+        </select>
+
+    </div>
+
+
+    <div class="registration-form">
+
+        <div class="reg-header">
+            <img src="{{siteURL}}assets/images/login__bg.png" class="w-100" alt="Login">
+        </div>
+
+        <div class="control-div">
+
+            <a [routerLink]="[ '/']" class="top_logo_sec" title="Home">
+                <!-- <img src="{{siteURL}}assets/images/govt_logo.png" alt="Govt Logo" class="govt_logo">
+                <img src="{{siteURL}}assets/images/slogo.png" alt="Sugam" class="sugam_logo"> -->
+                <img src="{{siteURL}}assets/images/logo-new.png" class="light-img screen__reader govt_logo" alt="SUGAM, Government of Odisha" title="SUGAM, Government of Odisha">
+                <img src="{{siteURL}}assets/images/logo-white.png" class="dark-img screen__reader govt_logo" alt="SUGAM, Government of Odisha" title="SUGAM, Government of Odisha">
+            </a>
+
+            <!-- tab section start -->
+
+            <div class="login__tab">
+
+
+                <!-- header part -->
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active position-relative" data-bs-toggle="pill"
+                            data-bs-target="#beneficiary_tab" type="button" role="tab" title="Beneficiary"
+                            aria-selected="true"> Beneficiary </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link position-relative" data-bs-toggle="pill" data-bs-target="#manufacture_tab" type="button"
+                            role="tab" title="Manufacture" aria-selected="false"> Manufacture </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link position-relative" type="button" title="Officer" aria-selected="false"
+                            (click)="openDomainURL()"> Officer </button>
+                    </li>
+                    
+                </ul>
+
+                <!-- header part -->
+
+                <div class="tab-content" id="pills-tabContent">
+
+                    <!-- beneficiary login tab -->
+                    <div class="tab-pane fade show active" id="beneficiary_tab" role="tabpanel">
+
+                        <!-- beneficiary tab body -->
+
+                        <div class="login_radio">
+
+                            <div class="form-check-label">
+                                <input type="radio" id="useridPasswordLogin" name="beneficiaryLogin"
+                                    class="form-check-input" value="2" (click)="toggleDivVisibility(1)"
+                                    [checked]="useridPasswordLogin">
+                                <label for="useridPasswordLogin" class="form-check-label">Mobile</label>
+                            </div>
+
+                            <div class="form-check-label">
+                                <input type="radio" id="aadharLogin" name="beneficiaryLogin" class="form-check-input"
+                                    (click)="toggleDivVisibility(2)" [checked]="aadharLogin">
+                                <label for="aadharLogin" class="form-check-label">Aadhaar</label>
+                            </div>
+
+                        </div>
+
+                        <div class="login__content" *ngIf="showDiv1">
+
+                            <div class="mb-2 input-groupnew">
+
+                                <input type="text" class="form-control vchEmail" placeholder="Enter Aadhaar Number"
+                                    id="vchAadharNumber" name="vchAadharNumber" value="" autocomplete="off"
+                                    [(ngModel)]="aadharUserId" (keypress)="vldChkLst.isNumberKey($event)"
+                                    maxlength="12" />
+                                <div class="addon"><i class="icon-user-solid"></i></div>
+                            </div>
+
+
+                            <ng-container class="text-right mt-1 mb-0" *ngIf="editable"></ng-container>
+
+                            <ng-template #disableResend>
+
+                                <a class="link">
+                                    {{'Resend Otp ?' | translate}}
+                                </a>
+                            </ng-template>
+                            <ng-template #enableResend>
+                                <div class="link" (click)="doAadharLogin()">
+                                    {{'Resend Otp ?' | translate}}
+                                </div>
+                            </ng-template>
+
+
+                            <div class="text-danger" style="font-size: smaller;">*
+                                Enter your Aadhaar Number as per Krushak Odisha.</div>
+                            <input type="submit" [value]="hasSendingOpt" (click)="doAadharLogin();" id="login-btn"
+                                class="log-link mb-2 mt-4 otp-btn">
+
+                        </div>
+
+                        <div class="login__content" *ngIf="showDiv2">
+
+                            <div class="form-group input-groupnew">
+
+                                <input type="text" class="form-control vchEmail" placeholder="Enter Mobile Number"
+                                    id="vchEmailId" name="vchEmailId" value="" autocomplete="off"
+                                    [(ngModel)]="citizenUserId" (keypress)="vldChkLst.isNumberKey($event)"
+                                    maxlength="10" />
+                                <div class="addon"><i class="icon-user-solid"></i></div>
+                            </div>
+
+                            <div class="form-group input-groupnew">
+
+                                <input type="password" class="form-control password" readonly=""
+                                    onfocus="this.removeAttribute('readonly');" id="Upassword" name="Upassword"
+                                    placeholder="Enter Password" autocomplete="off" value=""
+                                    [(ngModel)]="citizenPassword" />
+                                <!-- <div class="addon"><i class="icon-lock-solid"></i></div> -->
+
+                                <div class="addon show__password" (click)="showPassword()"><i
+                                        class="icon-eye-slash"></i></div>
+
+
+                            </div>
+                            <div class=" form-group">
+
+                                <div class="row ">
+
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-7">
+
+
+                                        <input type="text" maxlength="50" class="form-control " value=""
+                                            onfocus="this.select();" id="mathcaptcha" name="mathcaptcha"
+                                            placeholder="Captcha Code" autocomplete="off" [attr.data-val]="captchaData"
+                                            [(ngModel)]="captchaInput">
+
+
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-5">
+
+
+                                        <div class="input-group captch_sec">
+
+                                            <img *ngIf="captchaImgDisplay" src="{{captchaImg}}" id="captchaImage"
+                                                alt="captcha">
+
+                                            <div class="addon lod" (click)="reloadCaptcha()" title="Refresh">
+
+                                                <i class="icon-sync-solid"></i>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Sign In" (click)="doLogin();" id="login-btn"
+                                class="log-link otp-btn" title="Sign In">
+
+
+
+
+
+
+                        </div>
+
+                        <!-- beneficiary tab body -->
+
+
+                       
+                        <div class="d-flex align-items-center justify-content-center log_bottom mt-4">
+
+                            <a title=" {{'Forgot password ?' | translate}}" class="link" [routerLink]="[ '/citizen-portal/forgotpassword']">
+                                {{'Forgot password ?' | translate}} </a>
+                            <a title=" {{'Register Now' | translate}}" class="link" [routerLink]="[ '/citizen-portal/registration']">
+                                {{'Register Now' | translate}} </a>
+
+                            <a title="{{'Back to Home' | translate}}" class="link" [routerLink]="[ '/']"> {{'Back to Home' | translate}}
+                            </a>
+
+
+                        </div>
+
+
+
+
+                    </div>
+                    <!-- beneficiary login tab -->
+
+
+                    <!-- manufacture login tab -->
+                    <div class="tab-pane fade" id="manufacture_tab" role="tabpanel">
+                        <div class="login__content">
+                            <!-- <h5> {{'Manufacture Login' | translate}} </h5> -->
+                        
+                            <div class="form-group">
+                        
+                                <input type="text" class="form-control mivchEmail" placeholder="Enter User Id" id="mivchEmailId" name="mivchEmailId"
+                                    value="" autocomplete="off" [(ngModel)]="micitizenUserId" />
+                                <div class="addon"><i class="icon-user-solid"></i></div>
+                            </div>
+                        
+                            <div class="form-group">
+                        
+                                <input type="password" class="form-control mipassword" readonly="" onfocus="this.removeAttribute('readonly');"
+                                    id="miUpassword" name="miUpassword" placeholder="Enter Password" autocomplete="off" value=""
+                                    [(ngModel)]="micitizenPassword" />
+                        
+                                <div class="addon mishow__password" (click)="showMiPassword()"><i class="icon-eye-slash"></i></div>
+                        
+                            </div>
+                            <div class=" form-group">
+                        
+                                <div class="row ">
+                        
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-7">
+                        
+                        
+                                        <input type="text" maxlength="50" class="form-control " value="" onfocus="this.select();"
+                                            id="mimathcaptcha" name="mimathcaptcha" placeholder="Captcha Code" autocomplete="off"
+                                            [attr.data-val]="micaptchaData" [(ngModel)]="micaptchaInput">
+                        
+                        
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-5">
+                        
+                        
+                                        <div class="input-group captch_sec">
+                                            <img *ngIf="micaptchaImgDisplay" src="{{micaptchaImg}}" id="captchaImage" alt="captcha">
+                                            <div class="addon">
+                                                <a href="javascript:void(0);" class="lod" title="refresh" (click)="reloadMiCaptcha()"><i
+                                                        class="icon-sync-solid"></i></a>
+                                            </div>
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <input type="submit" value="Login" (click)="doMiLogin();" id="login-btn" class="log-link mb-2 mt-4 otp-btn">
+                        
+                            
+                        
+                            <div class="d-flex align-items-center justify-content-center log_bottom mt-4">
+                        
+                                <a title="{{'Forgot password ?' | translate}}" class="link"
+                                    [routerLink]="[ '/manufacture-portal/forgotpassword']">
+                                    {{'Forgot password ?' | translate}} </a>
+                                <a title="{{'Register Now' | translate}}" class="link" [routerLink]="[ '/manufacture-portal/registration']">
+                                    {{'Register Now' | translate}} </a>
+                        
+                                <a title="{{'Back to Home' | translate}}" class="link" [routerLink]="[ '/']"> {{'Back to Home' | translate}}
+                                </a>
+                        
+                        
+                            </div>
+                        
+                        
+                        </div>
+                    </div>
+                    <!-- manufacture login tab -->
+
+                </div>
+
+            </div>
+
+
+            <!-- tab section end -->
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- modal section -->
+
+<ng-template #someModal id="someModal" let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Verify Phone Number</h4>
+        <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <i class="icon-times-solid"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-row align-items-center">
+            <div class="row">
+                <div class="col-4">
+                    <label class="mt-2" for="txtOtp"><span class="mandatory">*</span> Enter OTP</label>
+
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP" [maxlength]="4"
+                            [minlength]="4" (keypress)="vldChkLst.isNumberKey($event)">
+                        <p class="mb-0 "><strong class="text-danger">{{timeInMin}}</strong> Seconds Left....</p>
+                        <input type="hidden" id="mobileNo" *ngIf="mobileNo != ''" [(ngModel)]="mobileNo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="text-danger" style="font-size: smaller;">* OTP has been sent to your Krushak Odisha
+                        registered mobile number.</div>
+                    <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10 mins.</div>
+                    <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been resent to
+                        the mobile number registered in your Aadhaar.</div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mr-2">
+                    <button type="submit" class="btn btn-success" (click)="doAadharOtpVerify();">Verify</button>
+                    &nbsp;<button type="button" class="btn btn-danger" (click)="resendOtp()" [disabled]="!editable"
+                        mdbWavesEffect>Resend OTP</button>
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+        <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+
+    </div>
+
+</ng-template>
+
+<!-- modal section -->
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

@@ -1,0 +1,48 @@
+
+.img-div{
+    background: #e9ecef;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 4px;
+}
+.img-div img{
+    height: 148px;
+}
+.ifsc_code,.bhulekh_plot_no,.loan_bank_ifsc{width: 60%;}
+.input-group .dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0em;
+    vertical-align: 0em;
+    content: "";
+    border-top: 0;
+    border-right: 0em solid transparent;
+    border-bottom: 0em solid;
+    border-left: 0em solid transparent;
+}
+.control-div .form-label{
+    min-height: 40px
+     }
+@media screen and (max-width:1440px) {
+    .ifsc_code,.bhulekh_plot_no,.loan_bank_ifsc{width: 50%;}
+}
+.d-none{
+    display: none;
+}
+.no_of_net_profit{
+    display: none;
+}
+.hdnsector,.hdnproject{
+  display: none;
+}
+#Sector_Details{
+  display: none;
+}
+#intraSectorData{
+  display: none;
+}
+@media screen and (max-width:480px) {
+    .control-div .form-label{
+        min-height: 10px
+         }
+}
+

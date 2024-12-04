@@ -1,0 +1,40 @@
+<div class="d-flex align-items-start justify-content-between mb-2">
+        <h5 class="common-heading">All Activities</h5>
+        <a class="text-dark h5" title="Back" href="javascript:void(0)" (click)="backClicked()"><i
+                class="icon-arrow-left-solid"></i></a>
+    </div>
+    <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width:40px">Sl#</th>
+                            <th>Activity Details </th>
+                            <th>Status </th>
+    
+                            <th width="250px">Image / Tentative date of complete </th>
+                            <th width="350px">Remark </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let activity of resDocList; let rwCnt=index;">
+                            <td>{{rwCnt+1}}</td>
+                            <td>{{activity.itemName}}</td>
+                            <td>{{activity.farmerActionStatusTxt}}</td>
+                            <td>
+                                <div *ngIf="activity.farmerActionStatus == 1; else elseBlock">
+                                    {{activity.farmerUpdateDate}}
+                                </div>
+                                <ng-template #elseBlock> <img src="{{activity.farmerUploadedPhoto}}" class="bg-light"
+                                        style="height: 40px;"> </ng-template>
+    
+    
+    
+    
+    
+    
+                            </td>
+                            <td>{{activity.farmerRemark}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>

@@ -1,0 +1,53 @@
+<app-header></app-header>
+<div class="pagenavigation">
+
+        <div class="container">
+                <h2>Search</h2>
+        </div>    
+        </div>
+
+        <div class="container">
+                <div class="page-container">
+                                <p class="">Search Result for "<span>{{searchText}}</span>"</p>
+          
+
+                                <div  *ngIf="isSearchFlag;else norecord ">   
+            
+                        
+                                <ng-container *ngFor="let search of SearchInfo; let i= index;">
+            
+                                        <div class="search-card">
+                                                <h6>
+                                                    <a routerLink="/website{{search.VCH_URL}}">
+                                                        <small class="d-block">{{siteURL}}website{{search.VCH_URL}}</small>
+                                                        {{search.HEAD_LINE}}
+                                                    </a>
+                                
+                                                </h6>
+                                                <p innerHtml=" {{search.DESCRIPTION.substring(0,450)}} "> </p>
+                                            </div>
+            
+            
+            
+            
+                               
+                                </ng-container>
+                         
+                          
+            </div>
+            
+            
+            <ng-template #norecord>
+            
+                           
+            <div class="text-center">
+                    <h6 class="mb-2"> No Results Found</h6>
+                    <p>Sorry, Your search for "{{searchText}}" did not match with any keywords.
+                            Please try again with some different keywords.</p>
+                        </div>
+                </ng-template>
+                </div>
+        </div>
+
+
+        <app-footer></app-footer>

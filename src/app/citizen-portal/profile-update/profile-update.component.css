@@ -1,0 +1,12 @@
+
+.img-div{
+    border: 1px solid var(--shadow);
+    text-align: center;
+    background: var(--shadow);
+    padding: 1rem;
+}
+.img-div img{
+   height: 140px;
+   width: auto;
+   max-width: 100%;
+}

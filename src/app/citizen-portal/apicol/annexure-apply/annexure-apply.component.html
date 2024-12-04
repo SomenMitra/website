@@ -1,0 +1,1022 @@
+<!-- start scheme tab -->
+
+<div class="mb-3">
+    <h5 class="common-heading2 mb-0 ">{{schemeType}} : <span class="text-success">{{schemeName}}</span></h5>
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" value="1"  id="profile-tab" type="button"
+            role="tab" aria-controls="profile" aria-selected="true">{{'Farmer Information' | translate}}</button>
+    </li>
+    <!-- (click)="goToSectn($event.target.value)" -->
+    <li class="nav-item" role="presentation">
+        <button class="nav-link " value="2"  id="scheme-tab" type="button"
+            role="tab" aria-controls="scheme" aria-selected="false" >{{schemeType}} {{'Information' |
+            translate}}</button>
+    </li>
+    <li class="nav-item" role="presentation" *ngIf="financeType">
+        <button class="nav-link active" value="3"  id="annexure-tab" type="button"
+            role="tab" aria-controls="annexure" aria-selected="false"> {{'Annexure II' |
+            translate}}</button>
+    </li>
+    <li class="nav-item" role="presentation" *ngIf="docSectnSts">
+        <button class="nav-link" value="4" id="document-tab" type="button"
+            role="tab" aria-controls="document" aria-selected="false">{{'Documents' | translate}}</button>
+    </li>
+</ul>
+<!-- end scheme tab -->
+<div class="tab-content" id="schmTabContent">
+    <div class="tab-pane fade show active" id="schmTab" role="tabpanel" aria-labelledby="scheme-tab">
+
+       
+
+        <form focusInvalidInput [formGroup]="schemeForm" (submit)="docompleteAnnexure();">
+            <div class="control-div">
+                <div *ngFor="let sectnInfo of respDynm;let aRwCnt=index;">
+                    <h5 class="common-heading2">
+                        <span *ngIf="lang==='Odia'; else engLang">
+                            {{sectnInfo.sectionNameOdia}}
+                        </span>
+
+                        <ng-template #engLang>
+                            {{sectnInfo.sectionName}}
+                        </ng-template>
+                    </h5>
+                    <div class="row">
+                        <ng-container *ngFor="let ctrlInfo of sectnInfo.sectionCtrls;let i=index;">
+                            <ng-container *ngIf="ctrlInfo.tinControlType==8; then shwAddMore"></ng-container>
+
+                            <ng-template #shwAddMore>
+                                <div id="{{ctrlInfo.vchLabelName}}">
+                                    <div class="col-md-12  clsDiv_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                        [ngClass]="ctrlInfo.jsnDispTagArray[0].tagFieldSts == 1?'d-none' : ''">
+
+                                        <div class="" >
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sl#</th>
+                                                        <th
+                                                            *ngFor="let addMoreCtrlInfo of ctrlInfo.jsnControlArray[0].ctrlAddMore;let j=index;" class="{{addMoreCtrlInfo['columnName']}}">
+                                                            <span class="text-danger"
+                                                                *ngIf="addMoreCtrlInfo['columnMnd']==1">*</span>
+
+                                                            {{addMoreCtrlInfo['columnName']}}
+                                                        </th>
+                                                        <th width="180px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <ng-container
+                                                        *ngIf="scmFrmAdmObj[ctrlInfo.jsnControlArray[0].ctrlName].length!=0">
+                                                        <tr
+                                                            *ngFor="let addMrArr of (scmFrmAdmObj[ctrlInfo.jsnControlArray[0].ctrlName]).controls;let adRowCtr=index">
+                                                            <td>{{adRowCtr+1}}</td>
+                                                            <td class ="{{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}" formArrayName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                                *ngFor="let addMoreCtrlInfo of ctrlInfo.jsnControlArray[0].ctrlAddMore;let j=index;">
+
+                                                                <ng-container
+                                                                    [ngSwitch]="ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnType">
+                                                                    <ng-container *ngSwitchCase="'2'">
+                                                                        <select
+                                                                            class="form-select {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                            id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}"
+                                                                            *ngIf="ctrlInfo.jsnControlArray[0].ctrlAddMore[j].isDependent==1" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)">
+                                                                            <option value="">Select</option>
+                                                                        </select>
+                                                                        <select
+                                                                            class="form-select {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                            id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}"
+                                                                            *ngIf="ctrlInfo.jsnControlArray[0].ctrlAddMore[j].isDependent!=1" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)" >
+                                                                            <option value="">Select</option>
+                                                                            <option
+                                                                                *ngFor="let addMoreOpts of ctrlInfo.jsnControlArray[0].ctrlAddMore[j].optionArr;let addMoreOptK=index;"
+                                                                                [selected]="addMoreOpts.optionValue == ctrlInfo.vchFieldValue"
+                                                                                value="{{addMoreOpts.optionValue}}">
+                                                                                {{addMoreOpts.optionText}}</option>
+                                                                        </select>
+                                                                    </ng-container>
+                                                                    <ng-container *ngSwitchCase="'6'">
+
+                                                                        <input type="text" autocomplete="off" appBlockCopyPaste
+                                                                            (keypress)="keyPressEvt(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].textType,$event,ctrlInfo.jsnControlArray[0].ctrlName+'_'+adRowCtr+'_'+j)"
+		                                                                    (keyup)="keyUpEvt(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].textType,$event,ctrlInfo.jsnControlArray[0].ctrlName+'_'+adRowCtr+'_'+j)"
+                                                                            class="form-control {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                            id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)"/>
+
+                                                                    </ng-container>
+                                                                    <ng-container *ngSwitchCase="'7'">
+                                                                        <textarea autocomplete="off"
+                                                                            class="form-control {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                            id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)"></textarea>
+                                                                    </ng-container>
+
+                                                                    <ng-container *ngSwitchCase="'9'">
+                                                                        <div class="input-group">
+                                                                            <input type="text" autocomplete="off" appBlockCopyPaste
+                                                                                class="form-control {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                                placeholder="DD/MM/YYYY" ngbDatepicker
+                                                                                #d="ngbDatepicker" readonly
+                                                                                [minDate]="minDate"
+                                                                                id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}"
+                                                                                [maxDate]="maxDate" (click)="d.toggle()" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)" />
+                                                                            <span class="input-group-text"
+                                                                                (click)="d.toggle()"><i
+                                                                                    class="icon-calendar"></i></span>
+                                                                        </div>
+
+                                                                    </ng-container>
+
+                                                                    <ng-container *ngSwitchCase="'10'">
+
+                                                                        <div class="input-group">
+
+
+                                                                            <input type="time" autocomplete="off" appBlockCopyPaste
+                                                                                class="form-control  {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                                id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)"/>
+
+
+                                                                        </div>
+
+
+
+
+                                                                    </ng-container>
+
+
+
+
+
+                                                                    <ng-container *ngSwitchCase="'11'">
+
+                                                                        <div class="input-group">
+
+                                                                            <input type="datetime-local" autocomplete="off" appBlockCopyPaste
+                                                                                class="form-control datetime {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                                id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}"
+                                                                                placeholder="DD/MM/YYYY, HH:MM" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)" />
+
+                                                                        </div>
+
+                                                                    </ng-container>
+
+
+
+
+                                                                    <ng-container *ngSwitchDefault>
+                                                                        <input type="text" autocomplete="off" appBlockCopyPaste
+                                                                            class="form-control {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId}} {{ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls}}"
+                                                                            id="{{ctrlInfo.jsnControlArray[0].ctrlName}}_{{adRowCtr}}_{{j}}" [readonly]="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[j].columnCls)"/>
+                                                                    </ng-container>
+                                                                </ng-container>
+
+                                                            </td>
+                                                            <td>
+                                                              <!-- {{(ctrlInfo.jsnControlArray[0].ctrlAddMore).length | json}} -->
+                                                                <button type="button"
+                                                                    (click)="addRow(ctrlInfo.jsnControlArray[0].ctrlName,adRowCtr,(ctrlInfo.jsnControlArray[0].ctrlAddMore).length,ctrlInfo.jsnControlArray[0].ctrlAddMore,ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls)"
+                                                                    class="btn btn-sm btn-warning me-2 ">+</button>
+                                                                <button type="button" *ngIf="adRowCtr>0"
+                                                                    (click)="removeRow(ctrlInfo.jsnControlArray[0].ctrlName,adRowCtr)"
+                                                                    class="btn btn-sm btn-danger me-2 ">-</button>
+                                                            <ng-container *ngIf="ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls.includes('sector_details')">
+                                                                      <button id="btnSector{{adRowCtr}}" type="button"
+                                                                      (click)="getIntersctorialSector(adRowCtr)"
+                                                                      class="btn btn-sm btn-success me-2 " *ngIf="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls)">Get Sector</button>
+                                                                  </ng-container>
+
+                                                                  <ng-container *ngIf="ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls.includes('isd')">
+
+                                                                    <button id="btnInfraSector{{adRowCtr}}" type="button"
+                                                                    (click)="getIntrasctorialSector(adRowCtr)"
+                                                                    class="btn btn-sm btn-success me-2 " *ngIf="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls)">Get Intra Sector</button>
+                                                                </ng-container>
+
+                                                                <ng-container *ngIf="ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls.includes('bhulekh_more_tahasil')">
+                                                                    <button id="btnArea{{adRowCtr}}" type="button"
+                                                                    (click)="getBhulekhArea(adRowCtr)"
+                                                                    class="btn btn-sm btn-success me-2 " *ngIf="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls)">Get Area</button>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls.includes('cage_culture_zone')">
+                                                                    <button id="btnClusterArea{{adRowCtr}}" type="button"
+                                                                    (click)="getClusterArea(adRowCtr)"
+                                                                    class="btn btn-sm btn-success me-2 " *ngIf="enableAddMoreDisable(ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnId, ctrlInfo.jsnControlArray[0].ctrlAddMore[0].columnCls)">Get Cluster</button>
+                                                                </ng-container>
+
+                                                            </td>
+                                                        </tr>
+                                                    </ng-container>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <div *ngIf="ctrlInfo.tinControlType!=8"
+                                class="col-md-6 col-lg-4 test22 clsDiv_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                [ngClass]="ctrlInfo.jsnDispTagArray[0].tagFieldSts == 1?'d-none' : ''" >
+
+                                <label for="{{ctrlInfo.jsnControlArray[0].ctrlName}}" class="form-label ">
+                                    <ng-container *ngIf="ctrlInfo.tinMandatorySts==1; then shwMndSpn">
+                                    </ng-container>
+                                    <ng-template #shwMndSpn>
+                                        <span class="text-danger">*</span>
+                                    </ng-template>
+                                    <span *ngIf="lang==='Odia'; else engLang">
+                                        {{ctrlInfo.vchLabelNameOdia}}
+                                    </span>
+
+                                    <ng-template #engLang>
+                                        {{ctrlInfo.vchLabelName}}
+                                    </ng-template>
+
+                                </label>
+
+                                <div class="form-group">
+                                    <ng-container [class]="(ctrlInfo.jsnControlArray[0].ctrlName)+'Div'">
+                                        <ng-container [ngSwitch]="ctrlInfo.tinControlType" id="parentDiv">
+                                            <input type="button"
+                                                *ngIf="ctrlInfo.jsnControlArray[0].ctrlClass.includes('ifsc_code')"
+                                                value="Get IFSC code" class="btn btn-success float-end"
+                                                (click)="getIFSC()">
+                                            <input type="button"
+                                                *ngIf="ctrlInfo.jsnControlArray[0].ctrlClass.includes('loan_bank_ifsc')"
+                                                value="Get IFSC code" class="btn btn-success float-end"
+                                                (click)="getLoanIFSC()">
+                                            <input type="button"
+                                                *ngIf="ctrlInfo.jsnControlArray[0].ctrlClass.includes('bhulekh_plot_no')"
+                                                value="Get Area" class="btn btn-success float-end" (click)="getArea()">
+                                                <input type="button"
+                                                *ngIf="ctrlInfo.jsnControlArray[0].ctrlClass.includes('bhulekh_plot_no')"
+                                                value="Get Area" class="btn btn-success float-end" (click)="getArea()">
+
+                                            <ng-container *ngSwitchCase="'1'">
+                                                <ng-container
+                                                    *ngFor="let optInfo of ctrlInfo.jsnOptionArray[0].optionArr;let optK=index;">
+                                                    <input type="checkbox"
+                                                        class="{{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        id="{{ctrlInfo.jsnControlArray[0].ctrlId+'_'+optK}}"
+                                                        [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                        [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                        [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                        [attr.data-ctrltype]="ctrlInfo.tinControlType" data-othval=""
+                                                        [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength" />
+                                                    <label
+                                                        [for]="ctrlInfo.jsnControlArray[0].ctrlName+'_'+optK">&nbsp;{{optInfo.optionText}}</label>&nbsp;&nbsp;
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'2'">
+                                                <select #{{ctrlInfo.jsnControlArray[0].ctrlName}}
+                                                    class="form-select {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                    [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                    [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                    [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                    [attr.data-ctrltype]="ctrlInfo.tinControlType" data-othval=""
+                                                    [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength" (change)="getDynamicSelect($event);">
+                                                    <option value="">Select</option>
+                                                    <ng-container
+                                                        *ngFor="let optInfo of ctrlInfo.jsnOptionArray[0].optionArr;let optK=index;">
+                                                        <option
+                                                            *ngIf="checkClassExist(ctrlInfo.jsnControlArray[0].ctrlClass)"
+                                                            [selected]="optInfo.optionValue == ctrlInfo.vchFieldValue"
+                                                            value="{{optInfo.optionValue}}">{{optInfo.optionText}}
+                                                        </option>
+                                                    </ng-container>
+                                                    <!-- </ng-template> -->
+                                                </select>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'4'">&nbsp;:
+                                                <label><strong>{{ctrlInfo.jsnControlArray[0].labelText}}</strong></label>
+                                                <input type="hidden" class="{{ctrlInfo.jsnControlArray[0].ctrlClass}}"
+                                                    formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                    [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                    [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                    [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                    [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                    [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength" />
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'5'">
+                                                <ng-container
+                                                    *ngFor="let optInfo of ctrlInfo.jsnOptionArray[0].optionArr;let optK=index;">
+                                                    <input type="radio"
+                                                        class="{{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        value="{{optInfo.optionValue}}"
+                                                        formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        id="{{ctrlInfo.jsnControlArray[0].ctrlId+'_'+optK}}"
+                                                        [checked]="ctrlInfo.jsnControlArray[0].ctrlValue==optInfo.optionValue"
+
+                                                        [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                        [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                        [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                        [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                        [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength" />
+                                                    <label
+                                                        [for]="ctrlInfo.jsnControlArray[0].ctrlName+'_'+optK">&nbsp;{{optInfo.optionText}}</label>&nbsp;&nbsp;
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'6'">
+                                                <input type="text"
+                                                    [readonly]="enableDisable(ctrlInfo.jsnControlArray[0].ctrlName, ctrlInfo.jsnControlArray[0].ctrlClass)"
+                                                    class="form-control {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                    [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                    [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                    [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                    [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                    [maxLength]="ctrlInfo.intFieldLength"
+                                                    (keypress)="keyPressEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                    (keyup)="keyUpEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                    autocomplete="off" data-othval=""
+                                                    [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength"
+                                                    data-valdtn="0" appBlockCopyPaste />
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="'7'">
+                                                <textarea #{{ctrlInfo.jsnControlArray[0].ctrlName}}
+                                                    class="form-control {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm"
+                                                    formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                    [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                    [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                    [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                    [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                    [maxLength]="ctrlInfo.intFieldLength" data-othval=""
+                                                    [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength"
+                                                    onkeyPress="" data-valdtn="0" rows="1"></textarea>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="'9'">
+
+
+                                                <div class="input-group">
+
+                                                    <input type="text"
+                                                        [readonly]="enableDisable(ctrlInfo.jsnControlArray[0].ctrlName, ctrlInfo.jsnControlArray[0].ctrlClass)"
+                                                        class="form-control {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                        [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                        [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                        [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                        [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                        [maxLength]="ctrlInfo.intFieldLength"
+                                                        (keypress)="keyPressEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                        (keyup)="keyUpEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                        autocomplete="off" data-othval=""
+                                                        [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength"
+                                                        data-valdtn="0" appBlockCopyPaste placeholder="DD/MM/YYYY"
+                                                        ngbDatepicker #d="ngbDatepicker" readonly [minDate]="minDate"
+                                                        [maxDate]="maxDate" (click)="d.toggle()" />
+
+                                                    <span class="input-group-text" (click)="d.toggle()">
+                                                        <i class="icon-calendar"></i>
+                                                    </span>
+                                                </div>
+
+
+
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="'10'">
+
+                                                <div class="input-group">
+
+
+                                                    <input type="time"
+                                                        [readonly]="enableDisable(ctrlInfo.jsnControlArray[0].ctrlName, ctrlInfo.jsnControlArray[0].ctrlClass)"
+                                                        class="form-control  {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                        [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                        [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                        [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                        [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                        [maxLength]="ctrlInfo.intFieldLength"
+                                                        (keypress)="keyPressEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                        (keyup)="keyUpEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                        autocomplete="off" data-othval=""
+                                                        [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength"
+                                                        data-valdtn="0" appBlockCopyPaste />
+
+
+                                                </div>
+
+
+
+
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="'11'">
+
+                                                <div class="input-group">
+
+                                                    <input type="datetime-local"
+                                                        [readonly]="enableDisable(ctrlInfo.jsnControlArray[0].ctrlName, ctrlInfo.jsnControlArray[0].ctrlClass)"
+                                                        class="form-control datetime {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm cls_{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                        id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                        [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                        [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                        [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                        [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                        [maxLength]="ctrlInfo.intFieldLength"
+                                                        (keypress)="keyPressEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                        (keyup)="keyUpEvt(ctrlInfo.txtCtrlVldnTyp,$event,ctrlInfo.jsnControlArray[0].ctrlId)"
+                                                        autocomplete="off" data-othval=""
+                                                        [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength"
+                                                        data-valdtn="0" appBlockCopyPaste />
+
+                                                </div>
+
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchDefault>
+                                                <input type="text"
+                                                    class="form-control {{ctrlInfo.jsnControlArray[0].ctrlClass}} clsDynamicFrm"
+                                                    formControlName="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    name="{{ctrlInfo.jsnControlArray[0].ctrlName}}"
+                                                    id="{{ctrlInfo.jsnControlArray[0].ctrlId}}"
+                                                    [attr.data-lblname]="ctrlInfo.vchLabelName"
+                                                    [attr.data-sectype]="ctrlInfo.tinSectionType"
+                                                    [attr.data-frmconfgid]="ctrlInfo.intFormConfigId"
+                                                    [attr.data-ctrltype]="ctrlInfo.tinControlType"
+                                                    [maxLength]="ctrlInfo.intFieldLength" autocomplete="off"
+                                                    data-othval=""
+                                                    [attr.data-mandatory]="ctrlInfo.tinMandatorySts+'|'+ctrlInfo.tinControlType+'|'+(ctrlInfo.jsnControlArray[0].ctrlName)+'|'+ctrlInfo.vchLabelName+'|'+ctrlInfo.intFieldLength"
+                                                    data-valdtn="0" appBlockCopyPaste />
+                                            </ng-container>
+
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="separator separator-dashed"></div>
+                    
+                </div>
+              
+                <div class="text-center" *ngIf="isButtonVisible">
+                    <a class="btn btn-danger me-2" (click)="goToBack()">Back </a>
+                    <ng-container
+                        *ngIf="((applctnId==0 && applctnSts<appDraftSts) || (applctnId>0 && applctnSts<appDraftSts) || (applctnSts>=appDraftSts && applctnSts<appPrevwSts && applctnId>0) || apprRsmSts==1); then shwModBtn">
+                    </ng-container>
+                    <ng-template #shwModBtn>
+                        <button class="btn btn-warning me-2" *ngIf="intOnlineProfileId>0" (click)="onSaveAsDraftClick()">Save As Draft</button>
+                        <ng-container
+                            *ngIf="schemeId==sujogPortal; then shwFnlBtn else shwFnlOther">
+                        </ng-container>
+                        <ng-template #shwFnlBtn>
+                            <button class="btn btn-success me-2" *ngIf="verifyFinalSubmit==0 && intOnlineProfileId>0" (click)="onSaveNextClick()">Save & Next</button>
+                        </ng-template>
+                        <ng-template #shwFnlOther>
+                            <button class="btn btn-success me-2" *ngIf="intOnlineProfileId>0" (click)="onSaveNextClick()">Save & Next</button>
+                        </ng-template>
+                    </ng-template>
+                </div>
+               
+            </div>
+        </form>
+        
+    </div>
+
+</div>
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>
+
+
+<ng-template #someModal id="someModal" let-modal>
+    <form [formGroup]="ifscForm" (ngSubmit)="searchIFSC();">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Find IFSC Code</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <i class="icon-times-solid"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Bank Name' | translate}} </label>
+                        <select class="form-select" formControlName="vchBankName"
+                            [ngClass]="{ 'is-invalid': ifscSubmitted && j.vchBankName.errors }">
+                            <option value="">Select</option>
+                            <option *ngFor="let bank of BankNames;" value="{{bank.vch_Bank_Name}}">
+                                {{bank.vch_Bank_Name}}</option>
+                        </select>
+                        <div *ngIf="ifscSubmitted && j.vchBankName.errors" class="invalid-feedback">
+                            <div *ngIf="j.vchBankName.errors.required">Select bank</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'District Name' | translate}} </label>
+                        <select class="form-select" formControlName="vchDistrictName"
+                            [ngClass]="{ 'is-invalid': ifscSubmitted && j.vchDistrictName.errors }">
+                            <option value="">Select</option>
+                            <option *ngFor="let dist of DistrictNames;" value="{{dist.vch_District}}">
+                                {{dist.vch_District}}</option>
+                        </select>
+                        <div *ngIf="ifscSubmitted && j.vchDistrictName.errors" class="invalid-feedback">
+                            <div *ngIf="j.vchDistrictName.errors.required">Select district</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 mt-3 ">
+                    <div class="form-group">
+                        <button class="btn btn-success">Search</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="fix-height">
+                <div class="row" *ngIf="isIFSCFlag;else norecord ">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50px">Sl#</th>
+                                    <th scope="col">Branch Name</th>
+                                    <th scope="col">IFSC Code</th>
+                                    <th scope="col">Select IFSC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let b of Banks;let i=index">
+                                    <td>{{i + 1 }}</td>
+                                    <td>{{b.vch_Branch_Name}}</td>
+                                    <td>{{b.vch_Ifsc_Code}}</td>
+                                    <td><button class="btn btn-sm btn-success"
+                                            (click)="selectIFSC(b.vch_Branch_Name,b.vch_Ifsc_Code,b.int_Min_Account_No,b.int_Max_Account_No )">Select</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-template #norecord>
+                    <h6 class="no-content"> No Record Found</h6>
+
+                </ng-template>
+            </div>
+        </div>
+        <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" id="closeModal"  >Close</button>
+            </div> -->
+    </form>
+</ng-template>
+
+<ng-template #someLoanModal id="someLoanModal" let-modal>
+    <form [formGroup]="ifscLoanForm" (ngSubmit)="searchLoanIFSC();">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Find IFSC Code</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <i class="icon-times-solid"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Bank Name' | translate}} </label>
+                        <select class="form-select" formControlName="vchBankName"
+                            [ngClass]="{ 'is-invalid': ifscLoanSubmitted && k.vchBankName.errors }">
+                            <option value="">Select</option>
+                            <option *ngFor="let bank of BankNames;" value="{{bank.vch_Bank_Name}}">
+                                {{bank.vch_Bank_Name}}</option>
+                        </select>
+                        <div *ngIf="ifscLoanSubmitted && k.vchBankName.errors" class="invalid-feedback">
+                            <div *ngIf="k.vchBankName.errors.required">Select bank</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'District Name' | translate}} </label>
+                        <select class="form-select" formControlName="vchDistrictName"
+                            [ngClass]="{ 'is-invalid': ifscLoanSubmitted && k.vchDistrictName.errors }">
+                            <option value="">Select</option>
+                            <option *ngFor="let dist of DistrictNames;" value="{{dist.vch_District}}">
+                                {{dist.vch_District}}</option>
+                        </select>
+                        <div *ngIf="ifscLoanSubmitted && k.vchDistrictName.errors" class="invalid-feedback">
+                            <div *ngIf="k.vchDistrictName.errors.required">Select district</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 mt-3 ">
+                    <div class="form-group">
+                        <button class="btn btn-success">Search</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="fix-height">
+                <div class="row" *ngIf="isLoanIFSCFlag;else norecord ">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50px">Sl#</th>
+                                    <th scope="col">Branch Name</th>
+                                    <th scope="col">IFSC Code</th>
+                                    <th scope="col">Select IFSC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let b of loanBanks;let i=index">
+                                    <td>{{i + 1 }}</td>
+                                    <td>{{b.vch_Branch_Name}}</td>
+                                    <td>{{b.vch_Ifsc_Code}}</td>
+                                    <td><button class="btn btn-sm btn-success"
+                                            (click)="selectLoanIFSC(b.int_Ifsc_Id,b.vch_Branch_Name,b.vch_Ifsc_Code,b.int_Min_Account_No,b.int_Max_Account_No )">Select</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-template #norecord>
+                    <h6 class="no-content"> No Record Found</h6>
+
+                </ng-template>
+            </div>
+        </div>
+        <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" id="closeModal"  >Close</button>
+            </div> -->
+    </form>
+</ng-template>
+
+
+<ng-template #someBhulekhModal id="someBhulekhModal" let-modal>
+    <form [formGroup]="bhulekhLandForm" (ngSubmit)="searchBhulekhLand();">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Find Land Info From Bhulekh</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <i class="icon-times-solid"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Tahasil' | translate}} </label>
+                        <select class="form-select" formControlName="vchBhulekhTahasil"
+                            [ngClass]="{ 'is-invalid': bhulekhLandSubmitted && l.vchBhulekhTahasil.errors }" (change)="getRevenueCircle($event.target.value);">
+                            <option value="">Select</option>
+                            <option *ngFor="let tahasil of TahasilNames;" value="{{tahasil.int_tahsil_id}}">
+                                {{tahasil.vch_tahsil}}</option>
+                        </select>
+                        <div *ngIf="bhulekhLandSubmitted && l.vchBhulekhTahasil.errors" class="invalid-feedback">
+                            <div *ngIf="l.vchBhulekhTahasil.errors.required">Select bank</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Revenue Circle' | translate}} </label>
+                        <select class="form-select" formControlName="vchBhulekhRevenueCircle"
+                            [ngClass]="{ 'is-invalid': bhulekhLandSubmitted && l.vchBhulekhRevenueCircle.errors }" (change)="getRevenueVillage($event.target.value);">
+
+                            <option value="">Select</option>
+                            <option *ngFor="let revenueCircle of RevenueCircleNames;" value="{{revenueCircle.int_ri_circle_id}}">
+                                {{revenueCircle.vch_revenue_circle}}</option>
+                        </select>
+                        <div *ngIf="bhulekhLandSubmitted && l.vchBhulekhRevenueCircle.errors" class="invalid-feedback">
+                            <div *ngIf="l.vchBhulekhRevenueCircle.errors.required">Select revenue circle</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Revenue Village' | translate}} </label>
+                        <select class="form-select" formControlName="vchBhulekhRevenueVillage"
+                            [ngClass]="{ 'is-invalid': bhulekhLandSubmitted && l.vchBhulekhRevenueVillage.errors }">
+                            <option value="">Select</option>
+                            <option *ngFor="let revenueVillage of RevenueVillageNames;" value="{{revenueVillage.int_village_id}}">
+                                {{revenueVillage.vch_village}}</option>
+                        </select>
+                        <div *ngIf="bhulekhLandSubmitted && l.vchBhulekhRevenueVillage.errors" class="invalid-feedback">
+                            <div *ngIf="l.vchBhulekhRevenueVillage.errors.required">Select revenue village</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label for="vchBhulekhKhataNo" class="form-label"><span class="text-danger">*</span>{{'Khata No.' | translate}} </label>
+                        <input type="text" class="form-control" formControlName="vchBhulekhKhataNo" [ngClass]="{ 'is-invalid': bhulekhLandSubmitted && l.vchBhulekhKhataNo.errors }" />
+                        <div *ngIf="bhulekhLandSubmitted && l.vchBhulekhKhataNo.errors" class="invalid-feedback">
+                            <div *ngIf="l.vchBhulekhKhataNo.errors.required">Enter Khata No.</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label for="vchBhulekhPlotNo" class="form-label"><span class="text-danger">*</span>{{'Plot No.' | translate}} </label>
+                        <input type="text" class="form-control" formControlName="vchBhulekhPlotNo" [ngClass]="{ 'is-invalid': bhulekhLandSubmitted && l.vchBhulekhPlotNo.errors }" />
+                        <div *ngIf="bhulekhLandSubmitted && l.vchBhulekhPlotNo.errors" class="invalid-feedback">
+                            <div *ngIf="l.vchBhulekhPlotNo.errors.required">Enter Plot No.</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-2 col-lg-2 mt-3 ">
+                    <div class="form-group">
+                        <button class="btn btn-success mt-1">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="fix-height">
+                <div class="row" *ngIf="isBhulekhLandFlag;else norecord ">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50px">Sl#</th>
+                                    <th scope="col">Area (Acre)</th>
+                                    <th scope="col">Area (Hectare)</th>
+                                    <th scope="col">ROR</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let land of BhulekhLandInfo;let k=index">
+                                    <td>{{k + 1 }}</td>
+                                    <td>{{land.Area_Acre}}</td>
+                                    <td>{{land.Area_Hect}}</td>
+                                    <td>{{land.TenantName}}</td>
+                                    <td><button type="button" class="btn btn-sm btn-success"
+                                            (click)="selectBhulekhLand(land)">Select</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-template #norecord>
+                    <h6 class="no-content"> No Record Found</h6>
+
+                </ng-template>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template #someClusterModal id="someClusterModal" let-modal>
+    <form [formGroup]="clusterLandForm" (ngSubmit)="searchClusterLand();">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Find Land Info From Cluster</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <i class="icon-times-solid"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Zone' | translate}} </label>
+                        <select class="form-select" formControlName="vchClusterZone"
+                            [ngClass]="{ 'is-invalid': clusterLandSubmitted && m.vchClusterZone.errors }" (change)="getClusterSubZone($event.target.value);">
+                            <option value="">Select</option>
+                            <option *ngFor="let clusterZone of ClusterZoneNames;" value="{{clusterZone.intId}}">
+                                {{clusterZone.vchZoneName}}</option>
+                        </select>
+                        <div *ngIf="clusterLandSubmitted && m.vchClusterZone.errors" class="invalid-feedback">
+                            <div *ngIf="m.vchClusterZone.errors.required">Select zone</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> {{ 'Sub Zone' | translate}} </label>
+                        <select class="form-select" formControlName="vchClusterSubZone"
+                            [ngClass]="{ 'is-invalid': clusterLandSubmitted && m.vchClusterSubZone.errors }">
+                            <option value="">Select</option>
+                            <option *ngFor="let clusterSubZone of ClusterSubZoneNames;" value="{{clusterSubZone.intId}}">
+                                {{clusterSubZone.vchSubzoneName}}</option>
+                        </select>
+                        <div *ngIf="clusterLandSubmitted && m.vchClusterSubZone.errors" class="invalid-feedback">
+                            <div *ngIf="m.vchClusterSubZone.errors.required">Select sub zone</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-lg-2 mt-3 ">
+                    <div class="form-group">
+                        <button class="btn btn-success mt-1">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="fix-height">
+                <div class="row" *ngIf="isClusterLandFlag;else norecord ">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50px">Sl#</th>
+                                    <th scope="col">Zone</th>
+                                    <th scope="col">Sub Zone</th>
+                                    <th scope="col">Buoy Marker Latitude</th>
+                                    <th scope="col">Buoy Marker Longitude</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Zone-{{ClusterLandInfo.intZoneId}}</td>
+                                    <td>{{ClusterLandInfo.vchSubzoneName}}</td>
+                                    <td>{{ClusterLandInfo.vchBuoyMakerLat}}</td>
+                                    <td>{{ClusterLandInfo.vchBuoyMarkerLon}}</td>
+                                    <td><button type="button" class="btn btn-sm btn-success"
+                                            (click)="selectClusterLand(ClusterLandInfo)">Select</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-template #norecord>
+                    <h6 class="no-content"> No Record Found</h6>
+
+                </ng-template>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template #someSectorModal id="someBhulekhModal" let-modal>
+  <form [formGroup]="sectorForm" (ngSubmit)="submitSectorDetails();">
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Fill Up Sector Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">
+              <i class="icon-times-solid"></i>
+          </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label><span class="text-danger">*</span> {{ 'Sector' | translate}} </label>
+                      <select class="form-select" formControlName="sectortype"
+                      [ngClass]="{ 'is-invalid': sectorsubmit && S.sectortype.errors }"
+                           (change)="getProjectType($event.target.value);">
+                          <option value="">Select</option>
+                          <option *ngFor="let msector of this.mkuy_sector;let i=index" value="{{msector.optionValue}}">
+                            {{msector.optionText}}</option>
+
+                      </select>
+                      <input type="hidden" id="hdnsectorval" value="{{this.selectedsectorval}}" >
+                      <div *ngIf="sectorsubmit && S.sectortype.errors" class="invalid-feedback">
+                        <div *ngIf="S.sectortype.errors.required">Select Sector</div>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label><span class="text-danger">*</span> {{ 'Type of Project' | translate}} </label>
+                      <select class="form-select" formControlName="typeofproject" [ngClass]="{ 'is-invalid': sectorsubmit && S.typeofproject.errors }" (change)="getProject($event.target.value);"
+                         >
+                          <option value="">Select</option>
+                          <option *ngFor="let projecttypeName of projecttypeNames;" value="{{projecttypeName.intProjectId}}" >
+                              {{projecttypeName.vchProjectName}}</option>
+                      </select>
+                      <input type="hidden" id="hdnprojectval" value="{{this.selectedprojectval}}" >
+                      <div *ngIf="sectorsubmit && S.typeofproject.errors" class="invalid-feedback">
+                        <div *ngIf="S.typeofproject.errors.required">Select Type of Project</div>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label for="vchcapacity" class="form-label"><span class="text-danger">*</span>{{'Capacity of Project' | translate}} </label>
+                      <input type="text" class="form-control" formControlName="vchcapacity" [ngClass]="{ 'is-invalid': sectorsubmit && S.vchcapacity.errors }"/>
+                  </div>
+                  <div *ngIf="sectorsubmit && S.vchcapacity.errors" class="invalid-feedback">
+                    <div *ngIf="S.vchcapacity.errors.required">Enter Capacity.</div>
+                </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label for="vchunit" class="form-label"><span class="text-danger">*</span>{{'Unit ' | translate}} </label>
+                      <select class="form-select" formControlName="vchunit" [ngClass]="{ 'is-invalid': sectorsubmit && S.vchunit.errors }"
+                      >
+                       <option value="">Select</option>
+                       <option value="Acre">Acre</option>
+                       <option value="Number">Number</option>
+                       <option value="KG">KG</option>
+                       <option value="Tonne">Tonne</option>
+                       <option value="Liter">Liter</option>
+                       <option value="Other">Other</option>
+                   </select>
+                  </div>
+                  <div *ngIf="sectorsubmit && S.vchunit.errors" class="invalid-feedback">
+                    <div *ngIf="S.vchunit.errors.required">Select Unit</div>
+                </div>
+
+              </div>
+              <div class="col-md-2 col-lg-2 mt-3 ">
+                  <div class="form-group">
+                      <button class="btn btn-success mt-1">Submit</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </form>
+</ng-template>
+<ng-template #someintraSectorModal id="intraSectorModal" let-modal>
+  <form [formGroup]="intrasectorForm" (ngSubmit)="submitintraSectorDetails();">
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Fill Up Intra Sector Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">
+              <i class="icon-times-solid"></i>
+          </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label><span class="text-danger">*</span> {{ 'Type of Project' | translate}} </label>
+                      <select class="form-select" formControlName="intratypeofproject" [ngClass]="{ 'is-invalid': intrasectorsubmit && I.intratypeofproject.errors }" (change)="getProject($event.target.value);"
+                         >
+                          <option value="">Select</option>
+                          <option *ngFor="let projecttypeName of projecttypeNames;" value="{{projecttypeName.intProjectId}}" >
+                              {{projecttypeName.vchProjectName}}</option>
+                      </select>
+                      <input type="hidden" id="intrahdnprojectval" value="{{this.selectedprojectval}}" >
+                      <div *ngIf="intrasectorsubmit && I.intratypeofproject.errors" class="invalid-feedback">
+                        <div *ngIf="I.intratypeofproject.errors.required">Select Type of Project</div>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label for="intravchcapacity" class="form-label"><span class="text-danger">*</span>{{'Capacity of Project' | translate}} </label>
+                      <input type="text" class="form-control" formControlName="intravchcapacity" [ngClass]="{ 'is-invalid': intrasectorsubmit && I.intravchcapacity.errors }" onkeypress="return /[0-9]/i.test(event.key)" />
+                  </div>
+                  <div *ngIf="intrasectorsubmit && I.intravchcapacity.errors" class="invalid-feedback">
+                    <div *ngIf="I.intravchcapacity.errors.required">Enter Capacity.</div>
+                </div>
+              </div>
+              <div class="col-md-5 col-lg-5">
+                  <div class="form-group">
+                      <label for="intravchunit" class="form-label"><span class="text-danger">*</span>{{'Unit ' | translate}} </label>
+                      <select class="form-select" formControlName="intravchunit" [ngClass]="{ 'is-invalid': intrasectorsubmit && I.intravchunit.errors }"
+                      >
+                       <option value="">Select</option>
+                       <option value="Acre">Acre</option>
+                       <option value="Number">Number</option>
+                       <option value="KG">KG</option>
+                       <option value="Tonne">Tonne</option>
+                       <option value="Liter">Liter</option>
+                       <option value="Other">Other</option>
+                   </select>
+                  </div>
+                  <div *ngIf="intrasectorsubmit && I.intravchunit.errors" class="invalid-feedback">
+                    <div *ngIf="I.intravchunit.errors.required">Select Unit</div>
+                </div>
+
+              </div>
+              <div class="col-md-2 col-lg-2 mt-3 ">
+                  <div class="form-group">
+                      <button class="btn btn-success mt-1">Submit</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </form>
+</ng-template>

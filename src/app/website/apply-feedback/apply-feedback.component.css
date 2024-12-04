@@ -1,0 +1,137 @@
+.citizenmenu {
+    background-color: #259d24;
+    background-image: url('../../../assets/images/footer-banner.jpg');
+    background-size: cover;
+    box-shadow: 0 1px 4px var(--shadow);
+    padding-top: 12rem;
+    padding-bottom: .3rem;
+}
+
+.citizenmenu .navbar {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+
+    padding: 0;
+
+}
+
+.citizenmenu .navbar .navbar-nav {
+    flex-flow: row;
+}
+
+.citizenmenu .navbar .navbar-nav .nav-item {
+    margin-right: .2rem
+}
+
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link {
+    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    color: var(--text-white);
+}
+
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link i {
+    font-size: 1.4rem;
+    margin-right: .3rem;
+}
+
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link:hover,
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link:focus,
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link.active {
+    background: rgb(255 255 255 / 29%)
+}
+/* .query_area {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.query_star {
+    display: flex;
+    gap: .5rem;
+}
+
+.query_rate svg {
+    height: 20px;
+    fill: #b9b9b9;
+    stroke: #b9b9b9;
+}
+
+.query_rate svg.fill-bg {
+    fill: #ffc107;
+}
+
+.query_rate .rate_text {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: cent
+}
+
+.query_rate span {
+    font-size: 0.8rem;
+    text-align: right;
+    font-weight: 600;
+    margin-top: 0.3rem;
+}
+
+.rate_text .rate_1 {
+    display: none;
+}
+
+.rate_text .rate_2 {
+    display: none;
+}
+
+.rate_text .rate_3 {
+    display: none;
+}
+
+.rate_text .rate_4 {
+    display: none;
+}
+
+.rate_text .rate_5 {
+    display: none;
+} */
+
+.query_area {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.query_star {
+    display: flex;
+    gap: .5rem;
+}
+.query_rate {
+    display: flex;
+    gap: .8rem;
+    align-items: center;
+}
+.query_rate svg {
+    height: 20px;
+    fill: #b9b9b9;
+    stroke: #b9b9b9;
+}
+
+.query_rate svg.fill-bg {
+    fill: #ffc107;
+}
+
+.query_rate .rate_text {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    width: 60px;
+}
+
+.rate_text span {
+    font-size: 0.8rem;
+    text-align: right;
+    font-weight: 600;
+    margin-top: 0.3rem;
+}

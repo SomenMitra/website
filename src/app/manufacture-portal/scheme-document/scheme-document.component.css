@@ -1,0 +1,10 @@
+
+.img-div{
+    background: #e9ecef;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 4px;
+}
+.img-div img{
+    height: 148px;
+}

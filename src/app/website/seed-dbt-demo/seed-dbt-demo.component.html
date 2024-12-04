@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="pagenavigation">
+
+    <div class="container">
+        <h2>{{'Seed DBT Pre-Booking'  | translate }} ({{pageNameDtl | translate}}) 
+            <button (click)="goBack()" class="btn btn-success float-end" style="margin-left: 10px;">
+                <span>Back</span>
+            </button>
+        </h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="page-container content-section">
+        <!-- Farmer Video-->
+        <div class="how-apply-list" *ngIf="pageNameDtl=='Farmer'">
+            <iframe width="100%" height="500" src="https://www.youtube.com/embed/1-g9OiXKQfk" title="Go SUGAM" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+        <!-- Dealer Video-->
+        <div class="how-apply-list" *ngIf="pageNameDtl=='Dealer'">
+            <iframe width="100%" height="500" src="https://www.youtube.com/embed/o_BJnHeEuw4" title="Go SUGAM" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

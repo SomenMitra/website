@@ -1,0 +1,77 @@
+.details-card{
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+    background: var(--bs-gray-100);
+    border-radius: 8px;
+}
+.details-card p{
+   font-size: .9rem; 
+}
+.text-warning{
+    color: var(--bs-orange)!important
+}
+.details-card a{
+    display: inline-block;
+    min-width: 120px;
+    padding: 0.4rem 1rem;
+    text-align: center;
+    background: #fff;
+    margin-right: 0.5rem;
+    
+    border-radius: 4px;
+    transition: all ease-in-out .5s;
+    color: #358737;
+    border: 1px solid #99cf9b;
+    cursor: pointer;
+}
+.details-card a:hover,.details-card a:focus{
+    background:#358737;
+    color: #fff; 
+}
+.letter-list{
+
+}
+.letter-list li{
+    position: relative;
+    padding-left: 22px
+}
+.letter-list li::before{
+    position: absolute;
+    content: '\e921';
+    font-family: 'icons';
+    padding-left: 0rem;
+    left: 0;
+    top: 10px;
+    color: var(--base-color);
+    font-size: .8rem;
+}
+
+.letter-list li a{
+    all:unset;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed rgb(0 0 0 / 15%);
+    cursor: pointer;
+
+}
+.letter-list li a:hover{
+    color:var(--base-color)
+}
+
+.letter-list li a i{color: #f00;
+font-size: 1.4rem;
+}
+.letter-list li:last-child a{
+    border-bottom:0
+}
+.letters-div{
+    border-left: 1px solid rgb(0 0 0 / 10%);
+    padding-left: 1.4rem;
+    min-height: 140px;
+}
+.letters-div h5{
+    font-weight: 600;
+    font-size: 1.1rem;
+}

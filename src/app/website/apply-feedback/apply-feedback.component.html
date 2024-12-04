@@ -1,0 +1,174 @@
+<app-header></app-header>
+<div class="citizenmenu">
+
+    <nav class="navbar">
+        <div class="container">
+            <div class=" navbar-collapse" id="navbarNav">
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:void(0);"><i
+                                    class="icon-user-cog-solid"></i>Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <div class="page-container content-section">
+        <form [formGroup]="feedbackForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-lg-12 d-flex justify-content-between">
+                    <h5 class="common-heading2">Feedback</h5>
+                    <a class="text-dark h5 ml-1" href="javascript:void(0)" (click)="goBack()" ngbTooltip="Back"><i
+                        class="icon-arrow-left-solid"></i></a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="name"><span class="text-danger">*</span> Name </label>
+                        <input type="text" class="form-control" formControlName="txtApplicantName" id="txtApplicantName"
+                            [(ngModel)]="applicantName" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="email"><span class="text-danger"></span> Email </label>
+                        <input type="text" class="form-control" formControlName="txtEmail" id="email"
+                            autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="mobileno"><span class="text-danger">*</span> Mobile No. </label>
+                        <input type="text" class="form-control" formControlName="txtMobile" [(ngModel)]="applicantMob"
+                            maxlength="10" id="mobileno" autocomplete="off" (keypress)="vldChkLst.isNumberKey($event)">
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group">
+                        <label for="txtDistrict" class="form-label"><span class="text-danger">*</span> {{'District' |
+                            translate}} </label>
+                        <select class="form-select" id="districtId" name="districtId" formControlName="districtId">
+                            <option value="0" selected="selected">--Select--</option>
+                            <option *ngFor="let distP of districtList;" [value]="distP.intHierarchyValueId">
+                                {{distP.vchHierarchyValue}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label" for="directorate"><span class="text-danger">*</span> Directorate
+                        </label>
+                        <select class="form-select" id="directorate" name="directorate" #selBlock
+                            formControlName="txtDirectorate" (change)='getScheme(selBlock.value)'>
+                            <option value="0" selected>--Select--</option>
+                            <option *ngFor="let datalist of grivancearray" [value]="datalist.value">
+                                {{datalist.key}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-group">
+                        <label class="form-label"><span class="text-danger">*</span> Scheme </label>
+                        <select formControlName="txtSchemeName" class="form-select" name="scheme" id="scheme" #schemeId>
+                            <option value="0">--Select--</option>
+                            <!-- <option *ngFor="let scheme of schemeItem;" value="{{scheme.vchProcessName}}">{{scheme.vchProcessName | translate}}</option> -->
+                        </select>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-lg-12 col-md-12" *ngFor="let ques of questionList">
+                        <div class="query_area">
+                            <div class="query_text">
+                                <span>{{ques.intSlNo}}. {{ques.vchQuestion}}</span>
+                            </div>
+                            <div class="query_rate">
+                
+                                <div class="query_star star_rate_{{ques.intSlNo}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="" viewBox="0 -10 511.98685 511" width=""
+                                        class="fill-bg">
+                                        <path
+                                            d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                                            fill="" />
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="" viewBox="0 -10 511.98685 511" width="">
+                                        <path
+                                            d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                                            fill="" />
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="" viewBox="0 -10 511.98685 511" width="">
+                                        <path
+                                            d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                                            fill="" />
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="" viewBox="0 -10 511.98685 511" width="">
+                                        <path
+                                            d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                                            fill="" />
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="" viewBox="0 -10 511.98685 511" width="">
+                                        <path
+                                            d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                                            fill="" />
+                                    </svg>
+                                </div>
+                                <div class="rate_text">
+                                    <span class="rate_1" style="display: block;">Lowest</span>
+                                    <span class="rate_2">Low</span>
+                                    <span class="rate_3">Medium</span>
+                                    <span class="rate_4">High</span>
+                                    <span class="rate_5">Very high</span>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div> -->
+                <div class="col-lg-12 col-md-12" *ngFor="let ques of questionList; let i = index">
+                    <div class="query_area">
+                        <div class="query_text">
+                            <span>{{ques.intSlNo}}. {{ques.vchQuestion}}</span>
+                        </div>
+                        <div class="query_rate">
+                            <div class="query_star" [ngClass]="'star_rate_' + ques.intSlNo">
+                                <svg *ngFor="let star of [1,2,3,4,5]; let j = index" (click)="rateQuestion(i, star)"
+                                    [ngClass]="{'fill-bg': ques.rating >= star}" xmlns="http://www.w3.org/2000/svg" height="" viewBox="0 -10 511.98685 511" width="">
+                                    <path
+                                        d="m510.652344 185.902344c-3.351563-10.367188-12.546875-17.730469-23.425782-18.710938l-147.773437-13.417968-58.433594-136.769532c-4.308593-10.023437-14.121093-16.511718-25.023437-16.511718s-20.714844 6.488281-25.023438 16.535156l-58.433594 136.746094-147.796874 13.417968c-10.859376 1.003906-20.03125 8.34375-23.402344 18.710938-3.371094 10.367187-.257813 21.738281 7.957031 28.90625l111.699219 97.960937-32.9375 145.089844c-2.410156 10.667969 1.730468 21.695313 10.582031 28.09375 4.757813 3.4375 10.324219 5.1875 15.9375 5.1875 4.839844 0 9.640625-1.304687 13.949219-3.882813l127.46875-76.183593 127.421875 76.183593c9.324219 5.609376 21.078125 5.097657 29.910156-1.304687 8.855469-6.417969 12.992187-17.449219 10.582031-28.09375l-32.9375-145.089844 111.699219-97.941406c8.214844-7.1875 11.351563-18.539063 7.980469-28.925781zm0 0"
+                                        fill="" />
+                                </svg>
+                            </div>
+                            <div class="rate_text">
+                                <span *ngIf="ques.rating === 1" class="rate_1" style="display: block;">Lowest</span>
+                                <span *ngIf="ques.rating === 2" class="rate_2" style="display: block;">Low</span>
+                                <span *ngIf="ques.rating === 3" class="rate_3" style="display: block;">Medium</span>
+                                <span *ngIf="ques.rating === 4" class="rate_4" style="display: block;">High</span>
+                                <span *ngIf="ques.rating === 5" class="rate_5" style="display: block;">Very High</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="hidden" class="form-control" formControlName="txtUserProfileId"
+                        [(ngModel)]="applicantUserId" id="pId" autocomplete="off">
+                    <button type="submit" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Submit</button>
+                    <!-- <a href="javascript:void(0);" class="btn btn-success">Submit</a> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+</div>
+<app-footer></app-footer>

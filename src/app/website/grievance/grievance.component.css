@@ -1,0 +1,28 @@
+.citizenmenu{
+    background-color: #259d24;
+    background-image: url('../../../assets/images/footer-banner.jpg');
+    background-size: cover;
+    box-shadow: 0 1px 4px var(--shadow);
+    padding-top: 12rem;
+    padding-bottom: .3rem;
+}
+.citizenmenu .navbar{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    
+    padding: 0;
+    
+}
+.citizenmenu .navbar .navbar-nav{flex-flow: row;}
+.citizenmenu .navbar .navbar-nav .nav-item{margin-right: .2rem}
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link{    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    color: var(--text-white);}
+    .citizenmenu .navbar .navbar-nav .nav-item .nav-link i{
+        font-size: 1.4rem;
+        margin-right: .3rem;
+    }
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link:hover,.citizenmenu .navbar .navbar-nav .nav-item .nav-link:focus,.citizenmenu .navbar .navbar-nav .nav-item .nav-link.active{background: rgb(255 255 255 / 29%)}

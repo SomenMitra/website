@@ -1,0 +1,566 @@
+<!-- Manufacture Deatils -->
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading">Manufacture Details</h5>
+    <!-- <a class="text-dark h5" title="Back" (click)="goBack()" ngbTooltip="back"><i class="bi bi-arrow-left"></i></a> -->
+</div>
+
+<div>
+</div>
+<ng-container *ngIf="respSts==1; then shwContnt"></ng-container>
+<ng-template #shwContnt>
+
+
+
+    <div class="border-radius details-card" *ngFor="let schemInfo of respList;let aRwCnt=index;">
+
+        <div class="card__apply"> 
+        <div class="row">
+            <div class="col-md-7 col-lg-9">
+
+                
+
+                <h5 class="apply_head_text">
+                    <span class="d-block"><strong>{{schemInfo.vchProcessName}}</strong></span>
+                </h5>
+
+
+                <div class="card-body">
+
+                    <div class="row grid_bottom"> 
+                         
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12"> 
+                            <div class="flex-item">Reference Number :  </div>
+                        </div>
+
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-12"> 
+                            <div class="flex-item"> <strong>{{schemInfo.vchReferenceNo}}</strong>  </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row grid_bottom"> 
+                         
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12"> 
+                            <div class="flex-item">Applied On :  </div>
+                        </div>
+
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-12"> 
+                            <div class="flex-item"> <strong> {{schemInfo.dtmAppliedOn}} </strong>  </div>
+                        </div>
+
+                    </div>
+
+
+
+          <ng-container *ngIf="presentationDetails || factoryVisitDate">
+            
+                <div *ngIf="presentationDetails">
+                    <div class="row grid_bottom" *ngFor="let details of presentationDetails"> 
+                         
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12"> 
+                            <div class="flex-item">{{details.labelName}} :  </div>
+                        </div>
+
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-12"> 
+                            <div class="flex-item"> 
+                                <strong>
+                                    <!-- Apply the date formatting only for the 'Presentation Date & Time' -->
+                                    {{ details.labelName === 'Presentation Date & Time' ? formatDateTimeString(details.LabelVal) : details.LabelVal }}
+                                </strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row grid_bottom" *ngIf="factoryVisitDate"> 
+                         
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12"> 
+                            <div class="flex-item"> {{factoryVisitDate[0].labelName}} :  </div>
+                        </div>
+
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-12"> 
+                            <div class="flex-item"> <strong>{{getFormattedDate(factoryVisitDate[0].LabelVal)}}</strong>  </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+          </ng-container>
+
+
+          <div class="row grid"> 
+                         
+            <div class="col-xl-4 col-lg-4 col-md-6 col-12"> 
+                <div class="flex-item">Status :  </div>
+            </div>
+
+            <div class="col-xl-8 col-lg-8 col-md-6 col-12"> 
+                <div class="flex-item">  <strong class="text-warning"><p innerHTML="{{schemInfo.strAppSts}}"></p></strong>  </div>
+            </div>
+
+        </div>
+
+         <!-- <ng-container *ngIf="schemInfo.strAppRemarks.txDeptNoting">
+                        <p class="mb-2 "
+                            *ngIf="schemInfo.strAppRemarks.intStatus==3 || schemInfo.strAppRemarks.intStatus==6 || schemInfo.strAppRemarks.intStatus==7 || schemInfo.strAppRemarks.intStatus==73 || schemInfo.strAppRemarks.intStatus==74">
+                            Remark :
+                            <strong innerHtml={{schemInfo.strAppRemarks.txDeptNoting}}
+                                style="display: inline-block;"></strong>
+                        </p>
+                    </ng-container> -->
+                    <ng-container *ngIf="schemInfo.strAppRemarks.txDeptNoting">
+        <div class="row grid_bottom" *ngIf="schemInfo.strAppRemarks.intStatus==3 || schemInfo.strAppRemarks.intStatus==6 || schemInfo.strAppRemarks.intStatus==7 || (schemInfo.strAppRemarks.intStatus==73 && schemInfo.tinResubmitStatus==1) ||(schemInfo.strAppRemarks.intStatus==74 )|| (schemInfo.strAppRemarks.intStatus==81 && schemInfo.tinActivityStatus==4)"> 
+                         
+            <div class="col-xl-4 col-lg-4 col-md-6 col-12"> 
+                <div class="flex-item">Remark :  </div>
+            </div>
+
+            <div class="col-xl-8 col-lg-8 col-md-6 col-12"> 
+                <div class="flex-item">  <strong class=""><p innerHTML="{{schemInfo.strAppRemarks.txDeptNoting}}"></p></strong>  </div>
+            </div>
+
+        </div>
+    </ng-container>
+
+
+
+       
+                    
+
+                  
+                
+
+    
+                    <!-- <ng-container *ngIf="presentationDetails || factoryVisitDate">
+                        <p class="mb-2" *ngIf="presentationDetails">
+                            <span *ngFor="let details of presentationDetails">
+                                <p class="mb-2">{{details.labelName}} : <strong>{{details.LabelVal}}</strong></p>
+                            </span>
+                        </p>
+
+
+                        <p class="mb-2 " *ngIf="factoryVisitDate">
+                            {{factoryVisitDate[0].labelName}} : <strong>{{factoryVisitDate[0].LabelVal}}</strong>
+                        </p>
+                    </ng-container> -->
+    
+                    <!-- <p class="mb-2">Status : <strong class="text-warning"><p innerHTML="{{schemInfo.strAppSts}}"></p></strong></p> -->
+                   
+                    <!-- <ng-container *ngIf="schemInfo.strAppRemarks.txDeptNoting">
+                        <p class="mb-2 "
+                            *ngIf="schemInfo.strAppRemarks.intStatus==3 || schemInfo.strAppRemarks.intStatus==6 || schemInfo.strAppRemarks.intStatus==7 || schemInfo.strAppRemarks.intStatus==73 || schemInfo.strAppRemarks.intStatus==74">
+                            Remark :
+                            <strong innerHtml={{schemInfo.strAppRemarks.txDeptNoting}}
+                                style="display: inline-block;"></strong>
+                        </p>
+                    </ng-container> -->
+
+
+                </div>
+
+            
+
+               
+            </div>
+            <div class="col-md-5 col-lg-3">
+
+                <h5 class="apply_head_text">
+                    <span class="d-block"><strong> Uploaded Documents </strong></span>
+                </h5>
+
+                
+                <div class="letters-div">
+                    <div *ngIf="schemInfo.uploadedPptUrl!= '' ">
+                       
+                        <ul class="letter-list">
+                            <li class="">
+                                <a href="{{schemInfo.uploadedPptUrl}}"
+                                    target="_blank"><span>Presentaion</span> <i
+                                        class="bi bi-filetype-ppt"></i></a>
+                            </li>
+                            <li class="" *ngIf="proceedingLetter">
+                                <a href="{{getDocPath(proceedingLetter)}}"
+                                    target="_blank"><span>{{getKey(proceedingLetter)}}</span> <i
+                                        class="bi bi-file-earmark-pdf"></i></a>
+                            </li>
+                                <div *ngIf="surveyReport">
+                                    <li class="" *ngFor="let survey of surveyReport;let i=index">
+                                        <a href="{{getDocPath(survey)}}"
+                                        target="_blank"><span>{{getKey(survey)}} - {{i+1}}</span> <i
+                                        class="bi bi-file-earmark-pdf"></i></a>
+                                    </li>
+
+                                </div>
+                        </ul>
+                    </div>
+                    <!-- <p class="mt-5" *ngIf="schemInfo.apprvRsubmCnt>0">
+                        No of Re-applied : <button class="btn btn-sm btn-warning"
+                            (click)="getRsmHist(schemInfo.intAppltnId);"><strong
+                                class="text-warning">{{schemInfo.apprvRsubmCnt}}</strong></button>
+                    </p> -->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+        <div class="pb-3 px-4">
+            <!--ADDDDDDD-->
+            <a href="javascript:void(0);"
+                (click)="doSchemePreview(schemInfo.intProcessId+':'+schemInfo.intOnlineServiceId+':'+schemInfo.intProfileId+':'+'view');">View
+                Application</a>
+            <a href="javascript:void(0);" *ngIf="schemInfo.tinActivityStatus==1"
+                (click)="downloadPPTFormat(schemInfo.pptUrl);">Download Presentation Format</a>
+            <a href="javascript:void(0);" *ngIf="schemInfo.tinActivityStatus==1" (click)="showModal()">Upload Presentation</a>
+            <a href="javascript:void(0);" *ngIf="(schemInfo.strAppRemarks.intStatus==81 && schemInfo.tinActivityStatus==4) || schemInfo.tinResubmitStatus==1"
+                (click)="redirectToDocumentPage(schemInfo.intProfileId,schemInfo.vchReferenceNo,schemInfo.vchMobileNo,schemInfo.strAppRemarks.intStatus==73 ? 1:2,schemInfo.intOnlineServiceId,schemInfo.intProcessId,'edit');">Edit/Upload Document</a>
+
+<!-- Manufacture Deatils -->
+
+
+
+
+
+
+            <ng-template>
+                <div class="mt-4">
+                    <a href="javascript:void(0);" (click)="doSchemePreview(schemeId+':'+schemInfo.intAppltnId);">View
+                        Application</a>
+                    <a href="javascript:void(0);" *ngIf="aRwCnt==0 && schemInfo.dupCntScheme==0"
+                        (click)="doSchemeApply(schemeId+':0:'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">{{'Apply
+                        for Another Application' | translate }}</a>
+                    <ng-container
+                        *ngIf="(schemeId==seedDBTProcessId && schemInfo.intAppltnSts==3); then showVoucherDetails"></ng-container>
+                    <ng-template #showVoucherDetails>
+                        <a href="javascript:void(0)" class="readMore2"
+                            (click)="doSchemePreview(schemeId+':'+schemInfo.intAppltnId+':0:0:1');">{{'Show Voucher
+                            Details' | translate}}</a>
+                    </ng-template>
+                    <ng-container
+                        *ngIf="(schemeId==seedDBTProcessId &&  (seedDBTTotQuantityValidation > seedDBTPaddytotalQuantity || seedDBTTotQuantityValidation > seedDBTNonPaddytotalQuantity) && aRwCnt == 0  && schemInfo.intAppltnSts==3 && maxNoOfSeedDBT > noOfTimeSeedApplied); then seedDBTReapply"></ng-container>
+                    <ng-template #seedDBTReapply>
+                        <a href="javascript:void(0)" class="readMore2"
+                            (click)="doSchemeSeedDBTApply(schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm,schemeId+':0:1');">{{'Apply
+                            for Additional Seeds' | translate }}</a>
+                    </ng-template>
+                    <ng-container *ngIf="schemInfo.apprvSts==30 && schemInfo.pendingAt==0;">
+                        <a href="javascript:void(0);"
+                            (click)="doUploadPaymentReceipt(schemeId+':'+schemInfo.intAppltnId);">Upload Payment
+                            Receipt</a>
+                    </ng-container>
+                    <ng-container *ngIf="schemInfo.apprvSts==31">
+                        <a *ngIf="schemInfo.racDoc!='';" download title="Download" target="_blank"
+                            href="{{schemInfo.racDoc}}">View RC</a>
+                    </ng-container>
+                    <ng-container *ngIf="schemInfo.apprvSts==30 && schemInfo.uploadedPaymentDocument;">
+                        <a *ngIf="schemInfo.uploadedPaymentDocument!='';" download title="Download" target="_blank"
+                            href="{{schemInfo.uploadedPaymentDocument}}">View Payment Receipt</a>
+                    </ng-container>
+                    <ng-container *ngIf="schemInfo.subsidyList.length > 0">
+
+
+
+                        <ng-container class="" *ngFor="let subsidy of schemInfo.subsidyList ">
+
+                            <ng-container *ngIf="subsidy.FarmerUpdateSts >= 1 && schemInfo.letterStatus == 2;">
+                                <a
+                                    (click)="updateScheme(schemeId+':'+schemInfo.intAppltnId+':'+subsidy.subsidyCtr+':'+1);">View
+                                    Phase - {{subsidy.subsidyCtr}} Activities
+
+
+
+                                </a>
+                            </ng-container>
+
+                            <!-- {{subsidy.FarmerUpdateSts}}, {{subsidy.AuthUpdateSts}} -->
+                        </ng-container>
+                        <ng-container class="" *ngFor="let subsidy of schemInfo.subsidyList ">
+
+                            <ng-container
+                                *ngIf="(subsidy.FarmerUpdateSts == 0 && schemInfo.letterStatus == 2) || (schemInfo.letterStatus == 2 && schemInfo.apprvRsubmSts == 1);">
+                                <a
+                                    (click)="updateScheme(schemeId+':'+schemInfo.intAppltnId+':'+subsidy.subsidyCtr+':'+0);">Update
+                                    Phase - {{subsidy.subsidyCtr}} Activities</a>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="(subsidy.FarmerUpdateSts == 1 && schemInfo.letterStatus == 2) && AuthUpdateSts== 0">
+                                <a
+                                    (click)="updateScheme(schemeId+':'+schemInfo.intAppltnId+':'+subsidy.subsidyCtr+':'+0 +':'+AuthUpdateSts);">Edit
+                                    Phase - {{subsidy.subsidyCtr}} Activities
+                                </a>
+                            </ng-container>
+
+
+                        </ng-container>
+
+
+
+
+                    </ng-container>
+
+                    <ng-container
+                        *ngIf="schemInfo.apprvSts == appRsmSts && schemInfo.apprvRsubmSts == 1 && schemInfo.letterStatus != 2;">
+                        <a
+                            (click)="doSchemeApply(schemeId+':'+schemInfo.intAppltnId+':'+schemInfo.docSts,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Re
+                            apply </a>
+                    </ng-container>
+
+                    <ng-container *ngIf="schemInfo.apprvSts == appQrySts && schemInfo.apprvQryTo == 2;">
+                        <a
+                            (click)="doQueryReply(schemeId+':'+schemInfo.intAppltnId,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Reply
+                            to Query </a>
+                    </ng-container>
+                </div>
+            </ng-template>
+            <ng-template #shwEdtBtn>
+                <div class="mt-4">
+                    <a href="javascript:void(0);"
+                        (click)="doSchemeApply(schemeId+':'+schemInfo.intAppltnId+':'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Edit</a>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="schemInfo.intServiceMode==2 || schemeId==sujogProcessId">
+            <ng-container
+                *ngIf="schemInfo.integrationResultCode >= 200; then showIntegrationPreview else editIntegration;">
+            </ng-container>
+            <ng-template #showIntegrationPreview>
+                <ng-container
+                    *ngIf="schemInfo.vchAPIStatusURL == '' || schemInfo.vchAPIStatusURL == null; then viewApplicationPreview else viewIntegrationPreview;">
+                </ng-container>
+                <ng-template #viewApplicationPreview>
+                    <a href="javascript:void(0);" (click)="doSchemePreview(schemeId+':'+schemInfo.intAppltnId);">View
+                        Application</a>
+                </ng-template>
+                <ng-template #viewIntegrationPreview>
+                    <a href="javascript:void(0);" (click)="doIntegrationPreview(schemeId,schemInfo.intAppltnId);">View
+                        Application</a>
+                </ng-template>
+                <ng-container *ngIf="aRwCnt==0 && schemInfo.dupCntSchemeIntegration==0">
+                    <a href="javascript:void(0);"
+                        (click)="doSchemeApply(schemeId+':0:'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">{{'Apply
+                        for Another Application' | translate }}
+                    </a>
+                </ng-container>
+                <ng-container *ngIf="schemInfo.integrationResultCode==201;">
+                    <a href="javascript:void(0);" (click)="doReply(schemeId,schemInfo.intAppltnId);">Reply
+                    </a>
+                </ng-container>
+
+                <ng-container *ngIf="schemInfo.integrationResultCode==204;">
+                    <a href="{{schemInfo.integrationDocPath}}" target="_blank">View Certificate
+                    </a>
+                </ng-container>
+
+            </ng-template>
+            <ng-template #editIntegration>
+                <div class="mt-4">
+                    <a href="javascript:void(0);"
+                        (click)="doSchemeApply(schemeId+':'+schemInfo.intAppltnId+':'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Edit</a>
+                </div>
+            </ng-template>
+
+        </div>
+        <!--ADDDDDDD-->
+
+    </div>
+
+
+
+
+
+
+</ng-template>
+
+<ng-template #rsmModal id="rsmModal" let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Resubmission Details</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <i class="icon-times-solid"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="fix-height">
+            <div class="row" *ngIf="isRsmFlg;else norecord">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="50px">Sl#</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Note</th>
+                                <th scope="col">Reverted On</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rsmObj of rsmInfo;let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{rsmObj.authActnBy}}</td>
+                                <td>
+                                    <p innerHtml={{rsmObj.authMsg}}></p>
+                                </td>
+                                <td>{{rsmObj.authActnOn}}</td>
+                                <td><button class="btn btn-sm btn-success"
+                                        (click)="doSchemePreview(schemeId+':'+rsmObj.appltnId+':0:'+rsmObj.appHistId+':0:'+rsmObj.notingId);">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <ng-template #norecord>
+                <h6 class="no-content"> No Record Found</h6>
+            </ng-template>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #someModal id="someModal" let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Extension Details</h4>
+        <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <i class="icon-times-solid"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="modal_text">If extended, the Bill of Quantities (BOQ) must be updated within 7 days. Otherwise
+            application automatically forwarded to the beneficiary.</p>
+        <div class="form-row align-items-center">
+            <div class="row">
+                <div class="col-4">
+                    <label class="mt-2" for="txtOtp"><span class="text-danger">*</span>Extension Type</label>
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <select name="selExtensionType" id="selExtensionType" class="form-control"
+                            (change)="funExtensionChange();">
+                            <option value="">--Select--</option>
+                            <option *ngFor="let extensionMI of this.extensionType | keyvalue;"
+                                value="{{extensionMI.key}}">{{extensionMI.value}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clsReason d-none">
+                <div class="col-4">
+                    <label class="mt-2" for="txtOtp"><span class="text-danger">*</span>Reason</label>
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="text" name="txtExtensionReason" id="txtExtensionReason" class="form-control">
+                        <!-- <select name="selExtensionType" id="selExtensionType" class="form-control">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let extensionMI of this.extensionType | keyvalue;" value="{{extensionMI.key}}">{{extensionMI.value}}</option>
+                            </select> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <label class="mt-2" for="txtOtp">Document</label>
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="file" name="docExtension" id="docExtension" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <label class="mt-2" for="txtOtp"><span class="text-danger">*</span> Remarks for Extension</label>
+
+                </div>
+                <div class="col-8">
+                    <div class="form-group">
+                        <textarea cols="3" rows="3" class="form-control" autocomplete="off" name="txtExtensionRemarks"
+                            id="txtExtensionRemarks"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                    <button type="submit" class="btn btn-success" (click)="submitExtension();">Submit</button>
+                </div>
+            </div>
+
+        </div>
+        <input type="hidden" class="form-control" name="applicationId" id="applicationId" value="{{appId}}">
+
+    </div>
+</ng-template>
+
+<!-- Upload Presentation Modal-->
+<div class="modal" tabindex="-1" role="dialog" id="exampleModal" #exampleModal
+    data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <!-- modal-dialog-centered -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100">
+                    <div class="col-xl-6">
+                        <h5 class="modal-title"> Upload Presentation </h5>
+                    </div>
+                </div>
+                <button type="button" class="close" aria-label="Close" data-bs-dismiss="modal" (click)="hideModal()">
+                    <i class="icon-times-solid"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="file_upload">
+                            <form [formGroup]="manufactureDocument" (ngSubmit)="submitDocument();">
+
+                            <div class="d-flex align-items-start gap-3"> 
+
+                            <div> 
+                            <input type="file" id="file" class="form-control uploadFile mb-2" (change)="onFileChange($event)">
+                            <small class="text-danger">Only PPT,PPTX max size 3 MB</small>
+                            </div>
+                        
+
+                            <div *ngIf="uploadedFiles" class="file-preview">
+                                <button (click)="previewFile(uploadedFiles,$event)" class="btn btn-outline-success" title="View">
+                                    <i class="icon-eye-solid"></i> </button>
+                            </div>
+
+                            <div> 
+                            <button type="submit" id="Submit" class="log__btns m-0 p-2" title="Upload">Upload</button>
+                            </div>
+
+                            </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Upload Presentation Modal-->
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

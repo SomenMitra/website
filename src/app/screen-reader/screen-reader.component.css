@@ -1,0 +1,25 @@
+table {
+    text-align: left;
+}
+
+table td a:hover {
+    color: var(--yellow);
+}
+
+.related-links h4 {
+    margin-bottom: 1rem;
+}
+
+.related-links ul {
+    padding-left: 1rem;
+}
+
+.related-links ul li {
+    list-style-type: square;
+    line-height: 1.5;
+    padding: .5rem 0 0 0rem;
+}
+
+.related-links ul li a {
+    color: var(--black-white);
+}

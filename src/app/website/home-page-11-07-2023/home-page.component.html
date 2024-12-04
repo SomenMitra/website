@@ -1,0 +1,78 @@
+<app-header></app-header>
+
+
+<!-- start banner section -->
+<div class="body-section">
+    <div class="banner-sec">
+            <img src="{{siteURL}}assets/images/banner.jpg" >
+           
+        <!-- <div class="banner-text">
+            <h2 >"The ultimate goal of <b>farming</b> is not the growing of
+                crops, but the <b>cultivation and perfection</b> of human beings."</h2>
+        </div> -->
+       
+        <div class="banner-directorate">
+                <div class="container">
+       <div class="row justify-content-start justify-content-md-center">
+            <div class="col-6 col-md-4 col-lg-2" *ngFor="let directorateinfo of groupedDirectorate;let aRwCnt=index;">
+            <div class="directorate-list" >
+                   
+
+
+                
+                
+                    <div class="img-div" >
+                    <img src="{{siteURL}}assets/images/{{dirIcons[directorateinfo.directorate]}}">
+                    </div>
+                 
+                    <h6>{{directorateinfo.directorateName | translate }}</h6>
+             
+                    <a href="javascript:void(0)" (click)="viewSchemsPage(directorateinfo.directorate,'10');" ></a>
+                </div>
+           
+
+            </div>
+       </div>
+</div>
+</div>
+    </div>
+    
+       
+<div class="section schemes-section">
+        <div class="container">
+        <h4 class="section-heading text-center"> {{'Other Department Services' | translate }}</h4>
+       
+        <div class="directorate-section">
+
+                
+            <div class="directorate-list" *ngFor="let deptServiceInfo of otherDirectorate;let aRwCnt=index;">
+                   
+
+
+                
+                
+                
+                 <div class="img-div" >
+                        <img src="{{siteURL}}assets/images/{{dirIcons[deptServiceInfo.directorate]}}">
+                        </div>
+                <h6><a href="javascript:void(0)" (click)="viewSchemsPage(deptServiceInfo.directorate,'3');" >{{deptServiceInfo.directorateName |translate }}</a></h6>
+            
+               
+            </div>
+         
+            
+        </div>
+
+
+      
+   </div>
+</div>
+
+</div>
+
+<app-footer></app-footer>
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

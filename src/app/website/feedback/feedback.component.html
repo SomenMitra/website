@@ -1,0 +1,69 @@
+
+<app-header></app-header>
+<div class="pagenavigation">
+
+        <div class="container">
+                <h2>Feedback</h2>
+        </div>    
+        </div>
+        <div class="container">
+                <div class="page-container">
+                               
+                    <div class="row">
+                                <div class="col-md-12 col-lg-6 text-center ">
+                                                <img src="./assets/images/feedback.jpg" class="d-none d-lg-block" alt="contentimage" class="w-100">
+                                        </div>
+                        <div class="col-md-12 col-lg-6">
+                                       
+                        <div class="form-group">
+                                <label class="form-label"><span class="text-danger">*</span> Name</label>
+                                <input type="text" class="form-control" id="txtName" [(ngModel)]="txtName"
+                                [maxlength]="maxLghNm" [minlength]="minLghNm" (keypress)="vldChkLst.isCharKey($event)">
+                                   
+
+                                
+                            </div>
+                            <div class="form-group">
+                                    <label class="form-label"><span class="text-danger">*</span> Email Id</label>
+                                    <input type="email" class="form-control" id="txtEmail" [(ngModel)]="emailId"
+                                    [maxlength]="maxLghEmail" [minlength]="minLghEmail">
+                                   
+
+
+                                </div>
+                                <div class="form-group">
+                                        <label class="form-label"><span class="text-danger">*</span> Mobile No.</label>
+                                        <input  type="tel" class="form-control" id="txtMobile" [(ngModel)]="mobileNo"
+                                        [maxlength]="maxLghMob" [minlength]="minLghMob" (keypress)="vldChkLst.isNumberKey($event)">
+                                        
+
+                                    </div>
+                                   
+                                        <div class="form-group">
+                                                <label class="form-label"><span class="text-danger">*</span> Message</label>
+                                                <textarea class="form-control"  rows="4" cols="4"   id="txtMessage" [(ngModel)]="message"
+                                                [maxlength]="1000">
+
+                                                        </textarea>
+                
+                                                      
+                                                       
+                                            </div>
+                                            <div class="text-right">
+                                            <button class="btn btn-success me-2" (click)="userFeedback();">Submit</button>
+                                            <button class="btn btn-danger">Cancel</button>
+
+                                        </div>
+                             
+                        </div>
+                     
+                      
+                    </div>
+
+                </div>
+                </div>
+                <div class="loader" *ngIf="loading">
+                        <div class="loader-item"></div>
+                        <p>Loading...</p>
+                </div>
+<app-footer></app-footer>

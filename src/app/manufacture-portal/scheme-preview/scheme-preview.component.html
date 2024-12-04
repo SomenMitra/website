@@ -1,0 +1,1424 @@
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading noPrint">Preview Details </h5>
+    <div class="p-none">
+        <a (click)="printPage()" href="javascript:void(0)" class="h5 text-info "><i class="icon-print-solid"></i></a>
+
+
+        <ng-container *ngIf="!DBTscheme; then aftrLgIn"></ng-container>
+        <ng-template #aftrLgIn>
+            <a class="text-dark h5 ml-1" href="javascript:void(0)" (click)="goBack()" ngbTooltip="Back"><i
+                    class="icon-arrow-left-solid"></i></a>
+        </ng-template>
+
+
+    </div>
+</div>
+
+<div class=" bg__heading">
+    <div class="row">
+
+        <h5 class="col-md-8">
+            <div class="common-heading2 bottom_0">
+                {{(schmHrDt?.schmServTypeNm!='')?schmHrDt?.schmServTypeNm:''}} :
+                <span class="text-success">{{(schmHrDt?.schmServNm!='')?schmHrDt?.schmServNm:''}}</span>
+            </div>
+        </h5>
+
+        <h5 class="col-md-4" *ngIf="editSts!=1">
+            <div class="common-heading2 bottom_0 text-right">
+                {{(schmHrDt?.strApplicationNo!='')?schmHrDt?.strApplicationNo:''}} :
+                <span class="text-success">{{(schmHrDt?.vchApplicationNo!='')?schmHrDt?.vchApplicationNo:''}}</span>
+            </div>
+
+        </h5>
+    </div>
+</div>
+
+
+<div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h5 class="accordion-header" id="headingOne">
+                <a class="accordion-button farmerInfoAccordian" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Farmer Information
+                </a>
+            </h5>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+
+                        <h5 class="common-heading2">Basic Information</h5>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtApplicantName" class="form-label"> Name </label>
+                                            <p class="mb-0 text-dark">{{ ((applicantName!='') ? applicantName : '--')}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtEmail" class="form-label"> Email Id </label>
+                                            <p class="mb-0 text-dark">{{ ((emailId!='') ? emailId : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtMobile" class="form-label"> Mobile Number </label>
+                                            <p class="mb-0 text-dark">{{ ((mobileNo!='') ? mobileNo : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="rdoGender" class="form-label"> Gender </label>
+                                            <p class="mb-0 text-dark">{{ ((gender!='') ? gender : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtDob" class="form-label"> Date of Birth </label>
+                                            <p class="mb-0 text-dark">{{ ((dob!='') ? dob : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="selCategory" class="form-label"> Category </label>
+                                            <p class="mb-0 text-dark">{{ ((castCatg!='') ? castCatg : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtFatherNm" class="form-label"> Father's/ Husband's Name
+                                            </label>
+                                            <p class="mb-0 text-dark">{{ ((fatherNm!='') ? fatherNm : '--')}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtAadhaarNo" class="form-label"> Aadhaar Number </label>
+                                            <p class="mb-0 text-dark">{{ ((aadhaarNo!='') ? aadhaarNo : '--')}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-4" *ngIf="applicationStatus==3">
+                                        <div class="form-group">
+                                            <label for="txtAadhaarNo" class="form-label"> Applied On </label>
+                                            <p class="mb-0 text-dark">{{ ((dtmAppliedOn!='') ? dtmAppliedOn : '--')}}
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="img-div mb-2">
+                                    <img *ngIf="profImgUrl" [src]="profImgUrl" alt="Government of Odisha"
+                                        class="dark-logo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed"></div>
+                        <h5 class="common-heading2">Communication Address</h5>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3">
+                                <label for="txtDistrict" class="form-label"> District </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((districtNm!='') ? districtNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="txtBlock" class="form-label"> Block/ ULB </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((blockNm!='') ? blockNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="txtGpWard" class="form-label"> GP/ Ward </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((gpNm!='') ? gpNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3" *ngIf="(villageNm!='')">
+                                <label for="txtVillage" class="form-label"> Village </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((villageNm!='') ? villageNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="txtAddress" class="form-label"> Address </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((address!='') ? address : '--')}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h5 class="accordion-header" id="headingTwo">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    {{schmHrDt?.schmServTypeNm}} Information
+                </a>
+            </h5>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <ng-container *ngIf="schemeId==seedDBT;else secondng">
+                            <h5 class="common-heading2" *ngIf="schemeId!=sujogPortal">Address where seeds to be
+                                purchased</h5>
+                        </ng-container>
+                        <ng-template #secondng>
+                            <h5 class="common-heading2" *ngIf="schemeId!=sujogPortal">Address where unit has to be
+                                set-up</h5>
+                        </ng-template>
+
+                        <h5 class="common-heading2" *ngIf="schemeId==sujogPortal">Address details</h5>
+                        <div class="row" *ngIf="schemeId==sujogPortal">
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">City</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ sujogCity}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="schemeId!=sujogPortal">
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">{{distLabel}}</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.districtNm!='') ? schmHrDt?.districtNm :
+                                        '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3" *ngIf="schemeId != seedDBT ">
+                                <label class="form-label">{{blockLabel}}</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.blockNm!='') ? schmHrDt?.blockNm : '--')}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3" *ngIf="schemeId != seedDBT ">
+                                <label class="form-label">{{gpLabel}}</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.gpNm!='') ? schmHrDt?.gpNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3"
+                                *ngIf="(schmHrDt?.marineType == 0 && schemeId != seedDBT && schmHrDt?.villageId!=0)">
+                                <label class="form-label">Village</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.villageNm!='') ? schmHrDt?.villageNm :
+                                        '--')}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4" *ngIf="isServcFlg">
+                                <label class="form-label">Veterinary Officer</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.vtOfcrNm!='') ? schmHrDt?.vtOfcrNm :
+                                        '--')}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed"></div>
+
+                        <div *ngFor="let sectnInfo of schmData;let aRwCnt=index;">
+                            <h5 class="common-heading2">{{sectnInfo.sectionName}}</h5>
+                            <div class="row">
+                                <ng-container *ngFor="let ctrlInfo of sectnInfo.sectionCtrls;let i=index;">
+                                    <ng-container *ngIf="ctrlInfo.tinControlType==8; then shwAddMore else shwOther;">
+                                    </ng-container>
+                                    <ng-template #shwAddMore>
+
+                                        <div class="col-md-12" *ngIf="ctrlInfo?.vchFieldValue?.columnData?.length>0;">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="5px">Sl#</th>
+                                                        <th
+                                                            *ngFor="let addMoreColInfo of ctrlInfo.vchFieldValue.columnData;let adCnt=index;">
+                                                            {{addMoreColInfo.colName}}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr
+                                                        *ngFor="let addMoreRowInfo of ctrlInfo.vchFieldValue.addMoreData;let adRCnt=index;">
+                                                        <td>{{adRCnt+1}}</td>
+                                                        <td
+                                                            *ngFor="let addMoreRowColInfo of addMoreRowInfo;let adRclCnt=index;">
+
+                                                            {{getAddMoreVal(addMoreRowColInfo.elementVal,addMoreRowColInfo.colType)}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </ng-template>
+
+                                    <ng-template #shwOther>
+                                        <div class="col-md-6 col-lg-4"
+                                            [ngClass]="ctrlInfo.jsnDispTagArray[0].tagFieldSts == 1 && ctrlInfo.vchDispFieldValue==''?'d-none' : ''">
+                                            <label class="form-label">{{ctrlInfo.vchLabelName}}</label>
+                                            <div class="form-group">
+                                                <p class="mb-0 text-dark">{{ ((ctrlInfo.vchDispFieldValue!='') ?
+                                                    ctrlInfo.vchDispFieldValue : '--')}}</p>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
+
+                                </ng-container>
+                            </div>
+                            <div class="separator separator-dashed"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item p-none" *ngIf="docSectnSts">
+            <h5 class="accordion-header" id="headingThree">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Documents
+                </a>
+            </h5>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+
+                        <div class="row" *ngIf="resDocSts; else norecord">
+                            <ng-container *ngFor="let docInfo of resDocList;let aRwCnt=index;">
+                                <div class="col-md-8 col-lg-4">
+                                    <label class="form-label">{{docInfo.vchDocumentName}} <span
+                                            *ngIf="docInfo.optnDataType==2">({{docInfo.optnDataVal}})</span></label>
+                                    <div class="form-group">
+                                        <p class="mb-0 text-dark">
+                                            <ng-container *ngIf="docInfo.dataUrlDoc!='';else noDocFnd">
+                                                <a class="text-danger h5" href="{{docInfo.dataUrlDoc}}"
+                                                    target="_blank"><i class="icon-file-pdf"></i></a>
+                                            </ng-container>
+                                            <ng-template #noDocFnd>
+                                                <span>--</span>
+                                            </ng-template>
+                                        </p>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <ng-template #norecord>
+                            <h6 class="no-content"> No Document Uploaded </h6>
+                        </ng-template>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- verification details -->
+        <div class="accordion-item p-none" *ngIf="preVerificationSectnSts">
+            <h5 class="accordion-header" id="headingThree">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsePreverification" aria-expanded="false"
+                    aria-controls="collapsePreverification">
+                    Verification Details
+                </a>
+            </h5>
+            <div id="collapsePreverification" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample">
+                <!-- body part -->
+                <div class="accordion-body p-0">
+                    <div class="control-div">
+                        <div class="row">
+
+                            <!-- Pre-verification -->
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+
+
+
+                                <div class="custom__accordion" id="accordionExample">
+                                    <div class="accordion-item">
+
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button pre_heading" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#preVerifyshow"
+                                                aria-expanded="true">
+                                                <h5> Pre-verification Details</h5>
+                                            </button>
+                                        </h2>
+
+                                        <div id="preVerifyshow" class="accordion-collapse collapse show">
+                                            <div class="accordion-body pt-0">
+                                                <div class="row khata-box"
+                                                    *ngIf="preVerificationSectnSts; else norecord1">
+                                                    <ng-container
+                                                        *ngFor="let docInfo of preVerDocList;let aRwCnt=index;">
+                                                        <div class="col-xl-3 col-lg-3 col-lg-3 col-sm-12">
+                                                            <div class="card">
+                                                                <div class="card-body p-2">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <ng-container
+                                                                            *ngIf="docInfo.dataUrlDoc!='';else noDocFnd">
+                                                                            <div class="flex-shrink-0">
+                                                                                <img [src]="docInfo.dataUrlDoc"
+                                                                                    alt="preview_img"
+                                                                                    title="View Full Image"
+                                                                                    (click)="openNewModal(docInfo.dataUrlDoc,docInfo.geoLocation.vchKhataNo,docInfo.geoLocation.vchPlotNo,docInfo.geoLocation.latLong,1,aRwCnt +1)">
+                                                                            </div>
+                                                                        </ng-container>
+                                                                        <ng-template #noDocFnd>
+                                                                            <div class="flex-shrink-0">
+                                                                                <img src="../../../assets/images/no-image.jpg"
+                                                                                    alt="...">
+                                                                            </div>
+                                                                        </ng-template>
+                                                                        <div class="flex-grow-1 ms-3">
+                                                                            <label for="" class="label-control">Plot {{aRwCnt +1}}</label>
+                                                                            <a class="d-block view-more">View More</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+
+                                                <ng-template #norecord1>
+                                                    <h6 class="no-content"> No Document Uploaded </h6>
+                                                </ng-template>
+
+
+
+                                                <div class="remarks  me-xl-4 me-lg-4 ">
+                                                    <div class="map_view">
+                                                        <div class="row">
+                                                            <div class="col-xl-4 col-lg-4 col-12 mb-3">
+                                                                <h6> Map View : </h6>
+                                                            </div>
+
+                                                            <div class="col-xl-8 col-lg-8 col-12 mb-3">
+                                                                <button class="btn btn-outline-success btn-sm"
+                                                                    (click)="mapViewModal(prePolygonImageUrl,'',0)"
+                                                                    title="View Map Details"> <i class="bi bi-eye"></i>
+                                                                    View Map Details </button>
+                                                            </div>
+
+
+                                                            <div class="col-xl-4 col-lg-4 col-12">
+                                                                <h6> Remark : </h6>
+                                                            </div>
+                                                            <div class="col-xl-8 col-lg-8 col-12">
+                                                                <p> {{preVerifyRemarks ? preVerifyRemarks:"--"}} </p>
+                                                            </div>
+
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <ng-container *ngIf="postImageCount>0">
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed pre_heading" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#postVerifyshow"
+                                                    aria-expanded="false">
+                                                    <h5>Post Verification Details</h5>
+                                                </button>
+                                            </h2>
+
+                                            <div id="postVerifyshow" class="accordion-collapse collapse">
+                                                <div class="accordion-body pt-0">
+                                                    <!-- new post verify  -->
+                                                    <div class="row khata-box"
+                                                        *ngIf="postVerificationSectnSts; else norecord1">
+                                                        <ng-container
+                                                            *ngFor="let docInfo of postVerDocList;let aRwCnt=index;">
+                                                            <div class="col-xl-3 col-lg-3 col-lg-3 col-sm-12">
+                                                                <div class="card">
+                                                                    <div class="card-body p-2">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <ng-container
+                                                                                *ngIf="docInfo.dataUrlDoc!='';else noDocFnd">
+                                                                                <div class="flex-shrink-0">
+                                                                                    <img [src]="docInfo.dataUrlDoc"
+                                                                                        alt="preview_img"
+                                                                                        title="View Full Image"
+                                                                                        (click)="openNewModal(docInfo.dataUrlDoc,docInfo.geoLocation.vchKhataNo,docInfo.geoLocation.vchPlotNo,docInfo.geoLocation.latLong,1,aRwCnt+1)">
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-template #noDocFnd>
+                                                                                <div class="flex-shrink-0">
+                                                                                    <img src="../../../assets/images/no-image.jpg"
+                                                                                        alt="...">
+                                                                                </div>
+                                                                            </ng-template>
+                                                                            <div class="flex-grow-1 ms-3">
+                                                                                <label for="" class="label-control">Plot {{aRwCnt +1}}</label>
+                                                                                <a class="d-block view-more">View More</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-template *ngIf="postImageCount === 0">
+                                                            <h6 class="no-content"> No Document Uploaded </h6>
+                                                        </ng-template>
+                                                    </div>
+                                                    <!-- new post verify  -->
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                                                        <div class="remarks  me-xl-4 me-lg-4 ">
+                                                            <div class="map_view">
+                                                                <div class="row">
+                                                                    <div class="col-xl-4 col-lg-4 col-12 mb-3">
+                                                                        <h6> Map View : </h6>
+                                                                    </div>
+
+                                                                    <div class="col-xl-8 col-lg-8 col-12 mb-3">
+                                                                        <button class="btn btn-outline-success btn-sm"
+                                                                            (click)="mapViewModal(prePolygonImageUrl,postPolygonImageUrl,1)"
+                                                                            title="View Map Details"><i
+                                                                                class="bi bi-eye"></i> View Map Details
+                                                                        </button>
+                                                                    </div>
+
+
+                                                                    <div class="col-xl-4 col-lg-4 col-12">
+                                                                        <h6> Remark : </h6>
+                                                                    </div>
+                                                                    <div class="col-xl-8 col-lg-8 col-12">
+                                                                        <p> {{postVerifyRemarks}} </p>
+                                                                    </div>
+
+
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                            <div class="row" *ngIf="preVerificationSectnSts">
+                                                                <div class="col-xl-4 col-lg-4 col-12">
+                                                                    <button class="btn btn-outline-success btn-sm" (click)="deviationViewModal(applctnId)"
+                                                                            title="View Deviation Details"><i class="bi bi-eye"></i> View Deviation Details
+                                                                        </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- new post verify  -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                            <!-- Pre-verification -->
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                </div>
+                <!-- body part -->
+
+
+
+            </div>
+
+        </div>
+        <!-- verification details -->
+
+
+
+
+
+        <ng-container *ngIf="this.boqUpdate!=''">
+            <div class="accordion-item" id="accordionExample">
+                <h5 class="accordion-header" id="headingFour">
+                    <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        BOQ Information
+                    </a>
+                </h5>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="control-div">
+
+                            <h5 class="common-heading2">BOQ Information</h5>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-6 col-lg-12">
+                                    <ng-container *ngFor="let items of
+                              arritemgroups;let i = index">
+                                        <h6 *ngIf="arritems[i].length>0">{{items.vchItemGroupName}}</h6>
+                                        <table *ngIf="arritems[i].length>0">
+                                            <tr>
+                                                <th width="35%">Component</th>
+                                                <th>Unit</th>
+                                                <th>MI Price(INR Per Unit)</th>
+                                                <th>Quantity</th>
+                                                <th>Total Price(INR)</th>
+                                            </tr>
+                                            <tr *ngFor="let item
+                                  of arritems[i];">
+                                                <td width="35%" *ngIf="item.quantity">{{item.ItemName}}</td>
+                                                <td *ngIf="item.quantity">{{item.vchUnit}}</td>
+                                                <td *ngIf="item.quantity">{{item.miPrice ? item.miPrice : '--'}}
+                                                </td>
+                                                <td *ngIf="item.quantity">{{ item.quantity ? item.quantity : '--' }}
+                                                </td>
+                                                <td *ngIf="item.quantity">{{item.totalPrice ? item.totalPrice :
+                                                    '--'}}</td>
+                                            </tr>
+
+                                        </table>
+                                        <!-- <ng-template #norecord>
+                                <h6 class="no-content"> No Record Found</h6>
+                            </ng-template> -->
+                                    </ng-container>
+                                    <table>
+                                        <tr>
+                                            <td width="80%" colspan="4" align="right"><b>Total</b></td>
+                                            <td>{{decTotalAmt}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="80%" colspan="4" align="right"><b>Fittings/Instalation &
+                                                    Accessories ({{fittingPercentage}}%)</b></td>
+                                            <td>{{decFittingCharges}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="80%" colspan="4" align="right"><b>GST (12%)</b></td>
+                                            <td>{{decTotGst}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="80%" colspan="4" align="right"><b>Total Price</b></td>
+                                            <td>{{decTotMIPrice}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="boqDocument;">
+
+                                <h6>BOQ Documents</h6>
+                                <div class="row">
+                                    <ng-container *ngFor="let boqdoc of boqDocument;let aRwCnt=index;">
+                                        <div class="col-md-6 col-lg-2">
+                                            <label class="form-label">{{boqdoc.vchDocumentname}}</label>
+                                            <div class="form-group">
+                                                <p class="mb-0 text-dark">
+                                                    <ng-container *ngIf="boqdoc.dataUrlDoc!='';else noDocFnd">
+                                                        <a class="text-danger h5" href="{{boqdoc.dataUrlDoc}}"
+                                                            target="_blank"><i class="icon-file-pdf"></i></a>
+                                                    </ng-container>
+                                                    <ng-template #noDocFnd>
+                                                        <span>--</span>
+                                                    </ng-template>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+
+
+
+        <ng-container *ngIf="this.subsidyDetails!='' && this.subsidyDetails">
+            <div class="accordion-item" id="accordionExample">
+
+                <h5 class="accordion-header" id="headingTen">
+                    <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen">
+                        SUBSIDY Information
+                    </a>
+                </h5>
+                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="control-div">
+
+                            <h5 class="common-heading2">Subsidy Information</h5>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-6 col-lg-12">
+                                    <table align="center" class="table table-bordered ">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Applied Details</th>
+                                                <th>Executed Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Area</b></td>
+                                                <td>{{ActualArea}}</td>
+                                                <td>{{subsidyDetails[0].LabelVal}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Space</b></td>
+                                                <td>{{ActualSpace}}</td>
+                                                <td>{{subsidyDetails[1].LabelVal}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Actual Unit Cost</b></td>
+                                                <td><i class="fa fa-inr"></i> {{actualSubsidyDetails.PMKSYUnitCost}}
+                                                </td>
+                                                <td [innerHTML]="subsidyDetails[5].LabelVal"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Central Share</b></td>
+                                                <td><i class="fa fa-inr"></i>
+                                                    {{actualSubsidyDetails.PMKSYCentralCost}}</td>
+                                                <td [innerHTML]="subsidyDetails[2].LabelVal"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>State Share</b></td>
+                                                <td><i class="fa fa-inr"></i>
+                                                    {{actualSubsidyDetails.PMKSYStateCost}}</td>
+                                                <td [innerHTML]="subsidyDetails[3].LabelVal"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>State Top-Up</b></td>
+                                                <td><i class="fa fa-inr"></i>
+                                                    {{actualSubsidyDetails.PMKSYStateTopUpCost}}</td>
+                                                <td [innerHTML]="subsidyDetails[4].LabelVal"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Eligible Subsidy Recommended</b></td>
+                                                <td><i class="fa fa-inr"></i>
+                                                    {{actualSubsidyDetails.PMKSYSubsidyAmt}}</td>
+                                                <td [innerHTML]="subsidyDetails[6].LabelVal"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="accordion-item" *ngIf="paySectnSts && (resPaySts==1) && !(editSts==0 && qryArr.length>0)">
+            <h5 class="accordion-header" id="headingFour">
+                <a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    Payment Details
+                </a>
+            </h5>
+            <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-right" width="150px">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="resPaySts; else norecord">
+                                    <tr *ngIf="resPayList.amount!=null && resPayList.amount!='0.00'">
+                                        <td>Processing Fee</td>
+                                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span
+                                                    class="paybleAmt">{{resPayList.amount}}</span></strong></td>
+                                    </tr>
+                                    <tr
+                                        *ngIf="resPayList.newValuationCost!=null && resPayList.newValuationCost!='0.00'">
+                                        <td>Valuation Fee</td>
+                                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span
+                                                    class="paybleAmt ">{{resPayList.newValuationCost}}</span></strong>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="resPayList.decGST!=null && resPayList.decGST!='0'">
+                                        <td>GST ({{resPayList.decGST}}%)</td>
+                                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span
+                                                    class="paybleAmt ">{{resPayList.gstCost}}</span></strong></td>
+                                    </tr>
+                                    <tr *ngIf="resPayList.decOtherTax!=null && resPayList.decOtherTax!=0">
+                                        <td>Other Tax ({{resPayList.decOtherTax}}%)</td>
+                                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span
+                                                    class="paybleAmt">{{resPayList.otherTaxCost}}</span></strong></td>
+                                    </tr>
+                                    <tr
+                                        *ngIf="resPayList.valueCostWithGST!=null && resPayList.valueCostWithGST!='0.00'">
+                                        <td>Total Valuation Fee</td>
+                                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span
+                                                    class="paybleAmt ">{{resPayList.valueCostWithGST}}</span></strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="row">
+
+
+                            <div class="col-sm-12 text-right">
+                                <div class="p-2">
+                                    <h5><strong>Payable Amount : <i class="icon-rupee-sign-solid"></i><span
+                                                class="paybleAmt ">{{resPayList.totalPaybleAmount}}</span></strong></h5>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item" *ngIf="paySectnSts && (resPaySts==2)">
+            <h5 class="accordion-header" id="headingFive">
+                <a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    Payment Details
+                </a>
+            </h5>
+            <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+
+                        <div class="row" *ngIf="resPaySts==2; else norecord">
+                            <div class="col-md-8 col-lg-4">
+                                <label class="form-label">Paid Amount </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">
+                                        <i class="fa fa-inr"></i>
+                                        <span class="paybleAmt ">{{paymentDetails.decTotalPayment}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-lg-4">
+                                <label class="form-label">Transaction ID </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">
+                                        <i class="fa fa-inr"></i>
+                                        <span class="paybleAmt ">{{paymentDetails.vchUniqueTransNo}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-lg-4">
+                                <label class="form-label">Bank Transaction ID </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">
+                                        <i class="fa fa-inr"></i>
+                                        <span class="paybleAmt ">{{paymentDetails.vchBankTransNo}}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item" *ngIf="editSts==0 && qryArr.length>0 ">
+            <h5 class="accordion-header" id="headingSix">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Query Details
+                </a>
+            </h5>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <ng-container *ngFor="let qryInfo of qryArr | keyvalue;let qRwCnt=index;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h5 class="common-heading2">{{qryInfo.value.qryMsg}} <small>On:
+                                            {{(qryInfo.value.authActnOn!='')?qryInfo.value.authActnOn:'--'}}</small>
+                                    </h5>
+                                    <div class="form-group">
+                                        <label class="form-label"> Message </label>
+                                        <div innerHtml={{qryInfo.value.authMsg}}></div>
+                                    </div>
+                                    <div class="form-group"
+                                        *ngIf="(qryInfo.value.qrySts).toLowerCase() =='rpy' && (qryInfo.value.qryRplyDoc).length>0">
+                                        <label class="form-label"> Document List </label>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="5%">Sl#</th>
+                                                    <th>Document Name</th>
+                                                    <th width="5%">Document</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let docItm of qryInfo.value.qryRplyDoc;let docR = index">
+                                                    <td><label>{{docR+1}}</label></td>
+                                                    <td>{{(docItm.docName!='')?docItm.docName:'--'}}</td>
+                                                    <td>
+                                                        <p class="mb-0 text-dark">
+                                                            <ng-container *ngIf="docItm.docFile!='';else noQryDocFnd">
+                                                                <a class="text-danger h5" href="{{docItm.docFile}}"
+                                                                    target="_blank"><i class="icon-file-pdf"></i></a>
+                                                            </ng-container>
+                                                            <ng-template #noQryDocFnd>
+                                                                <span>--</span>
+                                                            </ng-template>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="separator separator-dashed"
+                                *ngIf="(qryInfo.value.qrySts).toLowerCase() =='rpy'"></div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item table-responsive" *ngIf="schemeId == seedDBT && intApplicationStatus==3">
+            <h5 class="accordion-header" id="headingSeven">
+                <a class="accordion-button voucherDetailAccordian collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    Voucher Details
+                </a>
+            </h5>
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="5px">Sl#</th>
+                                    <th>Dealer Name</th>
+                                    <th>Seed to be purchased </th>
+                                    <th>Seed Variety</th>
+                                    <th>Bag Size (Kg)</th>
+                                    <th>No. of Bag </th>
+                                    <th>Quantity (Kg) </th>
+                                    <th>Subsidy Amount (Rs.) </th>
+                                    <th>Lot No. </th>
+                                    <th>Voucher No. </th>
+                                    <th>Voucher Date </th>
+                                    <th>Voucher Status</th>
+                                    <th>Voucher Valid Upto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <ng-container *ngFor="let voucherInfo of voucherDetails;let ctr = index">
+                                    <tr>
+                                        <td>{{ctr+1}}</td>
+                                        <td>{{voucherDetails[ctr]['vchDealerName']}}</td>
+                                        <td><a class="text-primary" href="javascript:void(0)"
+                                                (click)="getVoucherDetailsByID(voucherDetails[ctr]['intVoucherId'])">{{voucherDetails[ctr]['vchCropName']}}</a>
+                                        </td>
+                                        <td>{{voucherDetails[ctr]['vchVarietyName']}}</td>
+                                        <td>{{voucherDetails[ctr]['vchBagSize']}}</td>
+                                        <td>{{voucherDetails[ctr]['intNoOfBag']}}</td>
+                                        <td>{{voucherDetails[ctr]['vchTotalQuantity']}}</td>
+                                        <td>{{voucherDetails[ctr]['decTotalAmount']}}</td>
+                                        <td>{{voucherDetails[ctr]['vchLotNo']}}</td>
+                                        <td>{{((voucherDetails[ctr]['vchReqApprovalNo'] != '' &&
+                                            voucherDetails[ctr]['vchReqApprovalNo'] != null) ?
+                                            voucherDetails[ctr]['vchReqApprovalNo'] : '--')}}</td>
+                                        <td>{{((voucherDetails[ctr]['dtmReqDate'] != '' &&
+                                            voucherDetails[ctr]['dtmReqDate'] != null) ?
+                                            (voucherDetails[ctr]['dtmReqDate'] | date:'dd-MMM-yyyy') : '--')}}</td>
+
+                                        <td>
+                                            <ng-container
+                                                *ngIf="(voucherDetails[ctr]['tinVoucherStatus'] ==1 || voucherDetails[ctr]['tinVoucherStatus'] ==4);else second"><span
+                                                    class="text-warning">Initiated</span></ng-container>
+                                            <ng-template #second>
+                                                <ng-container
+                                                    *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 2;else three"><span
+                                                        class="text-primary">Generated</span></ng-container>
+                                            </ng-template>
+                                            <ng-template #three>
+                                                <ng-container
+                                                    *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 3;else five"><span
+                                                        class="text-danger">Failure</span></ng-container>
+                                            </ng-template>
+
+                                            <ng-template #five>
+                                                <ng-container
+                                                    *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 5;else six"><span
+                                                        class="text-success">Redeemed</span></ng-container>
+                                            </ng-template>
+                                            <ng-template #six>
+                                                <ng-container
+                                                    *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 6;else seven"><span
+                                                        class="text-danger">Revoked</span></ng-container>
+                                            </ng-template>
+                                            <ng-template #seven>
+                                                <ng-container
+                                                    *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 7;"><span
+                                                        class="text-warning">Processed</span></ng-container>
+                                            </ng-template>
+                                        </td>
+                                        <td>{{((voucherDetails[ctr]['dtmValidUpto'] != '' &&
+                                            voucherDetails[ctr]['dtmValidUpto'] != null) ?
+                                            (voucherDetails[ctr]['dtmValidUpto'] | date:'dd-MMM-yyyy HH:mm:ss') :
+                                            '--')}}</td>
+
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="noPrint">
+        <ng-container *ngIf="editSts==1; then shwModBtn"></ng-container>
+        <ng-template #shwModBtn>
+            <form focusInvalidInput [formGroup]="finalForm" (submit)="onFinalSubmit()">
+
+                <div class="form-check mb-4" *ngIf="apprRsmSts==1">
+                    <label><span class="text-danger">*</span> {{ 'Remark' | translate}} </label>
+                    <textarea class="form-control" rows="4" cols="4" maxlength="250" formControlName="resubmitRmrk"
+                        [ngClass]="{ 'is-invalid': finalSubmitted && g.resubmitRmrk.errors }"></textarea>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" value="" id="declarationCheck"
+                        formControlName="terms" [ngClass]="{ 'is-invalid': finalSubmitted && g.terms.errors }"
+                        (change)="onCheckboxChange($event)">
+                    <label class="form-check-label" for="declarationCheck">
+                        I hereby declare that the information given in this application is true and
+                        correct to the best of my knowledge and belief. In case any information
+                        given in this application proves to be false or incorrect, I shall be
+                        responsible for the consequences.
+                    </label>
+                </div>
+                <div class="text-center">
+                    <ng-container *ngIf="!DBTscheme; then aftrLgIn"></ng-container>
+                    <ng-template #aftrLgIn>
+                        <a href="javascript:void(0);" class="btn btn-warning" (click)="doSchmModify();">Modify</a>
+                    </ng-template>
+                    &nbsp;
+                    <button class="btn btn-success"><span
+                            *ngIf="paySectnSts && (resPaySts==1) && !(editSts==0 && qryArr.length>0)">Pay</span><span
+                            *ngIf="!(paySectnSts && (resPaySts==1) && !(editSts==0 && qryArr.length>0))">Submit</span></button>
+                </div>
+            </form>
+        </ng-template>
+    </div>
+</div>
+
+
+
+
+
+<!-- Preview img Modal modal-dialog-centered-->
+
+<!-- updated modal -->
+<!-- Preview img Modal -->
+<div class="modal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Image Preview</h5>
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <i class="icon-times-solid"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExampleIndicators" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        <ng-container *ngIf="verType==1">
+                            <div class="carousel-item" *ngFor="let image of filteredPreVerDocList; let i = index"
+                                [ngClass]="{'active': i === currentIndex}">
+
+                                <div class="border">
+
+                                    <div class="text-center">
+                                        <img [src]="image.dataUrlDoc" class="img-fluid pre-verify" alt="Preview Image">
+
+                                    </div>
+
+
+                                    <div class="scale_img" *ngIf="image.geoLocation.latLong">
+                                        <div class="long__sec__modal">
+                                            <div> Longitude - </div>
+                                            <div class="fw-bold" *ngFor="let latLong of image.geoLocation.latLong">
+                                                {{latLong.long}}</div>
+                                        </div>
+                                        <div class="long__sec__modal">
+                                            <div> Latitude - </div>
+                                            <div class="fw-bold" *ngFor="let latLong of image.geoLocation.latLong">
+                                                {{latLong.lat}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="verType==2">
+                            <div class="carousel-item" *ngFor="let image of filteredPostVerDocList; let i = index"
+                                [ngClass]="{'active': i === currentIndex}">
+                                <div class="border">
+                                    <div class="text-center">
+                                        <img [src]="image.dataUrlDoc" class="img-fluid pre-verify" alt="Preview Image">
+                                    </div>
+                                    <div class="scale_img" *ngIf="image.geoLocation.latLong">
+                                        <div class="long__sec__modal">
+                                            <div> Longitude - </div>
+                                            <div class="fw-bold" *ngFor="let latLong of image.geoLocation.latLong">
+                                                {{latLong.long}}</div>
+                                        </div>
+                                        <div class="long__sec__modal">
+                                            <div> Latitude - </div>
+                                            <div class="fw-bold" *ngFor="let latLong of image.geoLocation.latLong">
+                                                {{latLong.lat}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </ng-container>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        title="Prev" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        title="Next" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- updated modal -->
+
+
+
+<!-- map modal pre & post -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': mapModal}"
+    [ngStyle]="{'display': mapModal ? 'block' : 'none'}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-md " role="document" [ngClass]="{'modal-md': type == 2, 'modal-xl': type != 2}">
+
+
+        <!-- modal-dialog-centered -->
+        <div class="modal-content">
+            <div class="modal-header p-3">
+                <div class="row w-100" *ngIf="type==1">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                        <h5 class="modal-title h4"> Pre-verification </h5>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                        <h5 class="modal-title px-4 title-show"> Post Verification </h5>
+                    </div>
+                </div>
+
+                <div class="row w-100" *ngIf="type==2">
+                    <div class="col-xl-6">
+                        <h5 class="modal-title h4"> Pre-verification</h5>
+                    </div>
+                </div>
+
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <i class="icon-times-solid"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div [ngClass]="modalCls" *ngIf="type==2 || type==1">
+
+                        <div class="modal__preview">
+                            <div class="modal_img">
+                                <img [src]="preImgeSrc" class="img-fluid pre_map_modal" alt="Preview Image">
+                            </div>
+
+                            <div class="scale_img" *ngIf="longitude && latitude">
+                                <div class="long__sec__modal">
+                                    <div>Longitude - </div>
+                                    <div class="fw-bold">{{longitude}}</div>
+                                </div>
+                                <div class="long__sec__modal">
+                                    <div>Latitude - </div>
+                                    <div class="fw-bold">{{latitude}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-xl-6" *ngIf="type==1">
+                        <h5 class="modal-title title-mob pb-2"> Post Verification </h5>
+                        <div class="modal__preview">
+                            <div class="modal_img">
+                                <img [src]="postImgSrc" class="img-fluid pre_map_modal" alt="Preview Image">
+                            </div>
+                            <div class="scale_img" *ngIf="longitude && latitude">
+                                <div class="long__sec__modal">
+                                    <div>Longitude - </div>
+                                    <div class="fw-bold">{{longitude}}</div>
+                                </div>
+                                <div class="long__sec__modal">
+                                    <div>Latitude - </div>
+                                    <div class="fw-bold">{{latitude}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- map modal pre & post -->
+
+
+
+
+<!-- modal -->
+<div class="modal fade" tabindex="-1" aria-hidden="true" [ngClass]="{'show': showModal}"
+    [ngStyle]="{'display': showModal ? 'block' : 'none'}" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="khata-header">
+                    <h5>Plot {{count}}</h5>
+                </div>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()">
+                    <i class="icon-times-solid"></i>
+                </button>
+            </div>
+            <div class="modal-body pt-2">
+                <div class="khata-details">
+                    <ng-container *ngIf="verType === 1">
+                        <div class="khata-modal__img">
+                            <img [src]="imgUrl" alt="" class="khata-img">
+                        </div>
+                        <div class="khata-modal--modify">
+                            <!-- Nav pills -->
+                            <ul class="nav nav-pills mb-3" id="khataTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="tab1-tab" data-bs-toggle="pill" href="#tab1"
+                                        role="tab" aria-controls="tab1" aria-selected="true">Land info</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="tab2-tab" data-bs-toggle="pill" href="#tab2" role="tab"
+                                        aria-controls="tab2" aria-selected="false">Geo Points</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab content -->
+                            <div class="tab-content" id="khataTabContent">
+                                <!-- Land info tab -->
+                                <div class="tab-pane fade show active" id="tab1" role="tabpanel"
+                                    aria-labelledby="tab1-tab">
+                                    <div class="plot-modal">
+                                        <div class="khata-longitude" *ngFor="let detail of khataplotDetails">
+                                            <i class="bi bi-arrow-right-short"></i>
+                                            <ul>
+                                                <li><label class="label-control">Khata No:</label> <span
+                                                        class="fw-bold">{{ detail.khataNo }}</span></li>
+                                                <li><label class="label-control">Plot No:</label> <span
+                                                        class="fw-bold">{{ detail.plotNo }}</span></li>
+                                            </ul>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Geo Points tab -->
+                                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                                    <div class="khata-modal">
+                                        <div class="khata-longitude" *ngFor="let geoData of latLong">
+                                            <i class="bi bi-arrow-right-short"></i>
+                                            <ul>
+                                                <li><label class="label-control">Longitude:</label> <span
+                                                        class="fw-bold">{{geoData.long}}</span></li>
+                                                <li><label class="label-control">Latitude:</label> <span
+                                                        class="fw-bold">{{geoData.lat}}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" [ngClass]="{'show':deviationModal}"
+    [ngStyle]="{'display': deviationModal ? 'block' : 'none'}">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">View Deviation Details</h1>
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <i class="icon-times-solid"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-scroll">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <!-- <th rowspan="2" class="text-center">Sl.</th>
+                                    <th rowspan="2" class="text-center">Khata No./Plot No.</th> -->
+                                    <th colspan="3" class="text-center">Area (in Ha.)</th>
+                                    <th colspan="2" class="text-center">Deviation Area From Applied Area(in Ha.)</th>
+                                    <th colspan="2" class="text-center">% of Deviation</th>
+                                </tr>
+                                <tr>
+                                    <th>Applied</th>
+                                    <th>Pre</th>
+                                    <th>Post</th>
+                                    <th>Pre</th>
+                                    <th>Post</th>
+                                    <th>Pre</th>
+                                    <th>Post</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr *ngFor="let deviationDetail of deviationDetails;let i=index;">
+                                    <td>{{i+1}}</td>
+                                    <td class="fw-bold">{{deviationDetail.vchKhataNo + '/' + deviationDetail.vchPlotNo}}</td>
+                                    <td>{{deviationDetail.vchActualArea | number:'1.4-4'}}</td>
+                                    <td>{{deviationDetail.vchPreArea | number:'1.4-4'}}</td>
+                                    <td>{{deviationDetail.vchPostArea | number:'1.4-4'}}</td>
+                                    <td>{{deviationDetail.deviationPreArea | number:'1.4-4'}}</td>
+                                    <td>{{deviationDetail.deviationPostArea | number:'1.4-4'}}</td>
+                                    <td>{{deviationDetail.deviationPrePercentage}}</td>
+                                    <td>{{deviationDetail.deviationPostPercentage}}</td>
+                                </tr> -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="fw-bold">
+                                    <!-- <td colspan="2" align="right">Total</td> -->
+                                    <td>{{this.totalActualArea | number:'1.4-4'}}</td>
+                                    <td>{{this.totalPreArea | number:'1.4-4'}}</td>
+                                    <td>{{this.totalPostArea | number:'1.4-4'}}</td>
+                                    <td>{{this.totalDeviationPreArea | number:'1.4-4'}}</td>
+                                    <td>{{this.totalDeviationPostArea | number:'1.4-4'}}</td>
+                                    <td>{{this.totalPrePercentage | number:'1.2-2'}}</td>
+                                    <td>{{this.totalPostPercentage | number:'1.2-2'}}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

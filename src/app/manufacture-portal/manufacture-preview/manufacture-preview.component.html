@@ -1,0 +1,519 @@
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading noPrint"> Manufacture Registration Details </h5>
+    <div class="p-none">
+        <a (click)="printPage()" href="javascript:void(0)" class="h5 text-info " ngbTooltip="Print"><i
+                class="icon-print-solid"></i></a>
+        <a class="text-dark h5 ml-1" href="javascript:void(0)" (click)="goBack()" ngbTooltip="Back"><i
+                class="icon-arrow-left-solid ms-2"></i></a>
+    </div>
+</div>
+
+<div class="inner-body mt-3">
+    <div class="accordion border-0" id="accordionFlushExample">
+        <div class="accordion-item   mb-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miRegister" aria-expanded="false" aria-controls="miRegister">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Manufacture Information </h5>
+                    </div>
+                </button>
+            </h2>
+            <div id="miRegister" class="accordion-collapse show" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt"> Name of Firm </label>
+                                <div class="txt_manpreview"> {{vchApplicantName}}</div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt"> Email Id </label>
+                                <div class="txt_manpreview">{{vchEmail}} </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt"> Company Registration No. </label>
+                                <div class="txt_manpreview"> {{vchCompanyRegNo}} </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt">GSTIN </label>
+                                <div class="txt_manpreview">{{vchGSTIN}} </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom"></div>
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt"> Mobile Number </label>
+                                <div class="txt_manpreview"> {{vchMobileNo}} </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt"> Comapany Head Name </label>
+                                <div class="txt_manpreview">{{vchComanyHead}} </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt">Reference No. </label>
+                                <div class="txt_manpreview"> {{vchReferenceNo}}</div>
+                            </div>
+                            <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt">Component Type </label>
+                                <div class="txt_manpreview" *ngIf="intComponentId==1">Drip Irrigation</div>
+                                <div class="txt_manpreview" *ngIf="intComponentId==2">Sprinkler Irrigation</div>
+                                <div class="txt_manpreview" *ngIf="intComponentId==3">Both</div>
+                            </div> -->
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-3">
+                                <label class="mi_label_txt">Address </label>
+                                <!-- add ternary conditon -->
+                                <div class="txt_manpreview"> {{ vchAddressLn1 ? vchAddressLn1:'NA'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item mb-3">
+
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDocView" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Basic Documents </h5>
+                    </div>
+                </button>
+            </h2>
+
+            <div id="miDocView" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <th rowspan="2" width="40%" class="border-right">Document name</th>
+                                        <th rowspan="2" width="10%" class="text-center border-right">Download</th>
+                                        <th colspan="2" class="text-center"> Validity Document </th>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th width="15%" class="border-right">From Date</th>
+                                        <th width="15%" class="border-right">To Date</th>
+                                    </tr>
+
+
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let doc of manufactureDoc">
+                                        <td>
+                                            <div> {{doc.vchDocumentname}}  </div>
+
+                                            <div class="mi_num_txt" *ngIf="doc.documentInputVal!=''"> ({{doc.documentInputVal}})  </div>
+                                        
+                                        </td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{this.documentUrl + doc.vchDocumentdetail}}"
+                                                class="btn btn-outline-success btn-sm" ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="doc.vchDocumentname === 'GST Registration'">
+                                                {{ gstValidity[0]?.From ? (gstValidity[0].From | date: 'dd-MMM-yyyy') :
+                                                '--' }}
+                                            </div>
+                                            <div *ngIf="doc.vchDocumentname === 'DIC Registration'">
+                                                {{ dicValidity[0]?.From ? (dicValidity[0].From | date: 'dd-MMM-yyyy') :
+                                                '--' }}
+                                            </div>
+                                            <div
+                                                *ngIf="doc.vchDocumentname !== 'GST Registration' && doc.vchDocumentname !== 'DIC Registration'">
+                                                --
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="doc.vchDocumentname === 'GST Registration'">
+                                                {{ gstValidity[0]?.To ? (gstValidity[0].To | date: 'dd-MMM-yyyy') : '--'
+                                                }}
+                                            </div>
+                                            <div *ngIf="doc.vchDocumentname === 'DIC Registration'">
+                                                {{ dicValidity[0]?.To ? (dicValidity[0].To | date: 'dd-MMM-yyyy') : '--'
+                                                }}
+                                            </div>
+                                            <div
+                                                *ngIf="doc.vchDocumentname !== 'GST Registration' && doc.vchDocumentname !== 'DIC Registration'">
+                                                --
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-2 p-3">
+                        <div class="customtop__heading">
+                            <h5 class="mb-2 p-0"> Turn Over Details </h5>
+                        </div>
+                        <div class="table-responsive custom_new_table border">
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <th class="border-right">Year </th>
+                                        <th class="text-center border-right">Turn over(in Lakhs)</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let data of txtTurnOver">
+                                        <td>{{data.year}}</td>
+                                        <td align="center">{{data.turnover}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="accordion-item mb-3">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#miDoc2View"
+                    aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Product Manufactured Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc2View" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+
+                            <h5 class="component__txt">Component Type  - 
+                                <span *ngIf="intComponentId==1"> Drip Irrigation </span> 
+                                <span *ngIf="intComponentId==2"> Sprinkler Irrigation </span>
+                                <span *ngIf="intComponentId==3">Both </span>
+                            
+                            </h5>
+
+
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th class="text-start">Component Name</th>
+                                        <th>BIS Code</th>
+                                        <th> Cml No </th>
+                                        <th> Validity Date</th>
+                                        <th> Manufacture Name</th>
+                                        <th> Production Capacity</th>
+                                        <th> Document</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let data of manufacturedProduct" class="text-center">
+                                        <td class="text-start">{{data.componentName}}</td>
+                                        <td>{{data.bisCode}}</td>
+                                        <td>{{data.cmlNo}}</td>
+                                        <td>{{ convertToValidDateFormat(data.validDate) | date: 'dd-MMM-yyyy' }}</td>
+                                        <td>{{data.manufactureName}}</td>
+                                        <td>{{data.productionCapacity}}</td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{documentUrl + data.fileName}}"
+                                                class="btn btn-outline-success btn-sm" ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc3View" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Product Procured Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc3View" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th class="text-start">Component Name</th>
+                                        <th>BIS Code</th>
+                                        <th> Cml No </th>
+                                        <th> Validity Date</th>
+                                        <th> Manufacture Name</th>
+                                        <th> MOU Document</th>
+                                        <th> BIS Document</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let data of procuredProduct" class="text-center">
+                                        <td class="text-start">{{data.componentName}}</td>
+                                        <td>{{data.bisCode}}</td>
+                                        <td>{{data.cmlNo}}</td>
+                                        <td>{{ convertToValidDateFormat(data.validDate) | date: 'dd-MMM-yyyy' }}</td>
+                                        <td>{{data.manufactureName}}</td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{documentUrl + data.MOUfileName}}" class="btn btn-outline-success btn-sm"
+                                                ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{documentUrl + data.BISfileName}}"
+                                                class="btn btn-outline-success btn-sm" ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3" *ngIf="isTechnicalStaff==1">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc4View" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Technical Staff Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc4View" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th class="text-start">Staff Name</th>
+                                        <th>Designation</th>
+                                        <th>Joining Date</th>
+                                        <th>State</th>
+                                        <th>Qualification</th>
+                                        <th>Document</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let data of technicalStaff" class="text-center">
+                                        <td class="text-start">{{data.staffName}}</td>
+                                        <td>{{data.designationName}}</td>
+                                        <td>{{ convertToValidDateFormat(data.joiningDate) | date: 'dd-MMM-yyyy' }}</td>
+                                        <td>{{data.servingStateText}}</td>
+                                        <td>{{data.qualification}}</td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{documentUrl + data.document}}" class="btn btn-outline-success btn-sm"
+                                                ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3" *ngIf="isTechnicalStaff==2">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc4NoView" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Technical Staff Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc4NoView" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <h6 class="no-content"> No Document Found</h6>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3" *ngIf="isPerformanceReport==1">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc5View" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Performance Report Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc5View" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th class="text-start">Empaneled State</th>
+                                        <th>Empaneled Year</th>
+                                        <th>Physical Achievement</th>
+                                        <th>Financial Achievement</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let data of performanceReportDtls" class="text-center">
+                                        <td class="text-start">{{data.empaneledStateText}}</td>
+                                        <td>{{data.empaneledYearText}}</td>
+                                        <td>{{data.physicalAchievement}}</td>
+                                        <td>{{data.financialAchievement}}</td>
+                                        <!-- <td>{{data.qualification}}</td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{documentUrl + data.document}}" class="btn btn-outline-success btn-sm"
+                                                ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3" *ngIf="isPerformanceReport==2">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc5NoView" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Performance Report Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc5NoView" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <h6 class="no-content"> No Document Found</h6>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3" *ngIf="isTestingReport==1">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc6View" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Testing Report Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc6View" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <table class="table table-bordered m-0" width="100%">
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th class="text-start">Type</th>
+                                        <th>Institute Name</th>
+                                        <th>From Date</th>
+                                        <th>To Date</th>
+                                        <th>Document</th>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let data of testingReport" class="text-center">
+                                        <td class="text-start">{{data.selTypeText}}</td>
+                                        <td>{{data.instituteName}}</td>
+                                        <td>{{ convertToValidDateFormat(data.validityFromDate) | date: 'dd-MMM-yyyy' }}</td>
+                                        <td>{{ convertToValidDateFormat(data.validityToDate) | date: 'dd-MMM-yyyy' }}</td>
+                                        <td align="center">
+                                            <a target="_blank" href="{{documentUrl + data.testingDocument}}" class="btn btn-outline-success btn-sm"
+                                                ngbTooltip="Download">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+        <div class="accordion-item mb-3" *ngIf="isTestingReport==2">
+        
+            <h2 class="accordion-header">
+                <button class="accordion-button  collapsed " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#miDoc6NoView" aria-expanded="false" aria-controls="miDocView">
+                    <div class="customtop__heading">
+                        <h5 class="m-0 p-0"> Testing Report Details </h5>
+                    </div>
+                </button>
+            </h2>
+        
+            <div id="miDoc6NoView" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                        <div class="table-responsive custom_new_table">
+                            <h6 class="no-content"> No Document Found</h6>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<form [formGroup]="statusform">
+        <div class="row ">
+                <div class="col-md-6 col-lg-4">
+                        <div class="form-group">    
+                                <label class="form-label"><span class="text-danger">*</span> {{'Financial Year' | translate}}  </label>
+                                <select formControlName="selFinancialYear" class="form-select" #financialYear id=
+                                "fYear" name="financial_year">
+                                <option value="">-- Select --</option>
+                                        
+                                </select> 
+                                <!-- <div *ngIf="submitted && f.selFinancialYear.errors" class="invalid-feedback">
+                                    <div *ngIf="f.selFinancialYear.errors.required">Financial Year can not be left blank</div>
+                                </div> -->
+                                 </div>
+                    </div>
+              <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                            <label class="form-label"><span class="text-danger">*</span> {{'Component' | translate}}  </label>
+                            <select formControlName="selItemGroup" class="form-select" #mySelect (change)='getSubcomponent(mySelect.value,financialYear.value)'>
+                                    <option value="">-- Select --</option>
+                                    <option *ngFor="let compo of component;" value="{{compo.componentId}}">{{compo.componentName | translate}}</option>
+                            </select> 
+                            <!-- <div *ngIf="submitted && f.selItemGroup.errors" class="invalid-feedback">
+                                <div *ngIf="f.selItemGroup.errors.required">Item Group can not be left blank</div>
+                            </div> -->
+
+                            
+                             </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                        <div class="form-group">
+                                <label class="form-label"><span class="text-danger">*</span> {{'Sub-Component' | translate}}  </label>
+                                <select formControlName="selItemGroup" class="form-select" #mySelect (change)='getSubcomponent(mySelect.value,financialYear.value)'>
+                                        <option value="">-- Select --</option>
+                                        <option *ngFor="let subcompo of subcomponent;" value="{{subcompo.subcomponentId}}">{{subcompo.subcomponentName | translate}}</option>
+                                </select> 
+                                <div *ngIf="submitted && f.selItemGroup.errors" class="invalid-feedback">
+                                    <div *ngIf="f.selItemGroup.errors.required">Item Group can not be left blank</div>
+                                </div>
+    
+                                
+                                 </div>
+                    </div>
+                
+                             
+              <!-- <div class="col-md-6 col-lg-4">
+                     <button class="btn btn-success mt-4" >{{'Search' | translate}}</button> 
+              </div> -->
+    
+        </div>
+      </form> 
+      <div class="separator separator-dashed"></div>
+    
+    
+                     
+                  
+                  
+                                    <div>
+                                        <div *ngIf="isDataFlag;else other_content " class="container-fluid">
+                                                <!-- <h5 class="common-heading2">{{'Department Item Price' | translate}} </h5> -->
+                                                <div class="row">
+                                                        
+                                                  
+                                                        <div class="col-sm-3 col-md-6 col-lg-12">
+                                                        </div>
+                                                      </div>
+                                                <!-- <h5 class="common-heading2">{{'Item Details' | translate}} </h5> -->
+                                                
+                                                <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                                                <div class="row">
+                                                        
+                                                  
+                                                  <div class="col-sm-3 col-md-6 col-lg-12">
+                                                                <table formArrayName="quantities">
+                                                                        <thead>
+                                                                                <tr>
+                                                                                    <th>Item Name</th>
+                                                                                    <th>Item Unit</th>
+                                                                                    <th>Dept. Price (INR per Unit)</th>
+                                                                                    <th>Item Price (INR per Unit)</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                  <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+                                                                        <td>
+                                                                                <input type="text" formControlName="itemName" readonly class="form-control">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" formControlName="itemUnit" readonly class="form-control">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" formControlName="deptItemPrice" readonly class="form-control">
+                                                                            </td>
+                                                                    <td>
+                                                                        <input type="text" formControlName="price" class="form-control">
+                                                                    </td>
+                                                                  </tr>
+                                                                </table>
+                                                  </div>
+                                                </div>
+                                                <div class="mb-4">
+                                                        <div class="row ">
+                                                                <div class="col-md-6 col-lg-4">
+                                                                        <button type="submit" id="Submit" class="btn btn-success">Submit</button> 
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                </form>
+                                              </div>
+                                </div>
+                                    <ng-template #other_content>
+    
+                          
+        
+                                            <h6 class="no-content"> No Record found</h6>
+                                          
+                                    </ng-template>
+        
+                            <div class="loader" *ngIf="loading">
+                                <div class="loader-item"></div>
+                                <p>Loading...</p>
+                        </div>

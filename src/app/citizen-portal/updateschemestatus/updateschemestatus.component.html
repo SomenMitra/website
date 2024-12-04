@@ -1,0 +1,459 @@
+
+<div class="d-flex align-items-start justify-content-between mb-2">
+    <h5 class="common-heading">Phase - {{this.subsidyCtr}} Status</h5>
+    <a class="text-dark h5" title="Back" href="javascript:void(0)" (click)="backClicked()"><i
+            class="icon-arrow-left-solid"></i></a>
+</div>
+
+
+
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+    <ng-container *ngIf="updStatus==0">
+
+        <div class="table-responsive">
+                <!-- <thead>
+                    <tr>
+                        <th style="width:40px">Sl#</th>
+                        <th>Activity Details </th>
+                        <th>Status <span class="text-danger">*</span></th>
+
+                        <th width="250px">Upload  Photos<span class="text-danger">*</span><br><small class="text-danger">Only Png, Jpeg, Jpg (Max size 1 MB)</small>
+                        </th>
+                        <th width="350px">Remark </th>
+                    </tr>
+                </thead> -->
+                <div class="d-none d-lg-block p-3 border bg-light mb-2">
+                    <div class="row">
+                            <div class="col-3">Activity Details </div>
+                            <div class="col-3">Status <span class="text-danger">*</span></div>
+
+                            <div class="col-3" width="250px">{{(activitySatatus==1)?'Upload  Photos':'Completion  Date'}}<span class="text-danger" *ngIf="!FMR_ACTIVITY_UPDATE.includes(this.directorateId)">*</span><br><small class="text-danger">Only Png, Jpeg, Jpg (Max size 1 MB)</small>
+                            </div>
+                            <div class="col-3" width="350px">Remark </div>
+                    </div>
+                </div>
+                <div class="p-3 border mb-2" *ngFor="let activity of lastUpd;let rwCnt=index;">
+
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 d-none">{{rwCnt+1}}</div>
+                        <div class="col-md-6 col-lg-3">
+                                <label class="d-lg-none d-block"><strong>Activity Details</strong></label>
+                            {{activity.itemName}}
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                                <label class="d-lg-none d-block mt-3 "><strong>Status</strong> <span class="text-danger">*</span></label>
+                            <div *ngIf="activity.authActionStatus==3 || activity.authActionStatus==1|| activity.farmerActionStatus==null || activity.farmerUpdate==0">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" name="{{activity.activityActnId}}"
+                                        (click)="chooseAction(activity.activityActnId, 1);" type="radio"
+                                        formControlName="{{activity.activityActnId}}" id="{{activity.activityActnId}}_compl"
+                                        [value]="2" [checked]="options"  >
+                                    <label class="form-check-label"
+                                        for="{{activity.activityActnId}}_compl">Completed</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" name="{{activity.activityActnId}}"
+                                        (click)="chooseAction(activity.activityActnId, 2);" type="radio"
+                                        formControlName="{{activity.activityActnId}}"
+                                        id="{{activity.activityActnId}}_inprog" [value]="1" [checked]="!options" >
+                                    <label class="form-check-label" for="{{activity.activityActnId}}_inprog">In
+                                        Progress</label>
+                                </div>
+                            </div>
+                            <div  *ngIf="activity.authActionStatus==2 && activity.farmerActionStatus!=''">
+                                {{activity.farmerActionStatusTxt}}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                                <label class="d-lg-none d-block mt-3 "><strong>Upload  Photos</strong> <span class="text-danger">*</span><br><small class="text-danger">Only Png, Jpeg, Jpg (Max size 1 MB)</small></label>
+                            <div *ngIf="activity.authActionStatus==3 || activity.authActionStatus==1|| activity.farmerActionStatus==null || activity.farmerUpdate==0">
+                                <div class="mb-3" *ngFor="let number of [0,1]">
+                                    <div *ngIf="ngElements[activity.activityActnId+'_1']"
+                                        class="cls_{{activity.activityActnId}}_{{number}}_file">
+                                        <input type="file" formControlName="{{activity.activityActnId}}_{{number}}_file"
+                                            id="{{activity.activityActnId}}_{{number}}_file" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div *ngIf="ngElements[activity.activityActnId+'_2']"
+                                    class="cls_{{activity.activityActnId}}_date">
+                                    <input type="date" id="{{activity.activityActnId}}_date"
+                                        formControlName="{{activity.activityActnId}}_date" class="form-control" min="{{curDate | date:'yyyy-MM-dd'}}">
+                                </div>
+                            </div>
+                            <div  *ngIf="activity.authActionStatus==2 && activity.farmerActionStatus!=null ">
+                                <div *ngIf="activity.farmerActionStatus == 1; else elseBlock">
+                                    {{activity.farmerUpdateDate}}
+                                </div>
+
+                                <ng-template #elseBlock>
+                                    <span *ngFor="let farmerUploadedPhoto of activity.farmerUploadedPhoto;" class="mx-1">
+                                        <a href="javascript:void(0);" (click)="getPhoto(farmerUploadedPhoto.farmFileUploadUrl)">
+                                            <img src="{{farmerUploadedPhoto.farmFileUploadUrl}}" class="bg-light"
+                                        style="height: 40px;">
+                                        </a>
+                                    </span>
+
+                                </ng-template>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3">
+                                <label class="d-lg-none d-block "><strong>Remark</strong></label>
+                            <div *ngIf="activity.authActionStatus==3 || activity.authActionStatus==1">
+                                <label class="mb-1">Auth Remark : <span class="text-danger">{{activity.authRemark}}</span></label>
+                            </div>
+                            <textarea rows="2" cols="2" id="{{activity.activityActnId}}_remark"
+                                formControlName="{{activity.activityActnId}}_remark" class="form-control"></textarea>
+                        </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+        <div class="row" *ngIf="docResFlg==1 && completeItem==totalItem">
+            <div class="col-md-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label"><span class="text-danger">*</span> Intimation Document</label>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8">
+                        <div class="form-group">
+                            <input type="file" id="intmnFile" class="form-control" />
+                            <div class="d-flex justify-content-between">
+                                <small class="text-danger">Only JPG,JPEG,GIF,PDF,ZIP max size 10 MB</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mt-2">
+                        <a *ngIf="docResFlNm!='';" class="text-info h5" download title="Download" target="_blank"
+                                        href="{{docResFlNm}}">Download Format </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </ng-container>
+
+    <ng-container *ngIf="updStatus==1">
+        <div class="table-responsive"  *ngIf="farmerUpdateSts">
+            <!-- <div class="row d-md-none" *ngFor="let activity of resDocList; let rwCnt=index;">
+                <div class="col-md-6">
+                    <div class="card">
+                       <div class="card-body">
+                           <div class="row">
+                                <label class="col-6">SL#</label>
+                                <div class="col-6">
+                                        {{rwCnt+1}}
+                                </div>
+                           </div>
+                           <div class="row">
+                                <label class="col-6">Activity Details</label>
+                                <div class="col-6">
+                                        {{activity.itemName}}
+                                </div>
+                           </div>
+                           <div class="row">
+                                <label class="col-6">Status</label>
+                                <div class="col-6">
+                                        {{activity.farmerActionStatusTxt}}
+                                </div>
+                           </div>
+                           <div class="row">
+                                <label class="col-6">Photos/ Tentetive Date of Complete</label>
+                                <div class="col-6">
+                                    <div *ngIf="activity.farmerActionStatus == 1; else elseBlock">
+                                            {{activity.farmerUpdateDate}}
+                                        </div>
+
+                                        <ng-template #elseBlock>
+                                            <span *ngFor="let farmerUploadedPhoto of activity.farmerUploadedPhoto;" >
+                                                <a href="javascript:void(0);" (click)="getPhoto(farmerUploadedPhoto.farmFileUploadUrl)">
+                                                    <div class="upload-img-div"> <img src="{{farmerUploadedPhoto.farmFileUploadUrl}}" class="bg-light"
+                                                ></div>
+                                                </a>
+                                            </span>
+
+                                        </ng-template>
+                                </div>
+                           </div>
+                           <div class="row">
+                                <label class="col-6">Remark</label>
+                                <div class="col-6">
+                                        {{activity.farmerRemark}}
+                                </div>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:40px">Sl#</th>
+                        <th>Activity Details </th>
+                        <th width="120px">Status </th>
+
+                        <th width="250px">Photos/ Tentetive Date of Complete</th>
+                        <th width="350px">Remark </th>
+                        <!-- <th>Updated By </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let activity of resDocList; let rwCnt=index;">
+                        <td>{{rwCnt+1}}</td>
+                        <td>{{activity.itemName}}</td>
+                        <td>{{activity.farmerActionStatusTxt}}</td>
+                        <td>
+                            <div *ngIf="activity.farmerActionStatus == 1; else elseBlock">
+                                {{activity.farmerUpdateDate}}
+                            </div>
+
+                            <ng-template #elseBlock>
+                                <span *ngFor="let farmerUploadedPhoto of activity.farmerUploadedPhoto;" >
+                                    <a href="javascript:void(0);" (click)="getPhoto(farmerUploadedPhoto.farmFileUploadUrl)">
+                                       <div class="upload-img-div"> <img src="{{farmerUploadedPhoto.farmFileUploadUrl}}" class="bg-light"
+                                   ></div>
+                                    </a>
+                                </span>
+
+                            </ng-template>
+                        </td>
+                        <td>{{activity.farmerRemark}}</td>
+
+                        <!-- <td *ngIf="activity.farmerActionStatus > 0;">
+                                Self
+                        </td>  -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row" *ngIf="docResFlg==1">
+
+            <div class="col-md-4 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label"><strong>Uploaded Intimation Document</strong> : </label>
+
+                    <label class="form-label"> <a *ngIf="docResUpFlNm!='';" class="text-danger h5" download
+                            title="Download" target="_blank" href="{{docResUpFlNm}}"><i
+                                class="icon-file-download-solid"></i> </a></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-2" *ngIf="authUpdateSts">
+            <div class="separator separator-dashed"></div>
+            <h6><strong>Authority Verification Details</strong></h6>
+            <div class="table-responsive" >
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:40px">Sl#</th>
+                        <th>Activity Details </th>
+                        <th width="120px">Status </th>
+
+                        <th width="250px">Geo-tagged Photos/ Tentetive Date of Complete</th>
+                        <th width="350px">Remark </th>
+                        <!-- <th>Updated By </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let activity of resDocList; let rwCnt=index;">
+                        <td>{{rwCnt+1}}</td>
+                        <td>{{activity.itemName}}</td>
+                        <td>{{activity.authActionStatusTxt}}</td>
+                        <td>
+                            <div *ngIf="activity.authActionStatus == 1; else elseBlock">
+                                {{activity.authUpdateDate}}
+                            </div>
+
+                            <ng-template #elseBlock>
+                                <span *ngFor="let authUploadedPhoto of activity.authUploadedPhoto;" >
+                                    <a href="javascript:void(0);" (click)="getPhoto(authUploadedPhoto.authFileUploadUrl)">
+                                        <div class="upload-img-div"> <img src="{{authUploadedPhoto.authFileUploadUrl}}" class="bg-light"
+                                   ></div>
+                                    </a>
+                                </span>
+
+                            </ng-template>
+                        </td>
+                        <td>{{activity.authRemark}}</td>
+
+                        <!-- <td *ngIf="activity.authActionStatus == 2;">
+                               Authority
+                        </td>  -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+
+    </ng-container>
+
+    <!-- {{updStatus}} -->
+    <!-- <div *ngIf="updStatus==1 && subsidyStsId==1" class="mt-2">
+        <h6><strong>Subsidy Details</strong></h6>
+        <div class="mt-3 row">
+            <div class="col-sm-6 d-flex">
+                Subsidy Amount: <h6 class="text-success ms-3"> <i class="icon-rupee-sign-solid">{{subsidyAmt}}</i></h6>
+            </div>
+            <div class="col-sm-6 d-flex">
+                Status: <h6 class="text-success ms-3 ">{{subsidySts}}</h6>
+            </div>
+        </div>
+    </div> -->
+    <div *ngIf="updStatus==1 && subsidyStsId==1" class="mt-2">
+        <div class="separator separator-dashed"></div>
+        <h6><strong>Subsidy Details</strong></h6>
+        <table class="table table-bordered">
+
+            <tbody>
+                <tr>
+                    <th> Subsidy Amount</th><td class="text-end"><strong><h6 class="text-success ms-3"> <i class="icon-rupee-sign-solid">{{subsidyAmt}}</i></h6></strong></td>
+                </tr> <tr>
+                    <th> Status </th><td class="text-end"><strong><h6 class="text-success ms-3 ">{{subsidySts}}</h6></strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+        <ng-container *ngIf="updStatus==0">
+            <button class="btn btn-success me-1" (click)="updateStatus()">Update</button>
+
+            <button class="btn btn-danger" (click)="onReset()">Cancel</button>
+        </ng-container>
+    </div>
+
+</form>
+<ng-container *ngIf="schemeId==44">
+    <hr>
+    <div class="row">
+        <div class="col-md-12 col-lg-12" >
+            <div style="margin-bottom: 10px"><strong style="margin-bottom: 10px">A. 2 nos. of geo-tagged photos.</strong></div>
+            <ol type="1">
+                <li style="margin-bottom: 10px">1. 1 photo of Capital assets along with beneficiary</li>
+                <li style="margin-bottom: 10px">2. 1 photo of Display board of the unit as per the prescribed format of APICOL and Entrepreneur</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12" >
+            <div style="margin-bottom: 10px"><strong >B. 7 documents to be uploaded (Mandatory) at the time submission of Beneficiary completion</strong></div>
+            <ol type="1">
+                <li style="margin-bottom: 10px">1. Actual Lay out design of the established unit with detailed work done estimate prepared after completion date of the project by Engineering personnel not below the rank of Asst. Engineer of the concerned district /designated valuer of financing bank duly countersigned by concerned bank manager.</li>
+                <li style="margin-bottom: 10px">2. Authentic bills and vouchers with abstract sheet (Electrification, water supply, Equipment etc except civil items/work).</li>
+                <li style="margin-bottom: 10px">3. Purchase receipt of Fish/Livestock/Seeds etc duly certified by BLO.</li>
+                <li style="margin-bottom: 10px">4. Valid insurance documents of capital assets.</li>
+                <li style="margin-bottom: 10px">5. Subsidy non-availing certificate (self declared) by Entrepreneur in prescribed format.</li>
+                <li style="margin-bottom: 10px">6. Bank sanction letter and loan disbursement statement.</li>
+                <li style="margin-bottom: 10px">7. Project completion Report-cum-application for sanction/disbursement of capital investment subsidy from Agro-entrepreneur (in present format i.e Annexure-IV).</li>
+            </ol>
+        </div>
+
+    </div>
+</ng-container>
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>
+<ng-template #someModal id="someModal" let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">&nbsp;</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="modal.dismiss('Cross click')">
+                        <i class="icon-times-solid"></i>
+                </button>
+        </div>
+        <div class="modal-body">
+            <img src="{{imageURL}}" class="bg-light" style="width: 100%">
+        </div>
+
+</ng-template>
+
+<ng-container *ngIf="pastActivitiesLength > 0">
+    <div class="separator separator-dashed"></div>
+    <h6><strong>Update Histroy</strong></h6>
+    <div class="accordion" id="accordionExample">
+
+
+        <div class="accordion-item" *ngFor="let timeStampKey of elementKey;let rwCnt1 = index;">
+            <h5 class="accordion-header" id="headingOne{{rwCnt1}}">
+
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.aria-controls]="'headingOne'+rwCnt1"
+                    [attr.data-bs-target]="'#collapse_'+rwCnt1" aria-expanded="false" >
+                    Updated on {{pastActivities[timeStampKey][0].dtmCreatedOn}}
+                </a>
+            </h5>
+            <div id="collapse_{{rwCnt1}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'headingOne'+rwCnt1"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <ng-container >
+                            <div class="row">
+                                <div class="table-responsive mt-2 mb-2">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:40px">Sl#</th>
+                                                <th>Activity Details </th>
+                                                <th>Status <span class="text-danger">*</span></th>
+                                                <th width="250px">Upload  Photos<span class="text-danger">*</span><br><small class="text-danger">Only Png, Jpeg, Jpg (Max size 1 MB)</small></th>
+                                                <th width="350px">Remark </th>
+                                            </tr>
+                                        </thead>
+                                            <tbody *ngFor="let farmActivity of pastActivities[timeStampKey];let rwCnt2 = index;">
+                                                <tr>
+                                                    <td>{{rwCnt2+1}}</td>
+                                                    <td>{{farmActivity.itemName}}</td>
+                                                    <td width="120px">
+                                                        <div *ngIf="farmActivity.farmerActionStatus == 1 else elseBlock1">
+                                                           In Progress
+                                                        </div>
+                                                        <ng-template #elseBlock1>
+                                                           Completed
+                                                        </ng-template>
+                                                    </td>
+                                                    <td>
+                                                        <div *ngIf="farmActivity.farmerActionStatus == 1; else elseBlock2">
+                                                            {{farmActivity.farmerUpdateDateN}}
+                                                        </div>
+
+                                                        <ng-template #elseBlock2>
+                                                            <span *ngFor="let farmerUploadedPhoto of farmActivity.farmerUploadedPhoto;" >
+                                                                <a href="javascript:void(0);" (click)="getPhoto(farmerUploadedPhoto.farmFileUploadUrl)">
+                                                                   <div class="upload-img-div"> <img src="{{farmerUploadedPhoto.farmFileUploadUrl}}" class="bg-light"
+                                                               alt="Upload image"></div>
+                                                                </a>
+                                                            </span>
+
+                                                        </ng-template>
+                                                    </td>
+                                                    <td>{{farmActivity.farmerRemark}}</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                </div>
+                            </div>
+
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</ng-container>

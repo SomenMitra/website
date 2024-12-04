@@ -1,0 +1,158 @@
+<form [formGroup]="statusform">
+        <div class="row ">
+                <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                                <label class="form-label"><span class="text-danger">*</span> {{'Financial Year' | translate}}  </label>
+                                <select formControlName="selFinancialYear" class="form-select" #financialYear id=
+                                "fYear" name="financial_year">
+                                <option value="">-- Select --</option>
+
+                                </select>
+                                 </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="form-group">
+                              <label class="form-label"><span class="text-danger">*</span> {{'Scheme' | translate}}  </label>
+                              <select formControlName="selscheme" class="form-select" name="scheme" id="scheme" #schemeId>
+                                      <option value="0">-- Select --</option>
+                                       <!-- <option *ngFor="let scheme of schemeItem;" value="{{scheme.intProcessId}}">{{scheme.vchProcessName | translate}}</option> -->
+                              </select>
+                               </div>
+                  </div>
+              <div class="col-md-6 col-lg-3">
+                    <div class="form-group">
+                            <label class="form-label"><span class="text-danger">*</span> {{'Component' | translate}}  </label>
+                            <select formControlName="selcomponentGroup" class="form-select" #mySelect (change)='getsubComponentDetails(mySelect.value,financialYear.value)' name="component" id="component">
+                                    <option value="0">-- Select --</option>
+                                     <option *ngFor="let itemcomponent of componentItem;" value="{{itemcomponent.componentId}}">{{itemcomponent.componentName | translate}}</option>
+                            </select>
+                             </div>
+                </div>
+                 <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                                <label class="form-label"><span class="text-danger">*</span> {{'Sub Component' | translate}}  </label>
+                                <select formControlName="selsubComponent" class="form-select" #subComponent id=
+                                "subComponent" name="subComponent" (change)='getDepartmentPrice(mySelect.value,financialYear.value,subComponent.value,schemeId.value)'>
+                                <option value="">-- Select --</option>
+
+                                </select>
+                                 </div>
+                    </div>
+        </div>
+      </form>
+      <div class="separator separator-dashed"></div>
+      <div>
+        <div *ngIf="isDataFlagprice;else other_content " class="container-fluid">
+
+                <div class="row">
+                        <div class="col-sm-3 col-md-6 col-lg-12">
+                        </div>
+                      </div>
+                <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-sm-3 col-md-6 col-lg-12">
+                    <div class="table-responsive">
+
+
+                                <table id='tblPrice'>
+
+                                        <thead>
+                                                <tr>
+                                                  <th width="35%"></th>
+                                                    <th width="140px" *ngFor="let land of landArea;let i = index">
+                                                      {{land.vchLandArea}}
+
+                                                    </th>
+                                                </tr>
+                                        </thead>
+
+                                  <tr *ngFor="let space of spacing;let j = index">
+                                             <th style="width:35%">
+                                              {{space.vchSapcing}}
+                                            </th>
+                                            <td  *ngFor="let land of landArea;let i = index" class="test">
+
+
+                                              <div style="width:150px" class="input-group">
+                                                <input type='text'  class='form-control txtPrice' name='{{spacing[j].intSpacingId}}_{{land.intLandAreaId}}'  id='txt_{{spacing[j].intSpacingId}}_{{land.intLandAreaId}}' data-val='{{spacing[j].intSpacingId}}_{{land.intLandAreaId}}'   value="{{priceArray[0][spacing[j].intSpacingId+'_'+land.intLandAreaId]}}" (keypress)="vldChkLst.isNumberKey($event)">
+
+                                              <input type="hidden" name="hdntxt_{{spacing[j].intSpacingId}}_{{land.intLandAreaId}}" id="hdntxt_{{spacing[j].intSpacingId}}_{{land.intLandAreaId}}" class="hdnprice" value="{{priceArray[0]['details'+spacing[j].intSpacingId+'_'+land.intLandAreaId]}}" >
+
+                                                <!-- <a class="input-group-text udpatePrice" href="javascript:void(0)"  id="udpatePrice_{{spacing[j].intSpacingId}}_{{land.intLandAreaId}}" (click)="getPriceDetails(spacing[j].intSpacingId,land.intLandAreaId)"><i class="icon-pencil" ></i></a> -->
+                                              </div>
+
+
+                                            </td>
+                                  </tr>
+
+                                </table>
+                              </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                        <div class="row ">
+                                <div class="col-md-6 col-lg-4">
+                                        <button type="submit" id="Submit" class="btn btn-success">Submit</button>
+                                </div>
+                        </div>
+                        </div>
+                </form>
+              </div>
+</div>
+<ng-template #somePriceModal id="somePriceModal" let-modal>
+  <form [formGroup]="itemPrice" (ngSubmit)="submitItemPrice();">
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Fill up Item Price</h4>
+          <button type="button" class="close" id="apponlineCompletionClose" data-dismiss="modal" aria-label="Close"
+              (click)="modal.dismiss('Cross click')">
+              <i class="icon-times-solid"></i>
+          </button>
+      </div>
+      <div class="modal-body">
+                  <div class="row"  *ngFor="let items of arritems;let i = index">
+                    <label style="font-weight: bold;font-size: 20px;margin:5px">{{arritemgroups[i].vchItemGroupName }} </label>
+                    <div class="row"  *ngFor="let item of items; let j= index">
+                      <div class="row" *ngIf="arritemgroups[i].intItemGroupId == item.intItemGroupId">
+                        <div class="col-md-6 itemName" id="itemName_{{arritemgroups[i].intItemGroupId }}_{{item.intItemId}}">{{item.ItemName}}</div>
+                        <div class="col-md-6">
+                          <input
+                          type="number"
+                          class="form-control m-1 itemPrice"
+                          id="itemPrice_{{arritemgroups[i].intItemGroupId }}_{{item.intItemId}}"
+                          autocomplete="off" value="{{fillItem[arritemgroups[i].intItemGroupId+'_'+item.intItemId]}}"
+                          >
+                          <input type="hidden"
+                           id="itemId_{{arritemgroups[i].intItemGroupId }}_{{item.intItemId}}"
+                          value="{{item.intItemId}}"
+                          class="itemId"
+                          >
+
+                          <input type="hidden"
+                           id="itemgroupId_{{arritemgroups[i].intItemGroupId }}_{{item.intItemId}}"
+                           value="{{arritemgroups[i].intItemGroupId }}"
+                           class="groupId"
+                           >
+
+                        </div>
+                      </div>
+                          
+                    </div>
+                  </div>
+          <div class="col-md-2 col-lg-2 mt-3">
+            <div class="form-group">
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </div>
+      </div>
+  </form>
+</ng-template>
+
+
+
+    <ng-template #other_content>
+            <h6 class="no-content"> No Record found</h6>
+    </ng-template>
+<div class="loader" *ngIf="loading">
+<div class="loader-item"></div>
+<p>Loading...</p>
+</div>

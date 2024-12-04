@@ -1,0 +1,133 @@
+<app-header></app-header>
+<div class="citizenmenu">
+    <nav class="navbar">
+        <div class="container">
+            <div class=" navbar-collapse" id="navbarNav">
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="{{grievanceURL}}/home/grievance"><i class="icon-user-cog-solid"></i>Lodge Grievance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="{{grievanceURL}}/home/grievancedashboard"><i class="icon-id-card"></i>View Grievance </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"><i class="icon-search-solid"></i>Track Status</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <div class="page-container content-section">
+        <h5 class="common-heading2">Track Status</h5>
+        <div class="search_section" *ngIf="!grievnceRefNo">
+            <form  [formGroup]="manage_status" (ngSubmit)="submitForm()">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="form-group" *ngIf="!grievnceRefNo">
+                            <label class="form-label" for="referenceno"><span class="text-danger">*</span> Reference no. </label>
+                            <input type="text" class="form-control" id="referenceno" name="referenceno" formControlName="txtApplicationId">
+                        </div>                        
+                    </div>
+                    <div class="col-lg-4 col-md-6" *ngIf="!grievnceRefNo">
+                        <label class="form-label d-md-block d-none">&nbsp;&nbsp;</label>
+                        <button type="submit" class="btn btn-success" >Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <form class="griavcestatus">
+            <div class="row"  *ngFor="let listName of respSts">
+                <!-- {{listName.value}} -->
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="name"> Name </label>
+                        <label class="label_value">{{listName.NAME}}</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="email"> Email </label>
+                        <label class="label_value">{{listName.EMAIL}}</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="mobileno"> Mobile No. </label>
+                        <label class="label_value">{{listName.MOBILE}}</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="directorate"> Directorate </label>
+                        <label class="label_value">{{funDir(listName.DIRECTORATE)}}</label>
+                    </div>
+                </div>
+
+               
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="Schemename"> Scheme Name </label>
+                       <label class="label_value">{{listName.SCHEMENAME}}</label>
+                    </div>
+                </div>
+                 
+
+                <!-- <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label" for="document"> Document </label>
+                        <label class="label_value">Form J Application for Renewal of Mining Lease</label>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                        <label class="form-label" for="massage">Message </label>
+                        <label class="label_value">{{listName.VCHMESSAGE}}</label>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-2 col-sm-6">
+                    <div class="form-group">
+                        <label class="form-label d-md-block d-none" for="mobileno">Status</label>
+                        <span class="status_table rejected" *ngIf="listName.tinStatus==7">Rejected</span>
+                        <span class="status_table resolved" *ngIf="(listName.tinStatus==8 && listName.tinTicketClosed==1)">Resolved</span>
+                        <span class="status_table active" *ngIf="(listName.tinStatus==8 && listName.intPendingAt.split(',').includes('20'))">Pending at Helpdesk</span>
+                        <span class="status_table active" *ngIf="(listName.tinStatus==24 || listName.tinStatus==0)">Open</span>
+                        <span class="status_table active" *ngIf="(listName.tinStatus==4 && listName.tinForwardSts==1)">Forwarded to Technical Team</span>
+                        <span class="status_table active" *ngIf="(listName.tinStatus==27 && listName.tinForwardSts==1)">Forwarded to Technical Team</span>
+                        <span class="status_table active" *ngIf="(listName.tinStatus==4 && listName.tinForwardSts==2)">Forwarded to Department</span>
+                        <span class="status_table active" *ngIf="(listName.tinStatus==27 && listName.tinForwardSts==2)">Forwarded to Department</span>
+                        <!-- <span class="status_table pending" *ngIf="listName.tinStatus==24">Pending</span> -->
+                    </div>
+                </div>        
+                <div>
+                    
+                <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="listName.tinStatus !== 24 && listName.tinStatus !== 0">
+                    <div class="form-group">
+                        <label class="form-label d-md-block d-none" for="mobileno">Remarks:</label>
+                        <span class="label_value">{{listName.txtNoting}}</span>
+                    </div>
+                </div>
+            </div>
+                 
+            </div>
+        </form>
+
+
+
+
+
+    </div>
+
+
+</div>
+
+<app-footer></app-footer>

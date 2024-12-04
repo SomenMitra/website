@@ -1,0 +1,43 @@
+.upload-img-div{
+  height: 65px;
+  width: 65px;
+  display: inline-block;
+  overflow: hidden;
+  margin-right: .3rem;
+  margin-bottom: .5rem;
+}
+.upload-img-div img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.ifsc_code,.bhulekh_plot_no,.loan_bank_ifsc,.ifsc_save_code{width: 60%;}
+
+@media screen and (max-width:1440px) {
+  .ifsc_code,.bhulekh_plot_no,.loan_bank_ifsc,.ifsc_save_code{width: 60%;}
+}
+
+
+	.custom-file-button input[type="file"] {
+		margin-left: -2px !important;
+		&::-webkit-file-upload-button {
+			display: none;
+		}
+		&::file-selector-button {
+			display: none;
+		}
+	}
+
+	&:hover {
+		label {
+			background-color: #dde0e3;
+			cursor: pointer;
+		}
+	}
+  .input-group-text{
+    background-color: #e9ecef;
+  }
+
+

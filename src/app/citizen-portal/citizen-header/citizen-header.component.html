@@ -1,0 +1,199 @@
+<!-- Header -->
+<header class="head-sec ">
+    <nav class="top-sec">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="odisha-govt-section">
+                        <a href="" target="_blank">
+                            <img src="{{siteURL}}assets/images/odisha-govt-ogo-white.png" alt=" Government of Odisha">
+                            <span>{{'Government Of Odisha' | translate}}</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="top-menu-list">
+                        <select class="top-element" #langSelect (change)="changeLang(langSelect.value)">
+                            <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                                [selected]="lang === translate.currentLang">{{ lang == 'Odia'?'ଓଡିଆ':lang }}</option>
+                            /*[selected]="selectedLanguage(lang,translate.currentLang)"*/
+                        </select>
+                        <div class="theme">
+                            <label id="switch" class="switch">
+                                <input type="checkbox" (click)="toggleTheme()" id="slider">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="fontresizer">
+                            <a class="fontresize top-element " title="Click here to decrease font size"
+                                (click)="DecreaseFontSize()" href="javascript:void(0);">-</a>
+                            <a class="fontresize top-element" title="Click here to Normal font size"
+                                (click)="ResetFontSize()" href="javascript:void(0);">A</a>
+                            <a class="fontresize top-element" title="Click here to increase font size"
+                                (click)="IncreaseFontSize()" href="javascript:void(0);">+</a>
+                        </div>
+
+                        <!-- <div class="helpline d-flex">
+                            <i class="icon-classictelephone"></i> <span class="d-none d-md-block ">{{'HELPLINE' |
+                                translate}} :</span> <a href="tel:7205120692"> {{'helpline1' | translate}}</a>, <a
+                                href="tel:7205120693"> {{'helpline2' | translate}}</a>
+                        </div> -->
+
+                        <ng-container *ngIf="loginSts; then aftrLgIn else bfrLgIn"></ng-container>
+                        <ng-template #aftrLgIn>
+                            <a href="javascript:void(0);" class="text-white login-link me-2  text-decoration-none"
+                                routerLink="/citizen-portal/dashboard">{{'Dashboard' |translate}}</a>
+                        </ng-template>
+                        <ng-template #bfrLgIn>
+                            <a href="javascript:void(0);" class="text-white login-link me-2  text-decoration-none"
+                                routerLink="/citizen-portal/registration">Register</a>
+                            <ul class="loginlist">
+                                <li><a>Login</a>
+                                    <ul>
+                                        <li><a routerLink="/citizen-portal/login">Farmer </a></li>
+                                        <li><a href="{{domainURL}}" target="_blank">Officer </a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </nav>
+    <nav class="navbar main-nav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center logo" href="#" title="SUGAM">
+                <img src="{{siteURL}}assets/images/slogo.png" alt=" Government of Odisha" class="dark-logo">
+
+
+                <!-- <h1 class="mb-0 ml-1 ml-lg-2"> -->
+                <!-- {{ 'banner.AshirbadPortal' | translate }}    -->
+                <!-- {{'SUGAM' | translate}}
+                          <small class="d-block">{{ 'Fisheries & Animal Resources Development Department' | translate }}</small>
+                          <span class="d-block">{{'Department of Agriculture and Farmer Empowerment' | translate}}</span>
+                      </h1> -->
+            </a>
+
+            <nav class="navbar navbar-expand navbar-light ">
+                <div class="container-fluid">
+
+                    <div class="collapse navbar-collapse">
+
+                        <ng-container *ngIf="loginSts; then aftrLgInWlc"></ng-container>
+                        <ng-template #aftrLgInWlc>
+                            <ng-container
+                                *ngIf="whetherOdishaOne;  then iAmDoneHeader; else iAmNotDoneHeader"></ng-container>
+                            <span style="padding: 5px;"><ng-template #iAmDoneHeader>
+                                    <a (click)="doOdishaOneLogout()" href="javascript:void(0)"
+                                        class="btn btn-success btn-sm text-light">{{'Back to OdishaOne' |
+                                        translate}}</a>
+                                </ng-template></span>
+                            <div class="profile-dropdown"><a href="javascript:void(0)" class="dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <span><small class="d-block ">{{'Welcome' | translate}}</small> <span
+                                            class="">{{citizenNm}}</span></span>
+                                    <img [src]="citizenPic" class="" alt="Profile Photo">
+                                </a>
+                                <div class="header-dropdown">
+                                    <a routerLink="/citizen-portal/changepassword"> <i
+                                            class="icon-lock-solid "></i>&nbsp; {{'Change Password'| translate}} </a>
+                                    <ng-container *ngIf="whetherOdishaOne;  then iAmDone; else iAmNotDone">
+                                    </ng-container>
+
+                                    <ng-template #iAmDone>
+                                        <a (click)="doOdishaOneLogout()" href="javascript:void(0)" class="btn-logout"
+                                            title="" data-toggle="tooltip" data-placement="bottom"
+                                            data-original-title="Logout"><i class="icon-sign-out-alt-solid "></i>&nbsp;
+                                            {{'Back to OdishaOne' | translate}}</a>
+                                    </ng-template>
+
+                                    <ng-template #iAmNotDone>
+                                        <a (click)="doLogout()" href="javascript:void(0)" class="btn-logout" title=""
+                                            data-toggle="tooltip" data-placement="bottom"
+                                            data-original-title="Logout"><i class="icon-sign-out-alt-solid "></i>&nbsp;
+                                            {{'Sign Out' | translate}}</a>
+                                    </ng-template>
+
+                                </div>
+                                <!-- <div class="header-dropdown">
+                                    <a routerLink="/citizen-portal/changepassword"> <i
+                                            class="icon-lock-solid "></i>&nbsp; {{'Change Password'| translate}} </a>
+                                    <a (click)="doLogout()" href="javascript:void(0)" class="btn-logout" title=""
+                                        data-toggle="tooltip" data-placement="bottom" data-original-title="Logout"><i
+                                            class="icon-sign-out-alt-solid "></i>&nbsp; {{'Sign Out' | translate}}</a>
+                                </div> -->
+                            </div>
+                        </ng-template>
+
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+
+        </div>
+    </nav>
+</header> <!-- End Header -->
+
+<div class="print-header ">
+    <div class="container">
+        <table style="width:100%">
+            <tr>
+                <td><a class="navbar-brand d-flex align-items-center logo" href="#" title="FARD">
+                        <img src="{{siteURL}}assets/images/slogo.png" alt=" Government of Odisha" class="dark-logo">
+
+
+
+                    </a></td>
+                <td style="text-align: right;"><img src="{{siteURL}}assets/images/odisha-govt-ogo.png"
+                        alt=" Government of Odisha"></td>
+            </tr>
+        </table>
+
+
+
+
+    </div>
+</div>
+<div class="citizenmenu">
+
+    <nav class="navbar ">
+        <div class="container">
+            <div class=" navbar-collapse" id="navbarNav">
+                <ng-container *ngIf="loginSts; then aftrLgInMn"></ng-container>
+                <ng-template #aftrLgInMn>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/citizen-portal/dashboard" routerLinkActive="active"><i
+                                    class="icon-desktop-solid"></i>{{'Dashboard' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/citizen-portal/scheme-directorate"
+                                routerLinkActive="active"><i class="icon-id-card"></i>{{'Schemes & Services' |
+                                translate}} </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                        <a class="nav-link" (click)="getIFSC()" routerLinkActive="active" id="ifscLink"><i
+                                class="icon-laptop-code-solid"></i>Know IFSC Code</a>
+                    </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/citizen-portal/trackstatus" routerLinkActive="active"><i
+                                    class="icon-search-solid"></i>{{'Track Status' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/home/grievance" routerLinkActive="active"><i
+                                    class="icon-user-cog-solid"></i>{{'Grievance' | translate}}</a>
+                        </li>
+                        
+                    </ul>
+                </ng-template>
+            </div>
+        </div>
+    </nav>
+</div>

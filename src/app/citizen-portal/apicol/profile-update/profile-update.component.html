@@ -1,0 +1,608 @@
+<!-- start scheme tab -->
+
+<div class="mb-3">
+  <h5 class="common-heading2 mb-0 ">{{schemeType}} : <span class="text-success">{{schemeName}}</span></h5>
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+      <button class="nav-link active" value="1"  id="profile-tab"
+          type="button" role="tab" aria-controls="profile" aria-selected="true">{{'Farmer Information' | translate}}
+      </button>
+      <!-- (click)="goToSectn($event.target.value)" -->
+  </li>
+  <li class="nav-item" role="presentation" *ngIf="!serviceMode">
+      <button class="nav-link" value="2" id="scheme-tab" type="button"
+          role="tab" aria-controls="scheme" aria-selected="false">{{schemeType}} {{'Information' |
+          translate}}</button>
+  </li>
+  <li class="nav-item" role="presentation" *ngIf="financeType">
+    <button class="nav-link" value="3"  id="annexure-tab" type="button"
+        role="tab" aria-controls="annexure" aria-selected="false">{{'Annexure II ' |
+        translate}}</button>
+</li>
+
+  <li class="nav-item" role="presentation" >
+      <button class="nav-link" value="4"  id="document-tab" type="button"
+          role="tab" aria-controls="document" aria-selected="false"> {{'Documents' | translate}} </button>
+  </li>
+</ul>
+<!-- end scheme tab -->
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab" *ngIf="KO_SCHEME_IDS.includes(schemeId)">
+      <div class="control-div">
+
+          <h5 class="common-heading2">{{'Basic Information' | translate}} </h5>
+          <div class="row">
+              <!-- <div class="col-md-9"> -->
+                  <div class="row">
+                      <div class="text-danger mb-4">
+                          Note : Do you want to update your details? Log-in to <a href="https://krushak.odisha.gov.in" target="_blank">Krushak Odisha</a> or go to your nearest Mo Seba Kendra to update your latest details.
+                      </div>
+                          <div class="col-sm-6 col-lg-3">
+                              <div class="form-group">
+                                  <label for="txtFatherNm" class="form-label">
+                                      <span class="text-danger" *ngIf="aadhrMndSts">*</span>
+                                      {{'Aadhaar Number' | translate}} </label>
+                                  <input type="text" name="aadhaarNo" id="aadhaarNo" class="form-control" #txtAadhrNo [(ngModel)]="aadhaarNo"
+                                      [maxlength]="maxLghAdhno" [minlength]="minLghAdhno"
+                                      (keypress)="vldChkLst.isNumberKey($event)" [readonly]="!verifyOTP" autocomplete="off"/>
+                              </div>
+                          </div>
+                          <div class="col-md-6 col-lg-4" *ngIf="verifyOTP">
+                              <label for="selBlock" class="form-label"></label>
+                              <ng-container *ngIf="verifyOTP; then shwVerifyOTP"></ng-container>
+                                  <ng-template #shwVerifyOTP>
+                                      <div class="form-group">
+                                          <a class="btn btn-success" (click)="verifyKOKyc();" *ngIf="verifyOTP">Verify</a>
+                                      </div>
+                                  </ng-template>
+                          </div>
+                  <div class="row">
+                      <div class="col-md-9">
+                          <div class="row">
+                              <div class="col-md-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="txtApplicantName" class="form-label"><span class="text-danger">*</span>
+                                          {{'Name' | translate}}
+                                      </label>
+                                      <input type="text" class="form-control" #txtApplicantName disabled
+                                          [(ngModel)]="applicantName" [maxlength]="maxLghNm" [minlength]="minLghNm"
+                                          (keydown)="vldChkLst.isCharKey($event)" autocomplete="off"/>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="txtEmail" class="form-label">{{'Email ID' | translate}} </label>
+                                      <input type="text" class="form-control" #txtEmail
+                                          [(ngModel)]="emailId" [maxlength]="maxLghEmail" [minlength]="minLghEmail" autocomplete="off"/>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="txtMobile" class="form-label"><span class="text-danger">*</span> {{'Mobile
+                                          Number' | translate}} </label>
+                                      <input type="text" class="form-control" #txtMobile disabled [(ngModel)]="mobileNo"
+                                          [maxlength]="maxLghMob" [minlength]="minLghMob"
+                                          (keypress)="vldChkLst.isNumberKey($event)" autocomplete="off"/>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="rdoGender" class="form-label"><span class="text-danger">*</span> {{'Gender'
+                                          | translate}}
+                                      </label>
+                                      <div>
+                                          <div class="form-check form-check-inline"
+                                              *ngFor="let genLstP of genderList | keyvalue;">
+                                              <input class="form-check-input" name="gender" type="radio" [(ngModel)]="gender"
+                                                  id="gender{{genLstP.key}}" value="{{genLstP.key}}"
+                                                  [checked]="genLstP.key == gender" disabled  style="opacity:unset" autocomplete="off"/>
+                                              <label class="form-check-label"
+                                                  for="gender{{genLstP.key}}" style="opacity:unset">{{genLstP.value}}</label>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="txtDob" class="form-label"><span class="text-danger">*</span> {{'Date of
+                                          Birth' | translate}}
+                                      </label>
+
+                                      <div class="input-group">
+                                          <input type="text" class="form-control" [(ngModel)]="dob" placeholder="DD/MM/YYYY"
+                                              ngbDatepicker #d="ngbDatepicker" [readonly]="verifyDob" [minDate]="minDate"
+                                              [maxDate]="maxDate"  [disabled]="verifyDob" autocomplete="off" />
+                                          <span *ngIf="!verifyOTP">
+                                              <span class="input-group-text"  ><i
+                                                  class="icon-calendar"></i></span>
+                                          </span>
+                                          <span *ngIf="verifyOTP">
+                                              <span class="input-group-text"  ><i
+                                                  class="icon-calendar"></i></span>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="selCategory" class="form-label"><span class="text-danger">*</span>
+                                          {{'Category' | translate}}
+                                      </label>
+                                      <input type="text" class="form-control" disabled [(ngModel)]="castCatgName"
+                                          [maxlength]="maxLghFnm" [minlength]="minLghFnm" autocomplete="off"/>
+                                          <input type="hidden" class="form-control" [(ngModel)]="castCatg" autocomplete="off">
+                                      <!-- <select class="form-select" #selCategory [(ngModel)]="castCatg">
+                                          <option value="0">Select</option>
+                                          <option *ngFor="let castCatgP of castCatgList | keyvalue;" disabled value="{{castCatgP.key}}"
+                                              [selected]="castCatgP.key == castCatg">{{castCatgP.value}}</option>
+                                      </select> -->
+                                  </div>
+                              </div>
+
+
+                              <div class="col-sm-6 col-lg-4">
+                                  <div class="form-group">
+                                      <label for="txtFatherNm" class="form-label"><span class="text-danger">*</span>
+                                          {{'Fathers' | translate}} / {{'Husbands' | translate}} {{'Name' | translate}}
+                                      </label>
+                                      <input type="text" class="form-control" #txtFatherNm [(ngModel)]="fatherNm"
+                                          [maxlength]="maxLghFnm" [minlength]="minLghFnm"
+                                          (keypress)="vldChkLst.isCharKey($event)" autocomplete="off"/>
+                                  </div>
+                              </div>
+                              
+                              <div *ngIf="serviceMode"  class="col-sm-6 col-lg-4">
+
+                                  <ng-container *ngFor="let redirectArr of redirectList.apiKeyDtls">
+                                  <div class="col-md-12" [ngClass]="{'d-none': redirectArr.type === '1'}">
+                                      <label for="txtAddress" class="form-label"><span class="text-danger">*</span>{{redirectArr.label}} </label>
+                                      <div class="form-group" [ngClass]="{'d-none': redirectArr.label === 'City'}">
+                                          <input type="text" class="form-control" autocomplete="off" name="{{redirectArr.key}}" id="{{redirectArr.key}}"
+                                                      [maxlength]="maxLghAdhno" [minlength]="minLghAdhno"
+                                                       value="{{tinDirectorate==agricultureDirectory ? redirectAPIDetls[redirectArr.key] : redirectArr.value}}" autocomplete="off"/><!--value="{{redirectAPIDetls[redirectArr.key]}}" value="{{redirectArr.value}}"-->
+                                      </div>
+                                      <!-- <div class="form-group" [ngClass]="{'d-none': redirectArr.label != 'City'}">
+                                          <select class="form-select" [(ngModel)]="cityId">
+                                              <option value="0">Select</option>
+                                              <option *ngFor="let citi of cityList;" value="{{citi}}">
+                                                  {{citi}}</option>
+                                          </select>
+                                      </div> -->
+                                  </div>
+                              </ng-container>
+                              <input type="hidden" class="form-control" [(ngModel)]="redirectURL">
+                              <input type="hidden" class="form-control" [(ngModel)]="serviceModeId">
+                              <input type="hidden" class="form-control" [(ngModel)]="redirectKeyList">
+                          </div>
+                          </div>
+                      </div>
+
+
+                      <div class="col-md-3">
+                          <div class="img-div mb-2">
+                              <img [src]="isProfImgUrl ? profImgUrl : profDefImgUrl " alt="Government of Odisha"
+                                  class="dark-logo" id="imgElem"/>
+                              <input type="hidden" [(ngModel)]="profImgUrl" />
+                          </div>
+                          <input class="file-upload-input form-control" type='file' (change)="profImgUpld($event)"
+                              accept="image/*" />
+                          <small class="text-danger">* (.jpg, .jpeg, .png only and max size of {{imgFileSize}} MB)</small>
+                      </div>
+                  </div>
+
+              <!-- </div> -->
+
+
+          </div>
+
+          <div class="separator separator-dashed"></div>
+          <h5 class="common-heading2">{{'communication Address' | translate}} </h5>
+
+          <div class="row">
+              <div class="col-md-6 col-lg-3">
+                  <label for="txtDistrict" class="form-label"><span class="text-danger">*</span> {{'District' |
+                      translate}} </label>
+                  <div class="form-group">
+                      <!-- <select class="form-select" [(ngModel)]="districtId"
+                          (change)="getBlockList($event.target.value,1)">
+                          <option value="0">Select</option>
+                          <option *ngFor="let distP of districtList;" value="{{distP.intHierarchyValueId}}">
+                              {{distP.vchHierarchyValue}}</option>
+                      </select> -->
+                      <input type="text" class="form-control" disabled [(ngModel)]="districtName"
+                                  [maxlength]="maxLghFnm" [minlength]="minLghFnm" autocomplete="off"/>
+                                  <input type="hidden" class="form-control" [(ngModel)]="districtId" autocomplete="off">
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                  <label for="txtBlock" class="form-label"><span class="text-danger">*</span> {{'Block' | translate}}
+                      / {{'ULB' | translate}} </label>
+                  <div class="form-group">
+                      <!-- <select class="form-select" [(ngModel)]="blockId" (change)="getGpList($event.target.value,1)">
+                          <option value="0">Select</option>
+                          <option *ngFor="let blockP of blockList;" value="{{blockP.intHierarchyValueId}}">
+                              {{blockP.vchHierarchyValue}}</option>
+                      </select> -->
+                      <input type="text" class="form-control" disabled [(ngModel)]="blockName"
+                                  [maxlength]="maxLghFnm" [minlength]="minLghFnm" autocomplete="off"/>
+                                  <input type="hidden" class="form-control" [(ngModel)]="blockId" autocomplete="off">
+                  </div>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                  <label for="txtGpWard" class="form-label"><span class="text-danger">*</span> {{'GP' | translate}} /
+                      {{'Ward' | translate}} </label>
+                  <div class="form-group">
+                      <!-- <select class="form-select" [(ngModel)]="gpId" (change)="getVlgList($event.target.value,1)">
+                          <option value="0">Select</option>
+                          <option *ngFor="let gpwardP of gpList;" value="{{gpwardP.intHierarchyValueId}}">
+                              {{gpwardP.vchHierarchyValue}}</option>
+                      </select> -->
+                      <input type="text" class="form-control" disabled [(ngModel)]="gpName"
+                                  [maxlength]="maxLghFnm" [minlength]="minLghFnm" autocomplete="off"/>
+                                  <input type="hidden" class="form-control" [(ngModel)]="gpId" autocomplete="off">
+                  </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                  <label for="txtVillage" class="form-label"><span class="text-danger">*</span> {{'Village' |
+                      translate}} </label>
+                  <div class="form-group">
+                      <!-- <select class="form-select" [(ngModel)]="villageId">
+                          <option value="0">Select</option>
+                          <option *ngFor="let vlgP of vlgList;" value="{{vlgP.intHierarchyValueId}}">
+                              {{vlgP.vchHierarchyValue}}</option>
+                      </select> -->
+                      <input type="text" class="form-control" disabled [(ngModel)]="villageName"
+                                  [maxlength]="maxLghFnm" [minlength]="minLghFnm" autocomplete="off"/>
+                                  <input type="hidden" class="form-control" [(ngModel)]="villageId" autocomplete="off">
+                  </div>
+              </div>
+
+              <div class="col-md-12">
+                  <label for="txtAddress" class="form-label"><span class="text-danger">*</span> {{'Address' |
+                      translate}} </label>
+                  <div class="form-group">
+                      <textarea cols="3" rows="3" class="form-control" disabled #txtAddress [(ngModel)]="address"
+                          [maxlength]="maxLghAdrs" [minlength]="minLghAdrs" autocomplete="off"></textarea>
+                  </div>
+              </div>
+
+
+          </div>
+
+
+          <div class="text-center" *ngIf="isButtonVisible">
+              <a class="btn btn-danger me-2" (click)="goToBack()">Back</a>
+              <a class="btn btn-warning me-2" (click)="updFarmerInfo(draftSts);">Save As Draft</a>
+              <a class="btn btn-success " (click)="updFarmerInfo(saveNxtSts);" *ngIf="!aadhrMndSts">Save & Next</a>
+          </div>
+      </div>
+
+
+  </div>
+</div>
+
+  <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab" *ngIf="!KO_SCHEME_IDS.includes(schemeId)">
+      <div class="control-div">
+          <h5 class="common-heading2">{{'Basic Information' | translate}} </h5>
+
+          <div class="row">
+              <div class="col-sm-6 col-lg-3">
+                  <div class="form-group">
+                      <label for="txtFatherNm" class="form-label">
+                          <span class="text-danger" *ngIf="aadhrMndSts">*</span>
+                          {{'Aadhaar Number' | translate}} </label>
+                      <input type="text" name="aadhaarNo" id="aadhaarNo" class="form-control" #txtAadhrNo [(ngModel)]="aadhaarNo"
+                          [maxlength]="maxLghAdhno" [minlength]="minLghAdhno"
+                          (keypress)="vldChkLst.isNumberKey($event)" [readonly]="!verifyOTP" autocomplete="off"/>
+                  </div>
+              </div>
+              <div class="col-md-3 col-lg-1" *ngIf="verifyOTP">
+                  <label for="selBlock" class="form-label"></label>
+                  <ng-container *ngIf="verifyOTP; then shwVerifyOTP"></ng-container>
+                      <ng-template #shwVerifyOTP>
+                          <div class="form-group">
+                              <a class="btn btn-success" (click)="verifyAadhaarKyc();" *ngIf="verifyOTP">Verify</a>
+                          </div>
+                      </ng-template>
+              </div>
+              <!-- <div class="col-md-3 col-lg-2" *ngIf="verifyOTP">
+                  <label for="selBlock" class="form-label"></label>
+                  <ng-container *ngIf="verifyOTP; then shwVerifyOTP"></ng-container>
+                      <ng-template #shwVerifyOTP>
+                          <div class="form-group">
+                              <a class="btn btn-success" (click)="verifySPDPKyc();" *ngIf="verifyOTP">Verify SPDP</a>
+                          </div>
+                      </ng-template>
+              </div> -->
+          </div>
+          <div class="row">
+              <div class="col-md-9">
+                  <div class="row">
+                      <div class="col-md-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="txtApplicantName" class="form-label"><span class="text-danger">*</span>
+                                  {{'Name' | translate}}
+                              </label>
+                              <ng-container *ngIf="schemeTypeId==1; then shwAppName else shwSerAppName"></ng-container>
+                              <ng-template #shwAppName>
+                                  <input type="text" class="form-control" #txtApplicantName disabled
+                                  [(ngModel)]="applicantName" [maxlength]="maxLghNm" [minlength]="minLghNm"
+                                  (keypress)="vldChkLst.isCharKey($event)" autocomplete="off"/>
+                              </ng-template>
+                              <ng-template #shwSerAppName>
+                                  <input type="text" class="form-control" #txtApplicantName
+                                  [(ngModel)]="applicantName" [maxlength]="maxLghNm" [minlength]="minLghNm"
+                                  (keypress)="vldChkLst.isCharKey($event)" autocomplete="off"/>
+                              </ng-template>
+
+
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="txtEmail" class="form-label">{{'Email ID' | translate}} </label>
+                              <input type="text" class="form-control" #txtEmail [disabled]="emailIdSts"
+                                  [(ngModel)]="emailId" [maxlength]="maxLghEmail" [minlength]="minLghEmail" autocomplete="off"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="txtMobile" class="form-label"><span class="text-danger">*</span> {{'Mobile
+                                  Number' | translate}} </label>
+                              <input type="text" class="form-control" #txtMobile disabled [(ngModel)]="aadherMob"
+                                  [maxlength]="maxLghMob" [minlength]="minLghMob"
+                                  (keypress)="vldChkLst.isNumberKey($event)" autocomplete="off"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="rdoGender" class="form-label"><span class="text-danger">*</span> {{'Gender'
+                                  | translate}}
+                              </label>
+                              <div>
+                                  <div class="form-check form-check-inline"
+                                      *ngFor="let genLstP of genderList | keyvalue;">
+                                      <input class="form-check-input" name="gender" type="radio" [(ngModel)]="gender"
+                                          id="gender{{genLstP.key}}" value="{{genLstP.key}}"
+                                          [checked]="genLstP.key == gender" [disabled]="!verifyOTP" style="opacity:unset" autocomplete="off"/>
+                                      <label class="form-check-label"
+                                          for="gender{{genLstP.key}}" style="opacity:unset">{{genLstP.value}}</label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="txtDob" class="form-label"><span class="text-danger">*</span> {{'Date of
+                                  Birth' | translate}}
+                              </label>
+
+                              <div class="input-group">
+                                  <ng-container *ngIf="schemeTypeId==1; then shwDOB else shwSerDOB"></ng-container>
+                                  <ng-template #shwDOB>
+                                      <input type="text" class="form-control" [(ngModel)]="dob" placeholder="DD/MM/YYYY"
+                                      ngbDatepicker #d="ngbDatepicker" readonly [minDate]="minDate"
+                                      [maxDate]="maxDate"  [disabled]="!verifyOTP" autocomplete="off"/>
+                                  </ng-template>
+                                  <ng-template #shwSerDOB>
+                                      <input type="text" class="form-control" [(ngModel)]="dob" placeholder="DD/MM/YYYY"
+                                      ngbDatepicker #d="ngbDatepicker" [minDate]="minDate"
+                                      [maxDate]="maxDate" autocomplete="off" (click)="d.toggle()"/>
+                                  </ng-template>
+                                  <span class="input-group-text" (click)="d.toggle()"><i class="icon-calendar"></i></span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="selCategory" class="form-label"><span class="text-danger">*</span>
+                                  {{'Category' | translate}}
+                              </label>
+                              <select class="form-select" #selCategory [(ngModel)]="castCatg">
+                                  <option value="0">Select</option>
+                                  <option *ngFor="let castCatgP of castCatgList | keyvalue;" value="{{castCatgP.key}}"
+                                      [selected]="castCatgP.key == castCatg">{{castCatgP.value}}</option>
+                              </select>
+                          </div>
+                      </div>
+
+
+                      <div class="col-sm-6 col-lg-4">
+                          <div class="form-group">
+                              <label for="txtFatherNm" class="form-label"><span class="text-danger">*</span>
+                                  {{'Fathers' | translate}} / {{'Husbands' | translate}} {{'Name' | translate}}
+                              </label>
+                              <input type="text" class="form-control" #txtFatherNm [(ngModel)]="fatherNm"
+                                  [maxlength]="maxLghFnm" [minlength]="minLghFnm"
+                                  (keypress)="vldChkLst.isCharKey($event)" autocomplete="off"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="rdoPhysical" class="form-label"><span class="text-danger">*</span> {{'Differently Abled'
+                                | translate}}
+                            </label>
+                            <div>
+                                <div class="form-check form-check-inline" *ngFor="let phyLstP of physicalList | keyvalue;">
+                                    <input class="form-check-input" name="physical" type="radio" [(ngModel)]="physical"
+                                        id="physical{{phyLstP.key}}" value="{{phyLstP.key}}" [checked]="phyLstP.key == physical"
+                                        style="opacity:unset" autocomplete="off" />
+                                    <label class="form-check-label" for="physical{{phyLstP.key}}"
+                                        style="opacity:unset">{{phyLstP.value}}</label>
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
+              </div>
+              <div class="col-md-3">
+                  <div class="img-div mb-2">
+                      <img [src]="isProfImgUrl ? profImgUrl : profDefImgUrl " alt="Government of Odisha"
+                          class="dark-logo" />
+                      <input type="hidden" [(ngModel)]="profImgUrl" />
+                  </div>
+                  <input class="file-upload-input form-control" type='file' (change)="profImgUpld($event)"
+                      accept="image/*" />
+                  <small class="text-danger">* (.jpg, .jpeg, .png only and max size of {{imgFileSize}} MB)</small>
+              </div>
+          </div>
+
+          <div *ngIf="serviceMode">
+
+              <div class="row">
+                  <ng-container *ngFor="let redirectArr of redirectList.apiKeyDtls">
+                  <div class="col-md-3" [ngClass]="{'d-none': redirectArr.type === '1'}">
+                      <label for="txtAddress" class="form-label"><span class="text-danger">*</span>{{redirectArr.label}} </label>
+                      <div class="form-group" [ngClass]="{'d-none': redirectArr.label === 'City'}">
+                          <input type="text" class="form-control" autocomplete="off" name="{{redirectArr.key}}" id="{{redirectArr.key}}"
+                                      [maxlength]="maxLghAdhno" [minlength]="minLghAdhno"
+                                       value="{{tinDirectorate==agricultureDirectory ? redirectAPIDetls[redirectArr.key] : redirectArr.value}}" autocomplete="off"/><!--value="{{redirectAPIDetls[redirectArr.key]}}" value="{{redirectArr.value}}"-->
+                      </div>
+                      <!-- <div class="form-group" [ngClass]="{'d-none': redirectArr.label != 'City'}">
+                          <select class="form-select" [(ngModel)]="cityId">
+                              <option value="0">Select</option>
+                              <option *ngFor="let citi of cityList;" value="{{citi}}">
+                                  {{citi}}</option>
+                          </select>
+                      </div> -->
+                  </div>
+              </ng-container>
+              </div>
+              <input type="hidden" class="form-control" [(ngModel)]="redirectURL">
+              <input type="hidden" class="form-control" [(ngModel)]="serviceModeId">
+              <input type="hidden" class="form-control" [(ngModel)]="redirectKeyList">
+              </div>
+
+          <div class="separator separator-dashed"></div>
+          <h5 class="common-heading2">{{'Communication Address' | translate}} </h5>
+
+          <div class="row">
+              <div class="col-md-6 col-lg-3">
+                  <label for="txtDistrict" class="form-label"><span class="text-danger">*</span> {{'District' |
+                      translate}} </label>
+                  <div class="form-group">
+                      <select class="form-select" [(ngModel)]="districtId"
+                          (change)="getBlockList($event.target.value,1)">
+                          <option value="0">Select</option>
+                          <option *ngFor="let distP of districtList;" value="{{distP.intHierarchyValueId}}">
+                              {{distP.vchHierarchyValue}}</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                  <label for="txtBlock" class="form-label"><span class="text-danger">*</span> {{'Block' | translate}}
+                      / {{'ULB' | translate}} </label>
+                  <div class="form-group">
+                      <select class="form-select" [(ngModel)]="blockId" (change)="getGpList($event.target.value,1)">
+                          <option value="0">Select</option>
+                          <option *ngFor="let blockP of blockList;" value="{{blockP.intHierarchyValueId}}">
+                              {{blockP.vchHierarchyValue}}</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                  <label for="txtGpWard" class="form-label"><span class="text-danger">*</span> {{'GP' | translate}} /
+                      {{'Ward' | translate}} </label>
+                  <div class="form-group">
+                      <select class="form-select" [(ngModel)]="gpId" (change)="getVlgList($event.target.value,1)">
+                          <option value="0">Select</option>
+                          <option *ngFor="let gpwardP of gpList;" value="{{gpwardP.intHierarchyValueId}}">
+                              {{gpwardP.vchHierarchyValue}}</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                  <label for="txtVillage" class="form-label"><span class="text-danger">*</span> {{'Village' |
+                      translate}} </label>
+                  <div class="form-group">
+                      <select class="form-select" [(ngModel)]="villageId">
+                          <option value="0">Select</option>
+                          <option *ngFor="let vlgP of vlgList;" value="{{vlgP.intHierarchyValueId}}">
+                              {{vlgP.vchHierarchyValue}}</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="col-md-12">
+                  <label for="txtAddress" class="form-label"><span class="text-danger">*</span> {{'Address' |
+                      translate}} </label>
+                  <div class="form-group">
+                      <textarea cols="3" rows="3" class="form-control" #txtAddress [(ngModel)]="address"
+                          [maxlength]="maxLghAdrs" [minlength]="minLghAdrs" autocomplete="off"></textarea>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="text-center" *ngIf="isButtonVisible">
+              <a class="btn btn-danger me-2" (click)="goToBack()">Back</a>
+              <a class="btn btn-warning me-2" (click)="updFarmerInfo(draftSts);">Save As Draft</a>
+              <a class="btn btn-success " (click)="updFarmerInfo(saveNxtSts);" *ngIf="!aadhrMndSts">Save & Next</a>
+          </div>
+      </div>
+
+
+  </div>
+
+
+</div>
+
+<div class="loader" *ngIf="loading">
+  <div class="loader-item"></div>
+  <p>Loading...</p>
+</div>
+
+<ng-template #someModal id="someModal" let-modal>
+
+  <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Verify Phone Number</h4>
+          <!-- <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close"
+                  (click)="modal.dismiss('Cross click')">
+                  <i class="icon-times-solid"></i>
+          </button> -->
+  </div>
+  <div class="modal-body">
+
+          <div class="form-row align-items-center">
+              <div class="row">
+                  <div class="col-4">
+                      <label class="mt-2" for="txtOtp"><span class="mandatory">*</span> Enter OTP</label>
+
+                  </div>
+                  <div class="col-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP"
+                          [maxlength]="maxLghotp" [minlength]="minLghotp" (keypress)="vldChkLst.isNumberKey($event)" autocomplete="off">
+                          <p class="mb-0 "><strong class="text-danger">{{timeLeft}}</strong> Seconds Left....</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-12 mb-4">
+                      <div class="text-danger" style="font-size: smaller;">* OTP has been sent to the mobile number registered in your Aadhaar.</div>
+                      <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10 mins.</div>
+                      <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been resent to the mobile number registered in your Aadhaar.</div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-4"></div>
+                  <div class="col-8">
+                      <button  type="submit"  class="btn btn-success" (click)="verifyOTP();" >Verify</button>
+                      <button type="button"  class="btn btn-default" (click)="resendOtp()" [disabled]="!editable" mdbWavesEffect>Resend OTP</button>
+                  </div>
+              </div>
+
+          </div>
+          <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+          <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+
+  </div>
+
+</ng-template>

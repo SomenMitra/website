@@ -1,0 +1,97 @@
+<div class="reg-body">
+    <div class="lang__btns">
+
+        <select class="form-select" #langSelect (change)="changeLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                [selected]="lang === translate.currentLang">{{ lang == 'Odia'?'ଓଡିଆ':lang }}</option>
+        </select>
+
+    </div>
+
+    <div class="registration-form">
+
+        <div class="reg-header">
+            <img src="{{siteURL}}assets/images/login__bg.png" class="w-100" alt="Login">
+        </div>
+
+        <div class="control-div">
+
+            <a [routerLink]="[ '/']" class="top_logo_sec" title="Home">
+                <img src="{{siteURL}}assets/images/govt_logo.png" alt="Govt Logo" class="govt_logo">
+                <img src="{{siteURL}}assets/images/slogo.png" alt="Sugam" class="sugam_logo">
+            </a>
+
+
+            <div class="login__content">
+                <h5> {{'Manufacture Login' | translate}} </h5>
+
+                <div class="form-group">
+
+                    <input type="text" class="form-control vchEmail" placeholder="Enter User Id" id="vchEmailId"
+                        name="vchEmailId" value="" autocomplete="off" [(ngModel)]="citizenUserId" />
+                    <div class="addon"><i class="icon-user-solid"></i></div>
+                </div>
+
+                <div class="form-group">
+
+                    <input type="password" class="form-control password" readonly=""
+                        onfocus="this.removeAttribute('readonly');" id="Upassword" name="Upassword"
+                        placeholder="Enter Password" autocomplete="off" value="" [(ngModel)]="citizenPassword" />
+
+                    <div class="addon show__password" (click)="showPassword()"><i class="icon-eye-slash"></i></div>
+
+                </div>
+                <div class=" form-group">
+
+                    <div class="row ">
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-7">
+
+
+                            <input type="text" maxlength="50" class="form-control " value="" onfocus="this.select();"
+                                id="mathcaptcha" name="mathcaptcha" placeholder="Captcha Code" autocomplete="off"
+                                [attr.data-val]="captchaData" [(ngModel)]="captchaInput">
+
+
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-5">
+
+
+                            <div class="input-group captch_sec">
+                                <img *ngIf="captchaImgDisplay" src="{{captchaImg}}" id="captchaImage" alt="captcha">
+                                <div class="addon">
+                                    <a href="javascript:void(0);" class="lod" title="refresh"
+                                        (click)="reloadCaptcha()"><i class="icon-sync-solid"></i></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" value="Login" (click)="doLogin();" id="login-btn"
+                    class="log-link mb-2 mt-4 otp-btn">
+
+
+                <div class="d-flex align-items-center justify-content-center log_bottom">
+
+                    <a title="{{'Forgot password ?' | translate}}" class="link" [routerLink]="[ '/manufacture-portal/forgotpassword']">
+                        {{'Forgot password ?' | translate}} </a>
+                    <a title="{{'Register Now' | translate}}" class="link" [routerLink]="[ '/manufacture-portal/registration']">
+                        {{'Register Now' | translate}} </a>
+
+                    <a title="{{'Back to Home' | translate}}" class="link" [routerLink]="[ '/']"> {{'Back to Home' | translate}} </a>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>

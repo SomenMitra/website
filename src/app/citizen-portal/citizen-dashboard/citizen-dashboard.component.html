@@ -1,0 +1,152 @@
+  <div class="row flex-column flex-md-row">
+    <!-- <div class="col-md-4 mb-3">
+        <div class="user-details">
+            <i class="icon-user-circle"></i>
+            <p class="mb-0">
+                <small class="text-gray" >{{'Name' | translate}}</small>
+                <span class="d-block mt-1 ">{{applicantName}}</span>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+            <div class="user-details">
+                    <i class="icon-address-card"></i>
+                    <p class="mb-0">
+                    <small class="text-gray">{{'Date of Birth' |translate}}</small>
+                    <span class="d-block mt-1 ">{{dobV| date :'mediumDate'}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+                <div class="user-details">
+                        <i class="icon-venus-mars-solid"></i>
+                        <p class="mb-0">
+                        <small class="text-gray">{{'Gender' | translate}}</small>
+                        <span class="d-block mt-1 "> {{ ((gender!='') ? gender : '--')}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="user-details">
+                        <i class="icon-address-card"></i>
+                        <p class="mb-0">
+                        <small class="text-gray">{{'Aadhaar Number' | translate}}</small>
+                        <span class="d-block mt-1 "> {{ ((aadhaarNo!='') ? aadhaarNo : '--')}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="user-details">
+                        <i class="icon-phone-solid"></i>
+                        <p class="mb-0">
+                        <small class="text-gray">{{'Phone No.' | translate}}</small>
+                        <span class="d-block mt-1 "> {{ ((mobileNo!='') ? mobileNo : '--')}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                    <div class="user-details">
+                            <i class="icon-envelope"></i>
+                            <p class="mb-0">
+                            <small class="text-gray">{{'Email ID' | translate}}</small>
+                            <span class="d-block mt-1 "> {{ ((emailId!='') ? emailId : '--')}}</span>
+                        </p>
+                    </div>
+                </div> -->
+
+
+
+
+</div>
+<!-- <div class="separator separator-dashed"></div> -->
+<div *ngIf="applicationDetails?.length"  >
+<h5 class="mt-4">{{'Application Details' | translate}}</h5>
+
+<ng-container *ngIf="innerWidth < 800; then mobileView else desktopView"></ng-container>
+<ng-template #mobileView>
+
+
+
+    <div class="border border-1 rounded p-3 mb-3" *ngFor="let applicantInfo of applicationDetails; let i = index;">
+        <p class="mb-3">
+
+                    <small class="d-block text-secondary mb-1">Application No.</small>
+                    <strong class="text-success">{{ applicantInfo.strAppltnNo}}</strong>
+
+
+        </p>
+
+        <p class="mb-3"><small class="d-block text-secondary mb-1">Directorate / Scheme or Services Name</small> <strong class="d-block">{{applicantInfo.directorate}} / {{applicantInfo.strSchmServcNm}}</strong></p>
+        <p class="mb-3"><small class="d-block text-secondary mb-1">Status</small><strong class="text-success d-block">{{applicantInfo.strAppSts}}</strong>
+
+        </p>
+        <a href="javascript:void(0);" class="btn btn-info btn-sm text-light" (click)="doSchemePreview(applicantInfo.processId+':'+applicantInfo.intAppltnId+':0:0');"> View</a>
+        <ng-container *ngIf="applicantInfo.updateStatusFarmer == 0 && schemInfo.letterStatus == 2;">
+            <a (click)="updateScheme(applicantInfo.processId+':'+applicantInfo.intAppltnId+':'+0);"  class="btn btn-info btn-sm text-light" >Update</a>
+        </ng-container>
+    </div>
+
+
+</ng-template>
+<ng-template #desktopView>
+    <div class="table-responsive">
+        <table>
+            <tr>
+                <th width="40px">Sl#</th>
+                <th width="170px">Application Number</th>
+                <th>Scheme/Services Name</th>
+                <th>Status</th>
+
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let applicantInfo of applicationDetails; let i = index;">
+                <td>{{ getSerialNumber(i) }}</td>
+                <td>{{ applicantInfo.strAppltnNo}}</td>
+                <td><small class="d-block text-primary">Directorate: {{applicantInfo.directorate}}</small> {{applicantInfo.strSchmServcNm}}</td>
+                <td>
+
+                    <strong class="text-success d-block" [innerHTML] = "applicantInfo.strAppSts" ></strong>
+                    
+                    <span *ngIf="applicantInfo.strApplOn !='' && applicantInfo.strApplOn !='--'">Applied On: {{applicantInfo.strApplOn}}</span>
+
+                </td>
+
+                <td>
+                    <a href="javascript:void(0);" class="btn btn-info btn-sm text-light" (click)="doSchemePreview(applicantInfo.processId+':'+applicantInfo.intAppltnId+':0:0',applicantInfo.processId);"> View</a>
+                    <ng-container *ngIf="applicantInfo.updateStatusFarmer == 0 && schemInfo.letterStatus == 2;">
+                        <a (click)="updateScheme(applicantInfo.processId+':'+applicantInfo.intAppltnId+':'+0);"  class="btn btn-info btn-sm text-light" >Update</a>
+                    </ng-container>
+
+                </td>
+            </tr>
+        </table>
+        <nav aria-label="Page navigation" >
+            <ul class="pagination">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+              </li>
+             
+                   <ng-container >
+                    <li class="page-item "  *ngFor="let page of getPageNumbers()" 
+                    [class.active]="page === currentPage">
+                    <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                    </li>
+                   </ng-container>
+            
+               
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+    </div>
+
+
+</ng-template>
+
+
+</div>
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

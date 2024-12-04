@@ -1,0 +1,91 @@
+<form [formGroup]="statusform">
+  <div class="row ">
+          <div class="col-md-6 col-lg-6">
+                  <div class="form-group">
+                          <label class="form-label"><span class="text-danger">*</span> {{'Financial Year' | translate}}  </label>
+                          <select formControlName="selFinancialYear" class="form-select" #financialYear id=
+                          "fYear" name="financial_year" (change)='getTotalApplication(financialYear.value,schemeId.value)'>
+                          <option value="">-- Select --</option>
+
+                          </select>
+                           </div>
+              </div>
+              <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                        <label class="form-label"><span class="text-danger">*</span> {{'Scheme' | translate}}  </label>
+                        <select formControlName="selscheme" class="form-select" name="scheme" id="scheme" #schemeId (change)='getTotalApplication(financialYear.value,schemeId.value)' >
+                                <option value="0">-- Select --</option>
+                        </select>
+              </div>
+            </div>
+  </div>
+</form>
+<div class="separator separator-dashed"></div>
+<div *ngIf="isDataFlagprice;else other_content " class="container-fluid">
+  <div class="table-responsive print-section">
+  <table
+    data-toggle="table"
+    class="table table-bordered valign-middle"
+  #data>
+    <thead>
+      <tr>
+        <th>Sl#</th>
+        <th>District</th>
+        <th>Total Application Received</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      <tr *ngFor="let rows of respStas let i = index">           
+          <td>{{i+1}}</td>
+          <td><a href="javascript:void(0)" (click)="view(financialYear.value+':'+schemeId.value+':'+rows.intDemoHierarchyValueId);">{{rows.vchDemoHierarchyValue}}</a></td>
+          <td>
+          {{(rows.TotalAppReceived) ? (rows.TotalAppReceived) :0 }}
+          </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="right"><b>Total</b></td>
+        <td><b>{{totCnt}}</b></td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+</div>
+<ng-template #other_content>
+<h6 class="no-content">Please Select Financial year and Scheme</h6>
+</ng-template>
+<div class="loader" *ngIf="loading">
+<div class="loader-item"></div>
+<p>Loading...</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

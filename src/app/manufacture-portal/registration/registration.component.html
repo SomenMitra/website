@@ -1,0 +1,477 @@
+<div class="reg-body">
+
+    <div class="lang__btns">
+
+        <select class="form-select" #langSelect (change)="changeLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                [selected]="lang === translate.currentLang">{{ lang == 'Odia'?'ଓଡିଆ':lang }}</option>
+        </select>
+
+    </div>
+
+    <div class="registration-form">
+
+        <div class="reg-header">
+            <img src="{{siteURL}}assets/images/login__bg.png" class="w-100" alt="Login">
+        </div>
+
+
+
+        <div class="control-div">
+            <a [routerLink]="[ '/']" class="top_logo_sec" title="Home">
+                <img src="{{siteURL}}assets/images/govt_logo.png" alt="Govt Logo" class="govt_logo">
+                <img src="{{siteURL}}assets/images/slogo.png" alt="Sugam" class="sugam_logo">
+            </a>
+
+            <div class="token__sec">
+
+                <h5> Login with Reference Number </h5>
+
+                <div class="custom__input">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="txtReferenceNo" placeholder="Enter Reference Number"
+                            [(ngModel)]="referenceNo" [maxlength]="maxRefNoLghNm" [minlength]="minRefNoLghNm"
+                            (keypress)="vldChkLst.isAlphaNumericWithoutSpace($event)" autocomplete="off"
+                             />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" title="Submit" (click)="verifyReferenceNo();">
+                                Submit</button>
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="grid__line"> OR </div>
+
+            <div class="firm__register">
+                <h5> Register New Business/Factory </h5>
+
+                <div class="row">
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtFirmName" placeholder="Name of Firm"
+                                [(ngModel)]="firmName" [maxlength]="maxFirmLghNm" [minlength]="minFirmLghNm"
+                                (keypress)="vldChkLst.isCharWithSpace($event)" autocomplete="off" appBlockCopyPaste />
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtCompanyRegNo" placeholder="Company Reg. No"
+                                [(ngModel)]="companyRegNo" [maxlength]="maxCompanyRegLghNm"
+                                [minlength]="minCompanyRegLghNm"
+                                (keypress)="vldChkLst.isAlphaNumericWithoutSpace($event)" autocomplete="off"
+                                appBlockCopyPaste />
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtCompanyHeadName"
+                                placeholder="Name of the Company Head" [(ngModel)]="companyHeadName"
+                                [maxlength]="maxComHeadLghNm" [minlength]="minComHeadLghNm"
+                                (keypress)="vldChkLst.isCharWithSpace($event)" autocomplete="off" appBlockCopyPaste />
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class=" custom__input">
+                            <div class="input-group form-group">
+                                <input type="text" class="form-control" id="txtMobile" [(ngModel)]="mobileNo"
+                                    placeholder="Official Mobile No." [maxlength]="maxLghMob" [minlength]="minLghMob"
+                                    (keypress)="vldChkLst.isNumberKey($event)" (ngModelChange)="onMobileNumberChange()"
+                                    autocomplete="off" appBlockCopyPaste />
+
+                                <div class="input-group-btn">
+
+                                    <button type="button" title="Verify" class="btn btn-default verify_inputbtn"
+                                        (click)="mobileVerify()" *ngIf="!isMobileVerified">
+                                        Verify
+                                    </button>
+
+                                    <div class="success_verify" *ngIf="isMobileVerified">
+                                        <i class="bi bi-check2-circle"></i>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- <div class="tooltip-container">
+                            <i class="icon-question-circle-solid"></i>
+                            <div class="tooltip">Please enter Mobile number for future official communication via SMS
+                            </div>
+                        </div> -->
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class=" custom__input">
+                            <div class="input-group form-group">
+                                <input type="text" class="form-control" id="txtEmail" placeholder="Official E-mail Id"
+                                    [(ngModel)]="emailId" [maxlength]="maxLghEmail" [minlength]="minLghEmail"
+                                    (ngModelChange)="onEmailIdChange()" (input)="vldChkLst.blockspecialchar_first($event)" autocomplete="off" appBlockCopyPaste/>
+
+
+                                <div class="input-group-btn">
+                                    <button type="button" title="Verify" class="btn btn-default verify_inputbtn"
+                                        *ngIf="!isEmailVerified" (click)="emailIdVerify()"> Verify</button>
+                                    <div class="success_verify" *ngIf="isEmailVerified">
+                                        <i class="bi bi-check2-circle"></i>
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="tooltip-container">
+                                <i class="icon-question-circle-solid"></i>
+                                <div class="tooltip">Please enter the email for future official communication via email
+                            </div>
+                        </div>  -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtGSTIN" placeholder="GSTIN Number"
+                                [(ngModel)]="gstin" [maxlength]="maxLghGSTIN" [minlength]="minLghGSTIN"
+                                (keypress)="vldChkLst.isAlphaNumericWithoutSpace($event)" autocomplete="off"
+                                appBlockCopyPaste />
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                        <div class="form-group">
+                            <textarea class="form-control h-auto no-resize" placeholder="Enter Address here.." cols="5"
+                                [(ngModel)]="txtAddress" [maxlength]="maxAddressLgh" [minlength]="minAddressLgh"
+                                autocomplete="off" appBlockCopyPaste (input)="vldChkLst.blockspecialchar_first($event)"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+               
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" title="Register" class="log__btns w-100 mt-2 me-2"
+                        [ngClass]="{'disable_reg': !(isMobileVerified && isEmailVerified)}"
+                        [disabled]="!(isMobileVerified && isEmailVerified)" (click)="miRegister();">{{'Register' |
+                        translate}}</button>
+
+                    <button class="log-link-outline mt-2 w-100" routerLink="/manufacture-portal/login"
+                        title="Back to Login">{{'Back to Login' | translate}} </button>
+
+                        
+                </div>
+                <div class="text-danger mt-2"><small> {{'MandatoryNote'| translate}} </small> </div>
+
+            </div>
+
+            <!-- <div class="text-danger mt-4 "><small>{{'Note : Mobile Number and Password will be used for login purposes'
+                    | translate}} </small>
+
+
+            </div> -->
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MOBILE VERIFY MODAL-->
+<ng-template #verifyMobileNo id="verifyMobileNo" class="modal fade" let-modal>
+    <div class="modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Verify Mobile No.</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="form-row align-items-center text-center">
+                    <div class="row text-center">
+                        <div class="col-xl-12 col-lg-12 col-12">
+                            <label for="txtOtp" class="otp_text">Please Enter the One Time Password
+                                to Verify your Mobile No. <span class="mandatory">*</span></label>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-12">
+
+                            <div class="otp_container">
+                                <input [(ngModel)]="otp[0]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)">
+                                <input [(ngModel)]="otp[1]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)">
+                                <input [(ngModel)]="otp[2]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)">
+                                <input [(ngModel)]="otp[3]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)">
+                            </div>
+
+
+                            <div class="form-group text-center">
+                                <!-- <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP"
+                                    [maxlength]="maxLghotp" [minlength]="minLghotp" (keypress)="vldChkLst.isNumberKey($event)"> -->
+
+                                <p class="mb-0 mt-2"><strong class="text-danger">{{timeInMin}}</strong> Seconds Left....
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-12">
+                            <div class="text-danger" style="font-size: smaller;">* OTP has been sent to the given mobile
+                                number.</div>
+                            <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10
+                                mins.</div>
+                            <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been
+                                resent to your mobile number.</div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+                    <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modal-footer justify-content-center">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-12 text-center">
+                        <button type="submit" class="btn btn-success me-2" (click)="verifyMobileOTP();">Verify</button>
+
+                        <button type="button" class="btn btn-danger" (click)="resendOtp()" [disabled]="!editable"
+                            mdbWavesEffect>Resend OTP</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+</ng-template>
+<!-- MOBILE VERIFY MODAL-->
+
+
+<!-- EMAIL ID VERIFY MODAL-->
+<ng-template #verifyEmailId id="verifyEmailId" class="modal fade" let-modal>
+    <div class="modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Verify E-mail Id</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="form-row align-items-center text-center">
+                    <div class="row text-center">
+                        <div class="col-xl-12 col-lg-12 col-12">
+                            <label for="txtOtp" class="otp_text">Please Enter the One Time Password
+                                to Verify your E-mail Id<span class="mandatory">*</span></label>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-12">
+
+                            <div class="otp_container">
+                                <input [(ngModel)]="otp[0]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)">
+                                <input [(ngModel)]="otp[1]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)">
+                                <input [(ngModel)]="otp[2]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)">
+                                <input [(ngModel)]="otp[3]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)">
+                            </div>
+
+
+                            <div class="form-group text-center">
+                                <!-- <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP"
+                                    [maxlength]="maxLghotp" [minlength]="minLghotp" (keypress)="vldChkLst.isNumberKey($event)"> -->
+
+                                <p class="mb-0 mt-2"><strong class="text-danger">{{timeInMin}}</strong> Seconds Left....
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-12">
+                            <div class="text-danger" style="font-size: smaller;">* OTP has been sent to the given E-mail
+                                Id.</div>
+                            <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10
+                                mins.</div>
+                            <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been
+                                resent to your E-mail Id.</div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+                    <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modal-footer justify-content-center">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-12 text-center">
+                        <button type="submit" class="btn btn-success me-2" (click)="verifyEmailIdOTP();">Verify</button>
+
+                        <button type="button" class="btn btn-danger" (click)="resendOtp()" [disabled]="!editable"
+                            mdbWavesEffect>Resend OTP</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+</ng-template>
+<!-- EMAIL ID VERIFY MODAL-->
+
+
+
+
+<!-- REFERENCE NUMBER VERIFY MODAL-->
+<ng-template #verifyReferenceNumber id="verifyReferenceNumber" class="modal fade" let-modal>
+
+    <div class="modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Verify Reference Number</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="form-row align-items-center text-center">
+
+                    <div class="row text-center">
+                        <div class="col-xl-12 col-lg-12 col-12">
+                            <label for="txtOtp" class="otp_text">Please enter the one time password
+                                to verify your account <span class="mandatory">*</span></label>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-12">
+
+                            <div class="otp_container">
+                                <input [(ngModel)]="otp[0]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)">
+                                <input [(ngModel)]="otp[1]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)">
+                                <input [(ngModel)]="otp[2]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)">
+                                <input [(ngModel)]="otp[3]" type="text" class="otp_input" maxlength="1"
+                                    (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)">
+                            </div>
+
+
+                            <div class="form-group text-center">
+                                <!-- <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP"
+                                [maxlength]="maxLghotp" [minlength]="minLghotp" (keypress)="vldChkLst.isNumberKey($event)"> -->
+
+                                <p class="mb-0 mt-2"><strong class="text-danger">{{timeInMin}}</strong> Seconds Left....
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="text-danger" style="font-size: smaller;">* OTP has been sent to the registered
+                                mobile number.</div>
+                            <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10
+                                mins.</div>
+                            <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been
+                                resent to the mobile number registered in the Portal.</div>
+                        </div>
+                    </div>
+
+
+                    <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+                    <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modal-footer justify-content-center">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-12 text-center">
+                        <button type="submit" class="btn btn-success me-2"
+                            (click)="  verifyOTPForReference();">Verify</button>
+
+                        <button type="button" class="btn btn-danger" (click)="resendOtp()" [disabled]="!editable"
+                            mdbWavesEffect>Resend OTP</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+</ng-template>
+<!-- REFERENCE NUMBER VERIFY MODAL-->
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

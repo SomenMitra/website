@@ -1,0 +1,127 @@
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+    </div>
+  <div class="row flex-column flex-md-row">
+    <form [formGroup]="statusform">
+        <div class="row ">
+                <div class="col-md-2 col-lg-2">
+                        <div class="form-group">
+                                <label class="form-label"><span class="text-danger">*</span> {{'Financial Year' | translate}}  </label>
+                                <select formControlName="selFinancialYear" class="form-select" #financialYear id=
+                                "fYear" name="financial_year" (change)='getApplicationDetails(financialYear.value,schemeId.value,distId.value,blockId.value,applicationStatus.value)' >
+                                <option value="">-- Select --</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3">
+                      <div class="form-group">
+                              <label class="form-label"><span class="text-danger">*</span> {{'Scheme' | translate}}  </label>
+                              <select formControlName="selscheme" class="form-select" name="scheme" id="scheme" #schemeId (change)='getApplicationDetails(financialYear.value,schemeId.value,distId.value,blockId.value,applicationStatus.value)'>
+                                      <option value="0">-- Select --</option>
+                              </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-lg-2">
+                    <div class="form-group">
+                            <label class="form-label"><span class="text-danger">*</span> {{'District' | translate}}  </label>
+                            <select formControlName="seldist" class="form-select" name="dist" id="dist" #distId (change)='getBlocks(distId.value,0)'>
+                                    <option value="0">-- Select --</option>
+                            </select>
+                  </div>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <div class="form-group">
+                        
+                            <label class="form-label"><span class="text-danger">*</span> {{'Block' | translate}}  </label>
+                            <select formControlName="selblock" class="form-select" name="block" id="block" #blockId (change)='getApplicationDetails(financialYear.value,schemeId.value,distId.value,blockId.value,applicationStatus.value)'>
+                                    <option value="0">-- Select --</option>
+                            </select>
+                  </div>
+                </div>
+                <div class="col-md-2 col-lg-2">
+                    <div class="form-group">
+                            <label class="form-label"><span class="text-danger">*</span> {{'Status' | translate}}  </label>
+                            <select  class="form-select" #applicationStatus id=
+                            "applicationStatus" name="application_status" (change)='getApplicationDetails(financialYear.value,schemeId.value,distId.value,blockId.value,applicationStatus.value)'>
+                            <option [value]="0"> --Select-- </option>
+                            <option [value]="1" [selected]="applicationStatus === 1"> Pre-verification Pending </option>
+                            <option [value]="2" [selected]="applicationStatus === 2"> BOQ Pending </option>
+                            <option [value]="3" [selected]="applicationStatus === 3"> Go-ahead Generated </option>
+                            <option [value]="4" [selected]="applicationStatus === 4"> Subsidy Approved </option>
+                            <option [value]="5" [selected]="applicationStatus === 5"> Rejected </option>
+                             </select>
+                    </div>
+                </div>
+        </div>
+      </form>
+</div>
+ <div class="separator separator-dashed"></div>
+<div *ngIf="isDataFlagprice;else other_content " class="container-fluid">
+ <div *ngIf="applicationDetails?.length"  >
+    <h5 class="mt-4">{{'Application Details' | translate}}</h5>
+    <ng-container *ngIf="innerWidth < 800; then mobileView else desktopView"></ng-container>
+    <ng-template #mobileView>
+    <div class="border border-1 rounded p-3 mb-3" *ngFor="let applicantInfo of applicationDetails; let i = index;">
+            <p class="mb-3">
+                <small class="d-block text-secondary mb-1">Application No.</small>
+                        <strong class="text-success">{{ applicantInfo.strAppltnNo}}</strong>
+                </p>
+          <p class="mb-3"><small class="d-block text-secondary mb-1">Directorate / Scheme or Services Name</small> <strong class="d-block">{{applicantInfo.directorate}} / {{applicantInfo.strSchmServcNm}}</strong></p>
+            <p class="mb-3"><small class="d-block text-secondary mb-1">Status</small><strong class="text-success d-block">{{applicantInfo.strAppSts}}</strong>
+    
+            </p>
+            <a href="" class="btn btn-info btn-sm text-light" (click)="doSchemePreview(applicantInfo.processId+':'+applicantInfo.intAppltnId+':'+applicantInfo.intFarmerProfileId+':0');"> View</a>
+
+            <ng-container *ngIf="applicantInfo.updateStatusFarmer == 0 && schemInfo.letterStatus == 2;">
+                <a (click)="updateScheme(applicantInfo.processId+':'+applicantInfo.intAppltnId+':'+0);"  class="btn btn-info btn-sm text-light" >Update</a>
+            </ng-container>
+        </div>
+</ng-template>
+    <ng-template #desktopView >
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <th width="40px">Sl#</th>
+                    <th width="170px">Application Number</th>
+                    <th width="200px">Farmer Name</th>
+                    <th>Scheme/Services Name</th>
+                    <th>Status</th>
+    
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let applicantInfo of applicationDetails; let i = index;">
+                    <td>{{i+1}}</td>
+                    <td>{{ applicantInfo.strAppltnNo}}</td>
+                    <td>{{ applicantInfo.recordApplicantName}}</td>
+                    <td><small class="d-block text-primary">Directorate: {{applicantInfo.directorate}}</small> {{applicantInfo.strSchmServcNm}}</td>
+                    <td>
+                        <strong class="text-success d-block" ><div innerHTML="{{applicantInfo.strAppSts}}"></div></strong>
+                        <span *ngIf="applicantInfo.strApplOn !='' && applicantInfo.strApplOn !='--'">Applied On: {{applicantInfo.strApplOn}}</span><div innerHtml="{{applicantInfo.dueMsg}}"></div> <div class="text-warning" innerHtml="{{applicantInfo.dtmExtensionUpto}}"></div> 
+                    </td>
+                     <td>
+                        <a href="javascript:void(0)" class="btn btn-info btn-sm text-light" (click)="doSchemePreview(applicantInfo.processId+':'+applicantInfo.intAppltnId+':'+applicantInfo.intFarmerProfileId+':0',applicantInfo.processId);">View</a>
+
+                         <ng-container *ngIf="applicantInfo.updateStatusFarmer == 0 && schemInfo.letterStatus == 2;">
+                            <a (click)="updateScheme(applicantInfo.processId+':'+applicantInfo.intAppltnId+':'+0);"  class="btn btn-info btn-sm text-light" >Update</a>
+                        </ng-container>
+    
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ng-template>
+   
+    
+    </div>
+    <div *ngIf="applicationDetails==''">
+        <h6 class="no-content">No records Found</h6>
+    </div>
+</div>
+<ng-template #other_content>
+    <h6 class="no-content">Please Select Financial year, Scheme, District, Block</h6>
+  </ng-template>
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

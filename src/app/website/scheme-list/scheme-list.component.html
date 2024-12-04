@@ -1,0 +1,202 @@
+<app-header></app-header>
+<!-- <div class="pagenavigation">
+
+<div class="container">
+        <div class="grivance_manu">
+                <h2>{{'Schemes & Services' | translate}}</h2>
+        </div>
+        
+           
+</div>
+</div> -->
+<div class="inner-banner">
+        <h3 data-aos="fade-up" data-aos-delay="50"data-aos-duration="1000" data-aos-easing="ease-in-out" class="screen__reader">{{'Schemes & Services' | translate}}</h3>
+        <nav aria-label="breadcrumb">
+           <ol class="breadcrumb" data-aos="fade-up" data-aos-delay="50"data-aos-duration="1000" data-aos-easing="ease-in-out">
+             <li class="breadcrumb-item"><a href="#"><i class="bi bi-house screen__reader"></i></a></li>
+             <li class="breadcrumb-item active screen__reader" aria-current="page"> Schemes & Services</li>
+           </ol>
+         </nav>
+      </div>
+      <div class="inner-content">
+<div class="container">
+        <div class="page-container content-section position-relative">
+                        <form [formGroup]="searchForm" (ngSubmit)="searchSchemeList();">
+                        <div class="row">
+                                        <div class="col-md-6 col-lg-3 pe-0">
+                                                <div class="form-group ">
+                                                        <select class="form-select screen__reader" formControlName="vchType" [(ngModel)]="dirType">
+                                                                <option value="" [selected]="dirType != 3">{{'TYPE' | translate}}</option>
+                                                                <option value="1">{{'Scheme' | translate}}</option>
+                                                                <option value="2">{{'Services' | translate}}</option>
+                                                                <option value="3" [selected]="dirType == 3">{{'Other Department Services' | translate}}</option>
+                                                        </select>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-3 pe-0">
+                                                        <div class="form-group">
+                                                                <select class="form-select screen__reader" formControlName="vchSector" [(ngModel)]="directorateId">
+                                                                        <option value="">{{'SECTOR-AGENCY' | translate}}</option>
+
+                                                                          <option *ngFor="let dirList of groupedDirectorate;" [selected]="dirList.directorate == directorateId"
+                                                                                value="{{dirList.directorate}}" >{{dirList.directorateName | translate}}
+                                                                         </option>
+
+
+
+
+
+
+                                                                </select>
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-4 pe-0">
+                                                                <div class="form-group">
+                                                                        <input class="form-control screen__reader" formControlName="vchScmText" placeholder="{{'Enter Scheme or Service Name' | translate }}...">
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-2">
+                                                               <button class="btn btn-success search-btn screen__reader"><i class="bi bi-search me-2"></i> {{'SEARCH' | translate}}</button>
+                                                                </div>
+                                </div>
+
+
+
+                          <div class="">
+
+
+
+                <div *ngIf="isFlag; else norecord">
+            <div *ngFor="let schemInfo of respList | paginate: { itemsPerPage: 5,                         currentPage: q }">
+                <div class="scheme-list screen__reader" >
+
+
+
+                    <div class="scheme-desc screen__reader">
+
+                                <ng-container *ngIf="language == 'English'; then engView else odiaView"></ng-container>
+
+                                <ng-template #engView>
+                                        <h5 class="screen__reader">{{schemInfo.vchProcessName | translate}}</h5>
+                                        <p class="screen__reader">
+                                             <!--   {{'Sector' |translate}} : -->
+                                                <strong>{{schemInfo.strDirectNm |translate}}</strong></p>
+                                        <div class="screen__reader" innerHtml={{schemInfo.description}}></div>
+                                    </ng-template>
+                                <ng-template #odiaView>
+                                        <h5 class="screen__reader" *ngIf='("Scheme_"+schemInfo.intProcessId | translate)=="Scheme_"+schemInfo.intProcessId'>{{schemInfo.vchProcessName
+                                                | translate}}</h5>
+                                        <h5 class="screen__reader" *ngIf='("Scheme_"+schemInfo.intProcessId | translate)!="Scheme_"+schemInfo.intProcessId'>{{"Scheme_"+schemInfo.intProcessId |translate}}</h5>
+                                        <p class="screen__reader">{{'Sector' |translate}} : <strong>{{schemInfo.strDirectNm |translate}}</strong></p>
+                                <div class="screen__reader" *ngIf='("Schemedesc_"+schemInfo.intProcessId | translate)=="Schemedesc_"+schemInfo.intProcessId'
+                                        innerHtml={{schemInfo.description}}></div>
+                                <p class="screen__reader" *ngIf='("Schemedesc_"+schemInfo.intProcessId | translate)!="Schemedesc_"+schemInfo.intProcessId'>
+                                        {{"Schemedesc_"+schemInfo.intProcessId | translate}}</p>
+                                    </ng-template>
+
+                        <div>
+
+                                <ng-container *ngIf="schemInfo.strServiceGdln">
+                                        <a  href="{{schemInfo.strServiceGdln}}" download="" class="readMore2 me-2" download="{{schemInfo.strServiceGdln}}" target="_blank"> {{'Guideline' | translate }}</a>
+                                            </ng-container>
+
+
+
+                                            <ng-container *ngIf="schemInfo.briefDescription">
+                                                        <a href="{{schemInfo.briefDescription}}" class="readMore2 me-2" target="_blank">{{'Brief Description' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngFor="let addtionDoc of schemInfo.addtionalDoc">
+                                                        <a href="{{addtionDoc.vchDocument}}" class="readMore2 me-2" target="_blank" download="{{addtionDoc.vchDocument}}" > {{addtionDoc.vchDocumentName| translate}}</a>
+                                                    </ng-container>
+
+
+
+                           <ng-container *ngIf="loginSts; then aftrLgIn else bfrLgIn"></ng-container>
+                           <ng-template #aftrLgIn>
+                                   <ng-container *ngIf="schemInfo.intSchmCnt>0; then schemView else schemApply"></ng-container>
+                                            <ng-template #schemView>
+                                                <a href="javascript:void(0)" class="readMore2 fill" (click)="viewAppliedScheme(schemInfo.intProcessId);">{{'View' | translate}}</a>
+                                                <span *ngIf="schemInfo.intDirectType==4 && schemInfo.tinGrievance==1"><a href="javascript:void(0)"
+                                                                (click)="doGrievanceApply(schemInfo.intDirectType+':'+schemInfo.intProcessId)"
+                                                                class="grivace_link">{{'Grievance' | translate }}</a></span>
+                                                <span *ngIf="schemInfo.intDirectType==4 && schemInfo.tinGrievance==1"><a href="javascript:void(0)"
+                                                                (click)="doFeedbackApply(schemInfo.intDirectType+':'+schemInfo.intProcessId)"
+                                                                class="grivace_link">{{'Feedback' | translate }}</a></span>
+                                            </ng-template>
+                                            <ng-template #schemApply>
+
+                                                <a *ngIf="schemInfo.applyStatus && schemInfo.tinCitizenApply==0" href="javascript:void(0)" class="readMore2 fill" (click)="doSchemeApply(schemInfo.intProcessId+':0:'+schemInfo.intDocument+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo);">{{'Apply' | translate }}</a>
+                                                <span *ngIf="schemInfo.intDirectType==4 && schemInfo.tinGrievance==1"><a  href="javascript:void(0)" (click)="doGrievanceApply(schemInfo.intDirectType+':'+schemInfo.intProcessId)"                               class="grivace_link">{{'Grievance' | translate }}</a></span>
+                                                <span *ngIf="schemInfo.intDirectType==4 && schemInfo.tinGrievance==1"><a  href="javascript:void(0)" (click)="doFeedbackApply(schemInfo.intDirectType+':'+schemInfo.intProcessId)"                               class="grivace_link">{{'Feedback' | translate }}</a></span>
+                                            </ng-template>
+                           </ng-template>
+
+                           <ng-template #bfrLgIn>
+                                <ng-container *ngIf="schemInfo.intProcessId == seedDBTProcessId || schemInfo.intProcessId == seedDBTPreProcessId; else elseCheck">
+                                        <a *ngIf="schemInfo.applyStatus" href="javascript:void(0)"  class="readMore2 fill fdsfdsf"
+                                        (click)="doSeedDBTApply(schemInfo.intProcessId,schemInfo);">{{'Apply' | translate }}</a>
+                                    </ng-container>
+                                    <ng-template #elseCheck >
+                                        <span *ngIf="schemInfo.applyStatus && schemInfo.tinCitizenApply==0"><a routerLink="/citizen-portal/login" class="readMore2 fill" >{{'Apply' | translate }}</a></span>
+                                        <span *ngIf="schemInfo.intDirectType==4 && schemInfo.tinGrievance==1"><a  href="javascript:void(0)" (click)="doGrievanceApply(schemInfo.intDirectType+':'+schemInfo.intProcessId)" class="grivace_link">{{'Grievance' | translate }}</a></span>
+                                        <span *ngIf="schemInfo.intDirectType==4 && schemInfo.tinGrievance==1"><a  href="javascript:void(0)" (click)="doFeedbackApply(schemInfo.intDirectType+':'+schemInfo.intProcessId)" class="grivace_link">{{'Feedback' | translate }}</a></span>
+                                    </ng-template>
+
+
+
+                           </ng-template>
+                        </div>
+
+
+                    </div>
+                    <div class="scheme-img screen__reader">
+                            <ng-container *ngIf="schemInfo.strServiceImg">
+                                    <img src="{{schemInfo.strServiceImg}}">
+                                </ng-container>
+
+                    </div>
+
+
+            </div>
+           
+            </div>
+            <nav aria-label="Page navigation" >
+                <ul class="pagination">
+                  <li class="page-item" [class.disabled]="currentPage === 0">
+                    <a class="page-link screen__reader" (click)="onPageChange(currentPage - 1)">Previous</a>
+                  </li>
+                 
+                       <ng-container >
+                        <li class="page-item "  *ngFor="let page of getPageNumbers()" 
+                        [class.active]="page === currentPage">
+                        <a class="page-link screen__reader" (click)="onPageChange(page)">{{ page }}</a>
+                        </li>
+                       </ng-container>
+                
+                   
+                  <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a class="page-link screen__reader" (click)="onPageChange(currentPage + 1)">Next</a>
+                  </li>
+                </ul>
+              </nav>
+           
+            </div>
+
+            <ng-template #norecord>
+                <h6 class="no-content"> No Record Found</h6>
+
+            </ng-template>
+
+        </div>
+</form>
+
+</div>
+
+    </div>
+</div>
+
+        <div class="loader" *ngIf="loading">
+                <div class="loader-item"></div>
+                <p>Loading...</p>
+            </div>
+    <app-footer></app-footer>

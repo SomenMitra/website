@@ -1,0 +1,49 @@
+
+    .directorate-section .directorate-list{
+   display: flex;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 7px;
+   align-items: center;
+   justify-content: space-between;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid var(--shadow);
+    }
+    .directorate-section .directorate-list:hover{
+      box-shadow: 0 0 4px var(--shadow)
+    }
+    .d-content{
+        display: flex;
+        align-items: center
+    }
+    .directorate-section .directorate-list .img-div{
+      height: 48px;
+      width: 48px;
+      overflow: hidden;
+      margin-right: 1rem;
+    }
+    .directorate-section .directorate-list img{
+      height: 48px;
+      margin-right: 1rem;
+    }
+    .directorate-section .directorate-list h6{
+   margin-bottom: .3rem;
+   font-size: 1.1rem;
+    }
+    .directorate-section .directorate-list h3{
+    text-align: center;
+    font-weight: 600;
+    }
+    .directorate-section .directorate-list small{
+      
+      text-transform: uppercase;
+      font-size: .8rem
+    }
+    
+@media screen and (max-width:1370px) {
+
+    .directorate-section .directorate-list{
+      
+         padding: 1rem;}
+}

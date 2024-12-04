@@ -1,0 +1,255 @@
+.accesibility__section {
+    text-transform: capitalize;
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-menubottom {
+    position: relative;
+}
+
+.accesibility__section i {
+    color: #000;
+}
+
+.pos__reset {
+    position: absolute;
+    right: 4rem;
+    top: -3.4rem;
+    padding: 0 !important;
+
+}
+
+.accesbility__item  img {
+    height: 1.7rem;
+    padding-right: 0.5rem;
+}
+
+.access__headings {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+.access__headings .title {
+    flex: 1;
+    font-size: 1.3rem;
+    line-height: 30px;
+    margin: 0;
+    color: #343a40;
+}
+.access__headings a {
+    border-radius: 50%;
+    display: block;
+    padding: 0.6rem 0rem;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin: 0 5px;
+    text-align: center;
+    color: #373737;
+    font-size: 18px;
+}
+ .access__headings a:hover {
+    background: #ddf0e6;
+}
+.accesibility__section .accesbility_mode {
+    padding: 0rem 1rem 1rem 1rem;
+    max-height: 30rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.accesibility__section .accesbility_mode .accesbility__item {
+    border-bottom: 0 !important;
+    padding: 0 !important;
+    list-style: none;
+}
+.accesibility__section .accesbility_mode .accesbility__item i {
+    font-size: 1.7rem;
+    padding-right: 0.5rem;
+}
+.accesibility__section .accesbility_mode .accesbility__item .accesbility__btn {
+    align-items: center;
+    background: #ecf6f2;
+    border-radius: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid #ecf6f2;
+    height: 100%;
+    line-height: 0.875rem;
+    padding: 0.875rem;
+    width: 100%;
+    color: #212529;
+    outline: none;
+}
+.accesibility__section .accesbility_mode .accesbility__item .accesbility__btn.active {
+    background: #52925e;
+    color: #fff;
+    border-color: #52925e;
+}
+.accesibility__section .accesbility_mode .accesbility__item .accesbility__btn.active i {
+    color: #fff;
+}
+.accesibility__section .accesbility_mode .accesbility__item .accesbility__btn:hover {
+    border: 1px solid #52925e;
+}
+.accesibility__section .font__accesibility {
+    margin: 0 1rem 1rem 1rem;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count] .font__bar:before {
+    width: 100%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="0"] .font__bar:before {
+    width: 0%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="1"] .font__bar:before {
+    width: 30%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="2"] .font__bar:before {
+    width: 50%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="3"] .font__bar:before {
+    width: 70%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="4"] .font__bar:before {
+    width: 100%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count^="-"] .font__bar:before {
+    width: 0%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-1"] .font__bar:before {
+    width: 45%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-2"] .font__bar:before {
+    width: 35%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-3"] .font__bar:before {
+    width: 25%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-4"] .font__bar:before {
+    width: 0%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count] .font__bar:after {
+    left: 100%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="0"] .font__bar:after {
+    left: 0%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="1"] .font__bar:after {
+    left: 30%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="2"] .font__bar:after {
+    left: 50%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="3"] .font__bar:after {
+    left: 70%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="4"] .font__bar:after {
+    left: 100%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count^="-"] .font__bar:after {
+    left: 0;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-1"] .font__bar:after {
+    left: 45%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-2"] .font__bar:after {
+    left: 35%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-3"] .font__bar:after {
+    left: 25%;
+}
+.accesibility__section .font__accesibility .font__arrows[data-font-count][data-font-count="-4"] .font__bar:after {
+    left: 0%;
+}
+.accesibility__section .font__accesibility .font__size {
+    padding: 12px 12px;
+}
+.accesibility__section .font__accesibility .font__bar {
+    background: #c1ded2;
+    display: block;
+    height: 6px;
+    flex: 1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.accesibility__section .font__accesibility .font__label {
+    padding: 0 1rem;
+}
+.accesibility__section .font__accesibility .font__inc, .accesibility__section .font__accesibility .font__dec {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 12px 12px;
+    border-left: 1px solid #c9ded4;
+}
+.accesibility__section .font__accesibility .font__inc:hover, .accesibility__section .font__accesibility .font__dec:hover {
+    color: #2957a3;
+}
+.accesibility__section .font__accesibility .font__arrows {
+    align-items: center;
+    background: #ecf6f2;
+    border: 1px solid #f4f5ff;
+    color: #212529;
+    border-radius: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    font-weight: 500;
+    height: 100%;
+    line-height: 1.2rem;
+    width: 100%;
+    outline: none;
+}
+.accesibility__section .font__accesibility .font__bar:before {
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 50%;
+}
+.accesibility__section .font__accesibility .font__bar:after, .accesibility__section .font__accesibility .font__bar:before {
+    background: #52925e;
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+}
+.accesibility__section .font__accesibility .font__bar:after {
+    border: 4px solid #fff;
+    border-radius: 50%;
+    height: 4px;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+}
+
+
+@media screen and (max-width:576px){
+
+    .accesibility__section .accesbility_mode .accesbility__item i {
+        padding-right: 0;
+        padding-bottom: 0.5rem;
+    }
+
+    .access__headings .title {
+   
+    font-size: 1rem;
+  
+  
+    }
+  
+  
+    
+    .accesbility__btn { 
+      flex-direction: column;
+      align-items: center;
+  
+    }
+
+}

@@ -1,0 +1,350 @@
+<div class="reg-body">
+    <div class="lang__btns">
+
+        <select class="form-select" #langSelect (change)="changeLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                [selected]="lang === translate.currentLang">{{ lang == 'Odia'?'ଓଡିଆ':lang }}</option>
+        </select>
+
+        </div>
+        
+    <div class="registration-form">
+        <div class="reg-header">
+            <img src="{{siteURL}}assets/images/login__bg.png" class="w-100" alt="Login">
+        </div>
+
+
+        <div class="control-div">
+            
+
+            <a [routerLink]="[ '/']" class="top_logo_sec" title="Home">
+                <img src="{{siteURL}}assets/images/govt_logo.png" alt="Govt Logo" class="govt_logo">
+                <img src="{{siteURL}}assets/images/slogo.png" alt="Sugam" class="sugam_logo">
+            </a>
+
+            <h5>{{'New Farmer Registration' | translate}}</h5>
+
+            <!-- <div class="row">
+            <div class="col-md-12">
+                <label for="txtApplicantName" class="form-label mb-2"><span
+                    class="text-danger">*</span> {{'Name' | translate}} ({{'as in Aadhaar' | translate}})</label>
+
+                  <div class="form-group">
+                <input type="text" class="form-control" id="txtAadhaarNumber" [(ngModel)]="aadhaarNumber"
+                 (keypress)="vldChkLst.isNumberKey($event)" />
+                </div>      
+            </div>
+            <div class="col-sm-2 mt-4">
+                <button mdbBtn type="button" class="btn btn-success" 
+                    title="Confirm" (click)="generateOtp()">Verify</button>
+            </div>
+        </div> -->
+            <!-- <ul class="info-list">
+            <li  class="text-danger">Please provide correct Aadhaar number of self in the prescribed field given below. In case it is found at any stage that Aadhaar number provided by you is wrong or not yours, the application is liable to be rejected.</li>
+            <li class="text-danger"> In case you do not have Aadhaar, you are requested to apply for Aadhaar enrolment at any Aadhaar enrolment centre at the earliest and revisit the portal with your e-Aadhaar details.</li>
+            
+        </ul> -->
+            <!-- <div class="separator separator-dashed"> </div> -->
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtApplicantName" class="form-label mb-2"> {{'Name' | translate}} ({{'as in Aadhaar' |
+                        translate}}) <span class="text-danger">*</span> </label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtApplicantName" [(ngModel)]="applicantName"
+                            [maxlength]="maxLghNm" [minlength]="minLghNm" (keypress)="vldChkLst.isCharKey($event)" />
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                <label for="txtApplicantName" class="form-label mb-2"><span
+                    class="text-danger">*</span> {{'Date of Birth' | translate}}</label>
+                  <div class="form-group">
+                <input type="text" class="form-control" readonly id="txtApplicantDob" [(ngModel)]="applicantDob"
+                [maxlength]="maxLghNm" [minlength]="minLghNm" (keypress)="vldChkLst.isCharKey($event)" />
+                </div>      
+            </div>
+            <div class="col-md-4">
+                <label for="txtApplicantName" class="form-label mb-2"><span
+                    class="text-danger">*</span> {{'Gender' | translate}}</label>
+                  <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" checked value="option1" disabled >
+                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" disabled>
+                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+                        <label class="form-check-label" for="inlineRadio3">Transgender</label>
+                      </div>
+                </div>      
+            </div> -->
+                <!-- <div class="col-md-12">
+                <label for="txtApplicantName" class="form-label mb-2"><span
+                    class="text-danger">*</span> {{'Address' | translate}}</label>
+                  <div class="form-group">
+                   <textarea class="form-control" rows="2" cols="3">
+
+                   </textarea>
+                </div>      
+            </div> -->
+                <div class="col-md-6">
+                    <label for="txtEmail" class="form-label mb-2"> 
+                        {{'Email ID' | translate}}
+                        <div class="tooltip-container">
+                            <i class="icon-question-circle-solid"></i>
+                            <div class="tooltip">Please enter the email for future official communication via email
+                            </div>
+                        </div>
+
+                    </label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtEmail" [(ngModel)]="emailId"
+                            [maxlength]="maxLghEmail" [minlength]="minLghEmail" />
+                        
+
+
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="txtMobile" class="form-label mb-2"> {{'Mobile Number' | translate}} 
+                        <span class="text-danger">*</span>
+
+                            <div class="tooltip-container">
+                                <i class="icon-question-circle-solid"></i>
+                                <div class="tooltip">Please enter Mobile number for future official communication via SMS
+                                </div>
+                            </div>
+                        
+                        </label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtMobile" [(ngModel)]="mobileNo"
+                            [maxlength]="maxLghMob" [minlength]="minLghMob"
+                            (keypress)="vldChkLst.isNumberKey($event)" />
+
+                        
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txtApplicantName" class="form-label mb-2"> {{'Communication Address' | translate}} <span
+                            class="text-danger">*</span> </label>
+                    <div class="form-group">
+                        <textarea rows="2" class="form-control" cols="2" id="txtApplicantAddress"
+                            [(ngModel)]="applicantAddress" [maxlength]="maxLghNm" [minlength]="minLghNm"
+                            (keypress)="vldChkLst.isAlphaNumeric($event)">
+
+                          </textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-6">
+
+                    <label for="txtPassword" class="form-label mb-2">
+                         {{'Password' | translate}} <span class="text-danger">*</span> 
+
+                         <div class="tooltip-container">
+                            <i class="icon-question-circle-solid"></i>
+                            <div class="tooltip">Password should be alphanumeric and consist of at least one upper case
+                                letter, special character and should be 8-15 characters long</div>
+                        </div>
+                        
+                        
+                        </label>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control password" id="txtPassword" [(ngModel)]="password"
+                            [maxlength]="maxLghPwd" [minlength]="minLghPwd">
+                        <div class="addon show__password" (click)="showPassword()"><i class="icon-eye-slash"></i></div>
+
+                       
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <label for="txtConfirmPassword" class="form-label mb-2"> {{'Confirm Password' | translate}} <span
+                            class="text-danger">*</span></label>
+                    <div class="form-group">
+                        <input type="password" class="form-control password2" id="txtConfirmPassword"
+                            [(ngModel)]="confirmPwd" [maxlength]="maxLghPwd" [minlength]="minLghPwd" />
+
+                        <div class="addon show__password2" (click)="showCPassword()"><i class="icon-eye-slash"></i></div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row ">
+
+         
+            <div class="col-md-4">
+                <label for="txtCaptcha" class="form-label mb-2"><span
+                    class="text-danger">*</span> {{'Captcha Code' | translate}}</label>
+                        <div class="form-group">
+                <input type="text" class="form-control" id="txtCaptcha" [(ngModel)]="captcha"
+                    [maxlength]="5">
+                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group mt-2">
+                    <span class="form-control">
+                        <img *ngIf="captchaImgDisplay" src="{{captchaImg}}" id="captchaImage"
+                            class="captchaImg" alt="captcha"></span>
+                    <div class="input-group-text refreshCaptcha">
+                        <a href="javascript:void(0);" class="lod" (click)="reloadCaptcha()"
+                            style="outline: 0;"><i class="icon-sync-solid"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+
+
+
+
+
+            <div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="log-link me-2 mt-2" (click)="getOTP();" title="Register">{{'Register' |
+                        translate}}</button>
+                    <!-- <a class="btn btn-success me-2" id="register" (click)="register();">{{'Register' | translate}}</a> -->
+                    <a class="log-link-outline mt-2" routerLink="/citizen-portal/login" title="Back to Login">{{'Back to
+                        Login' | translate}} </a>
+                </div>
+
+            </div>
+
+            <div class="text-danger mt-2"><small>{{'Note : Mobile Number and Password will be used for login purposes'
+                    | translate}} </small>
+
+
+            </div>
+        </div>
+
+
+
+
+  
+
+
+
+
+
+
+        <!-- modal section -->
+
+
+        
+
+        <!-- modal section -->
+
+        <!-- MOBILE VERIFY MODAL-->
+        <ng-template #someModal id="someModal" class="modal fade" let-modal>
+            <div class="modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Verify Mobile Number</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+        
+        
+                    <div class="modal-body">
+        
+                        <div class="form-row align-items-center text-center">
+                            <div class="row text-center">
+                                <div class="col-xl-12 col-lg-12 col-12">
+                                    <label for="txtOtp" class="otp_text">Please Enter the One Time Password
+                                        to Verify your Mobile Number <span class="mandatory">*</span></label>
+                                </div>
+        
+                                <div class="col-xl-12 col-lg-12 col-12">
+        
+                                    <div class="otp_container">
+                                        <input [(ngModel)]="otp[0]" type="text" class="otp_input" maxlength="1"
+                                            (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)">
+                                        <input [(ngModel)]="otp[1]" type="text" class="otp_input" maxlength="1"
+                                            (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)">
+                                        <input [(ngModel)]="otp[2]" type="text" class="otp_input" maxlength="1"
+                                            (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)">
+                                        <input [(ngModel)]="otp[3]" type="text" class="otp_input" maxlength="1"
+                                            (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)">
+                                    </div>
+        
+        
+                                    <div class="form-group text-center">
+                                        <!-- <input type="text" class="form-control" id="textOTP" [(ngModel)]="textOTP"
+                                            [maxlength]="maxLghotp" [minlength]="minLghotp" (keypress)="vldChkLst.isNumberKey($event)"> -->
+        
+                                        <p class="mb-0 mt-2"><strong class="text-danger">{{timeInMin}}</strong> Seconds Left....
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+        
+        
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-12">
+                                    <div class="text-danger" style="font-size: smaller;">* OTP has been sent to the given mobile
+                                        number.</div>
+                                    <div class="text-danger" style="font-size: smaller;">* One time password is valid for 10
+                                        mins.</div>
+                                    <div class="text-danger" style="font-size: smaller;" *ngIf="resend == 1">* OTP has been
+                                        resent to your mobile number.</div>
+                                </div>
+                            </div>
+        
+                            <input type="hidden" class="form-control" name="txnId" id="txnId" value="{{txnId}}">
+                            <input type="hidden" class="form-control" name="uid" id="uid" value="{{uid}}">
+        
+        
+                        </div>
+        
+        
+                    </div>
+        
+        
+                    <div class="modal-footer justify-content-center">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-12 text-center">
+                                <button type="submit" class="btn btn-success me-2" (click)="verifyOTP();">Verify</button>
+        
+                                <button type="button" class="btn btn-danger" (click)="resendOtp()" [disabled]="!editable"
+                                    mdbWavesEffect>Resend OTP</button>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+        
+        
+                </div>
+            </div>
+        
+        </ng-template>
+        <!-- MOBILE VERIFY MODAL-->
+
+
+
+
+
+
+    </div>
+</div>
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

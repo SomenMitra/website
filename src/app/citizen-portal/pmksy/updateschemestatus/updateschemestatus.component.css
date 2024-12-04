@@ -1,0 +1,14 @@
+.upload-img-div{
+    height: 65px;
+    width: 65px;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: .3rem;
+    margin-bottom: .5rem;
+}
+.upload-img-div img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}

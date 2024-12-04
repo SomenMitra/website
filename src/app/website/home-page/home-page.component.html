@@ -1,0 +1,111 @@
+<app-header></app-header>
+
+
+<!-- start banner section -->
+<div class="body-section">
+  <div class="banner-sec">
+    <!-- <img src="{{siteURL}}assets/images/banner.jpg" > -->
+    <img src="{{siteURL}}assets/images/Home-page-banner.jpg">
+    <!-- <div class="banner-text">
+            <h2 >"The ultimate goal of <b>farming</b> is not the growing of
+                crops, but the <b>cultivation and perfection</b> of human beings."</h2>
+        </div> -->
+
+    <div class="banner-directorate">
+      <div class="container">
+        <div class="row justify-content-lg-center justify-content-center mt-3">
+          <div class="col-6 col-md-4 col-lg-2 mb-3" *ngFor="let directorateinfo of groupedDirectorate;let aRwCnt=index;">
+            <div class="directorate-list">
+              <div class="img-div">
+                <img src="{{siteURL}}assets/images/{{dirIcons[directorateinfo.directorate]}}">
+              </div>
+              <h6>{{directorateinfo.directorateName | translate }}</h6>
+              <a href="javascript:void(0)" (click)="viewSchemsPage(directorateinfo.directorate,'10');"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="ministry">
+  <div class="container">
+    <div class="ministry_area">
+      <div class="ministry_item">
+       <div class="ministry_img">
+        <img src="{{siteURL}}assets/images/dcm-k.png" alt="ministry-img">
+       </div>
+       <div class="ministry_text">
+        <span class="ministry_name">{{'DCM_Name' | translate }}</span>
+        <span  class="ministry_desg">{{'DCM_Desg' | translate }}</span>
+       </div>
+      </div>
+      <div class="ministry_item">
+        <div class="ministry_img ministry_img--modify">
+         <img src="{{siteURL}}assets/images/cm-new.png" alt="ministry-img">
+        </div>
+        <div class="ministry_text tspace">
+         <span class="ministry_name">{{'CM_Name' | translate }}</span>
+         <span  class="ministry_desg">{{'CM_Desg' | translate }}</span>
+        </div>
+       </div>
+       <div class="ministry_item">
+        <div class="ministry_img">
+         <img src="{{siteURL}}assets/images/fard-minister.png" alt="ministry-img">
+        </div>
+        <div class="ministry_text">
+          <span class="ministry_name">{{'FARD_Name' | translate }}</span>
+          <span  class="ministry_desg">{{'FARD_Desg' | translate }}</span>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+  <div class="about-sugam">
+    <div class="container">
+      <h5>{{'About us' | translate }}</h5>
+      <p>{{'home_about_1' | translate }}</p>
+      <p>{{'home_about_2' | translate }}</p>
+      <div class="readmorediv">
+        <a href="javascript:void(0)" class="readmore" routerLink="/home/about-us">{{'Read More' | translate}} </a>
+      </div>
+    </div>
+  </div>
+  <div class="section schemes-section-implink">
+    <div class="container">
+      <h5 class="text-center"> {{'Other Department Services' | translate }}</h5>
+
+      <div class="directorate-section">
+
+
+        <div class="directorate-list" *ngFor="let deptServiceInfo of otherDirectorate;let aRwCnt=index;">
+
+          <div class="img-div">
+            <img src="{{siteURL}}assets/images/{{dirIcons[deptServiceInfo.directorate]}}">
+          </div>
+          <h6><a href="javascript:void(0)"
+              (click)="viewSchemsPage(deptServiceInfo.directorate,'3');">{{deptServiceInfo.directorateName |translate
+              }}
+            <p style="font-size: 12px;margin:3px 0px ;">Government Of Odisha</p>
+            </a></h6>
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>
+
+<div class="loader" *ngIf="loading">
+  <div class="loader-item"></div>
+  <p>Loading...</p>
+</div>

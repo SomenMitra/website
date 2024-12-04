@@ -1,0 +1,113 @@
+<!-- Header -->
+<header class="head-sec ">
+    <nav class="top-sec">
+        <div class="container">
+            <div class="row align-items-center">
+<div class="col-md-4">
+  <div class="odisha-govt-section">
+      <a href="" target="_blank">
+      <img src="{{siteURL}}assets/images/odisha-govt-ogo-white.png" alt=" Government of Odisha">
+      <span>{{'Government Of Odisha' | translate}}</span>
+    </a>
+  </div>
+</div>
+<div class="col-md-8">
+<div class="top-menu-list">
+                <select class="top-element" #langSelect (change)="changeLang(langSelect.value)">
+                    <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                        [selected]="lang === translate.currentLang">{{ lang == 'Odia'?'ଓଡିଆ':lang }}</option>
+                </select>
+
+                <div class="theme">
+                        <label id="switch" class="switch">
+                            <input type="checkbox" (click)="toggleTheme()" id="slider">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                <div class="fontresizer">
+                    <a class="fontresize top-element " title="Click here to decrease font size"
+                        (click)="DecreaseFontSize()" href="javascript:void(0);">-</a>
+                    <a class="fontresize top-element" title="Click here to Normal font size" (click)="ResetFontSize()"
+                        href="javascript:void(0);">A</a>
+                    <a class="fontresize top-element" title="Click here to increase font size"
+                        (click)="IncreaseFontSize()" href="javascript:void(0);">+</a>
+                </div>
+
+
+                <div class="helpline d-flex">
+                   <i class="icon-classictelephone"></i> <span class="d-none d-md-block">{{'HELPLINE' | translate}} :</span> <a href="tel:155333"> {{'helpline3' | translate}}</a><!-- , <a href="tel:7205120693"> {{'helpline2' | translate}}</a> -->
+                </div>
+
+                <!-- <div class="search">
+                    <form [formGroup]="searchform">
+                        <input type="search" class="top-element searchfield" (keyup.enter)="searchDetails($event)"
+                            formControlName="txtSearch" placeholder="Enter text for search" autocomplete="off">
+                    </form>
+                </div> -->
+                <a class="text-white login-link me-2 text-decoration-none" href="{{domainURL}}" target="_blank">{{'Officer Login' | translate}} </a>
+
+              
+</div>
+</div>
+            </div>
+
+
+
+        </div>
+    </nav>
+    <nav class="navbar main-nav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center logo" href="#" title="SUGAM">
+                <img src="{{siteURL}}assets/images/slogo.png" alt=" Government of Odisha" class="dark-logo">
+              
+                <!-- <h1 class="mb-0 ml-1 ml-lg-2"> -->
+                    <!-- {{ 'banner.AshirbadPortal' | translate }}    -->
+                    <!-- {{'SUGAM' | translate}} 
+                    <small class="d-block">{{ 'Fisheries & Animal Resources Development Department' | translate }}</small>
+                    <span class="d-block">{{'Department of Agriculture and Farmer Empowerment' | translate}}</span>
+                </h1> -->
+            </a>
+
+            <nav class="navbar navbar-expand-lg navbar-light ">
+                <div class="">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item" *ngFor="let menu of menuitems; let i = index;">
+                                <a class="nav-link" routerLink="/home/{{menu.linkUrl}}"
+                                    routerLinkActive="active">{{menu.vchPageName}}</a>
+                            </li>
+                        
+                          <ng-container *ngIf="loginSts; then aftrLgIn else bfrLgIn"></ng-container>
+                          <ng-template #aftrLgIn>
+                                <li class="nav-item">
+                              <a href="javascript:void(0);" class="nav-link active-btn"
+                                  routerLink="/citizen-portal/dashboard">{{'Dashboard' | translate}}</a>
+                                  </li>
+                          </ng-template>
+                          <ng-template #bfrLgIn>
+                                <li class="nav-item"><a class="nav-link active-btn" routerLink="/citizen-portal/login">{{'Apply' | translate}} </a></li>
+                            
+                             
+                          </ng-template>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cm-section">
+                        
+                            <img src="{{siteURL}}assets/images/naveen.png" alt="Chief minister: Shri Naveen Patnaik " >
+                    </div>
+            </nav>
+        </div>
+    </nav>
+</header> <!-- End Header -->
+
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

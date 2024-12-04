@@ -1,0 +1,38 @@
+
+<app-header></app-header>
+<div class="pagenavigation">
+
+        <div class="container">
+                      
+                <h2>{{pagetitle}}</h2>
+        </div>    
+        </div>
+
+        <div class="container">
+    <div class="py-4">
+            <div class="page-container">
+                    <ng-container *ngFor="let content of announcementDetails; let i = index;">
+                        <h5 class="mb-3 font-weight-bold">{{content.vchHeadline}}</h5> 
+                        <small class="published mb-4 d-block"><strong>Publish On</strong> : {{content.dtNewsDate | date: 'dd-MM-y'}} 
+                        </small>  
+                         <div class="mb-3"  innerHtml={{content.vchDesc}}></div>
+            
+                      
+            
+            
+                        <div class="file-sec mt-2">
+                               <!-- {{fileUrl}}  -->
+                                <ng-container *ngIf="content.vchFiles">
+                              Download <a href="{{fileUrl}}newsannounce/{{content.vchFiles}}" class="text-danger " target="_blank"><i class="icon-file-pdf h4"></i></a>
+                               </ng-container> 
+                            </div>
+            
+                        </ng-container>
+                     </div>
+    </div>
+    </div>
+    <div class="loader" *ngIf="loading">
+            <div class="loader-item"></div>
+            <p>Loading...</p>
+    </div>
+<app-footer></app-footer>

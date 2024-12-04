@@ -1,0 +1,108 @@
+.citizenmenu{
+    background-color: #259d24;
+    background-image: url('../../../assets/images/footer-banner.jpg');
+    background-size: cover;
+    box-shadow: 0 1px 4px var(--shadow);
+    padding-top: 12rem;
+    padding-bottom: .3rem;
+}
+.citizenmenu .navbar{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    
+    padding: 0;
+    
+}
+.citizenmenu .navbar .navbar-nav{flex-flow: row;}
+.citizenmenu .navbar .navbar-nav .nav-item{margin-right: .2rem}
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link{    padding: 0.4rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    color: var(--text-white);}
+    .citizenmenu .navbar .navbar-nav .nav-item .nav-link i{
+        font-size: 1.4rem;
+        margin-right: .3rem;
+    }
+.citizenmenu .navbar .navbar-nav .nav-item .nav-link:hover,.citizenmenu .navbar .navbar-nav .nav-item .nav-link:focus,.citizenmenu .navbar .navbar-nav .nav-item .nav-link.active{background: rgb(255 255 255 / 29%)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.status_table{
+    font-weight: 600;
+    font-size: .75rem;
+    line-height: 1rem;
+    border-radius: .25rem;
+    padding:.125rem .625rem;
+    width: 100%;
+    display: block;
+    text-align: center;
+    
+}
+.custom_table {
+    border: 0;
+}
+
+.custom_table  thead tr th{
+    font-weight: 600;
+    font-size: .75rem;
+    line-height: 1rem;
+    border-radius: .25rem;
+    padding: 0.625rem 0.225rem;
+    /* min-width: 50%; */
+    /* text-align: center; */
+    /* display: inline-block; */
+    border-left: 0;
+}
+.custom_table tbody tr td{
+    padding: 0.325rem 0.125rem;
+    border: 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+.pending{
+    background: #fef9c3;
+    color: #ebb308;
+    border: 1px solid rgb(248 229 90);
+}
+.active{
+    background-color: #e0f2fe;
+    color: #0eaaee;
+    border: 1px solid #bae6fd;
+}
+.rejected{
+    background-color: #fee2e2;
+    color: #e04923;
+    border: 1px solid #fabfbf;
+}
+.resolved{
+    background-color: #d2f4ee;
+    color: #459d85;
+    border: 1px solid #a4cfc8;
+}
+.view{
+    background: #dbeafe;
+    border: 0;
+    font-size: 1rem;
+    padding: 0.1rem 0.5rem;
+    color: #3b82f6;
+    border-radius: 0.2rem;
+    line-height: 1rem;
+    border: 1px solid #94baf8;
+}
+.view:hover{
+    background-color: #f1f5f9;
+}

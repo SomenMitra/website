@@ -1,0 +1,36 @@
+<div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="common-heading mb-0">Other Department Services</h5>
+        
+    </div>
+    <div class="directorate-section">
+
+            <div class="row">       
+            <div class="col-lg-4 col-md-6" *ngFor="let directorateinfo of groupedDirectorate;let aRwCnt=index;">
+                   
+ <div class="directorate-list" *ngIf="directorateinfo.service !== '0'">
+
+                
+                <div class="d-content">
+               
+                 <div class="img-div">
+                                <img src="{{siteURL}}assets/images/{{dirIcons[directorateinfo.directorate]}}">
+                                </div>
+                                <div>
+                                                <h6>{{((directorateinfo.directorateName!='') ? directorateinfo.directorateName:'--') }}</h6>
+                                                <a href="javascript:void(0)" (click)="viewServicespage(directorateinfo.directorate+':'+3);"><small class="d-block">View All</small></a>
+                                </div>
+               
+            </div>
+                
+                       
+                  
+               
+               
+            </div>
+         </div>
+           </div> 
+        </div>
+        <div class="loader" *ngIf="loading">
+                <div class="loader-item"></div>
+                <p>Loading...</p>
+            </div>

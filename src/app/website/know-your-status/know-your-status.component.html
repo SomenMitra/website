@@ -1,0 +1,372 @@
+<app-header></app-header>
+<!-- <div class="pagenavigation">
+
+        <div class="container">
+                <h2>{{'Know your status' | translate}}</h2>
+        </div>
+        </div> -->
+        <div class="inner-banner">
+                <h3 data-aos="fade-up" data-aos-delay="50"data-aos-duration="1000" data-aos-easing="ease-in-out" class="screen__reader">{{'Know your status' | translate }}</h3>
+                <nav aria-label="breadcrumb">
+                   <ol class="breadcrumb" data-aos="fade-up" data-aos-delay="50"data-aos-duration="1000" data-aos-easing="ease-in-out">
+                     <li class="breadcrumb-item screen__reader"><a href="#"><i class="bi bi-house screen__reader"></i></a></li>
+                     <li class="breadcrumb-item active screen__reader" aria-current="page" > Know your status</li>
+                   </ol>
+                 </nav>
+              </div>
+              <div class="inner-content">
+        <div class="container">
+                <div class="page-container content-section" >
+                    <form [formGroup]="statusform" (ngSubmit)="getApplicationDetails()">
+                        <div class="row ">
+                                <div class="col-md-6 col-lg-4">
+                                        <div class="form-group">
+                                                <label class="form-label screen__reader"><span class="text-danger">*</span> {{'Directorate' | translate}}  </label>
+                                                <select formControlName="selDirectorate" class="form-select screen__reader" [ngClass]="{ 'is-invalid': submitted && f.selDirectorate.errors }">
+                                                        <option value="">Select</option>
+                                                        <option *ngFor="let directorateinfo of groupedDirectorate;" value="{{directorateinfo.directorate}}">{{directorateinfo.directorateName | translate}}</option>
+                                                </select>
+                                                <div *ngIf="submitted && f.selDirectorate.errors" class="invalid-feedback">
+                                                <div *ngIf="f.txtapplicationId.errors.required">Directorate can not be left blank</div>
+                                                </div>
+                                        </div>
+                                </div>
+                              <div class="col-md-6 col-lg-4">
+                                      <div class="form-group">
+                                          <label class="form-label screen__reader"><span class="text-danger">*</span> {{'Application' | translate}} / {{'Phone No.' | translate}}  </label>
+                                          <input formControlName="txtapplicationId" type="text" class="form-control screen__reader" [ngClass]="{ 'is-invalid': submitted && f.txtapplicationId.errors }">
+                                          <div *ngIf="submitted && f.txtapplicationId.errors" class="invalid-feedback">
+                                              <div *ngIf="f.txtapplicationId.errors.required">Application / Phone Number can not be left blank</div>
+                                          </div>
+                                           </div>
+                              </div>
+                              <div class="col-md-6 col-lg-4">
+                                     <button class="btn btn-success mt-4 screen__reader" >{{'Submit' | translate}}</button>
+                              </div>
+
+                        </div>
+                      </form>
+                  <div class="separator separator-dashed"></div>
+
+
+                                <h5 class="common-heading2 screen__reader" *ngIf="isSubmitted">{{'Application Details' | translate}} </h5>
+                                <div  *ngIf="isDataFlag;else other_content ">
+                                <div class="mb-4">
+
+                                                <div *ngFor="let applicantInfo of applicationDetails">
+                                        <div class="row flex-column flex-md-row">
+
+                                                <div class="col-md-6 col-lg-4 " >
+                                                        <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader" > {{'Name' | translate}}</small>
+                                                                        <span class="d-block mt-1 screen__reader">{{ applicantInfo.applicantName}}</span>
+                                                                    </p>
+                                        </div>
+                                                    <div class="col-md-6 col-lg-4">
+
+                                                                    <p class="mb-3 ">
+                                                                    <small class="text-gray screen__reader">Directorate</small>
+                                                                    <span class="d-block mt-1 screen__reader">{{ applicantInfo.directorate}}</span>
+                                                                </p>
+
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-4">
+
+                                                                        <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">Scheme Name</small>
+                                                                        <span class="d-block mt-1 screen__reader">{{applicantInfo.strSchmServcNm}}</span>
+                                                                    </p>
+
+                                                            </div>
+
+                                                    </div>
+
+
+                                                    <div class="row flex-column flex-md-row">
+                                                                <div class="col-md-6 col-lg-4 ">
+
+
+                                                                                <p class="mb-3 ">
+                                                                                <small class="text-gray screen__reader">Application Number</small>
+                                                                                <span class="d-block mt-1 screen__reader">{{ applicantInfo.strAppltnNo}}</span>
+                                                                            </p>
+
+                                                                    </div>
+                                                            <div class="col-md-6 col-lg-4 ">
+
+
+                                                                    <p class="mb-3 ">
+                                                                    <small class="text-gray screen__reader">Applied On</small>
+                                                                    <span class="d-block mt-1 screen__reader">{{ applicantInfo.strApplOn}}</span>
+                                                                </p>
+
+                                                        </div>
+                                               <div class="col-md-6 col-lg-4">
+
+                                                                            <p class="mb-3 ">
+                                                                            <small class="text-gray screen__reader">Application Status</small>
+                                                                            <ng-container *ngIf="applicantInfo.strAppSts == 'Application Cancelled'; else elseStsCheck">
+                                                                                <span class="d-block mt-1 screen__reader">
+                                                                                        <strong class="text-danger">{{ applicantInfo.strAppSts}}</strong>
+                                                                                    </span>
+                                                                            </ng-container>
+                                                                            <ng-template #elseStsCheck>
+                                                                                    <span class="d-block mt-1 screen__reader">
+                                                                                        <strong class="text-success">{{ applicantInfo.strAppSts}}</strong>
+                                                                                    </span>
+                                                                            </ng-template>
+                                                                        </p>
+
+                                                                </div>
+
+                                          <ng-container *ngIf="applicantInfo.processId == seedDBT">
+                                                <ng-container *ngIf="applicantInfo.voucherData.length > 0">
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">District</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].districtName}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">Farmer Name</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].vchPayerName}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">Mobile</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].vchMobileNo}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">Application Id</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].vchApplicationNo}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="row ">
+                                                                <div class="col-md-12 col-lg-12 pt-3">
+                                                                        <div class="table-responsive">
+                                                                                <table class="table table-bordered">
+                                                                                        <thead>
+                                                                                                <tr>
+                                                                                                        <th width="40px">Sl#</th>
+                                                                                                        <th><div style="width: 150px;">Dealer Name</div></th>
+                                                                                                        <th>Seed to be purchased</th>
+                                                                                                        <th>Seed Variety</th>
+                                                                                                        <th>Bag Size (Kg)</th>
+                                                                                                        <th>No. of Bag</th>
+                                                                                                        <th>Quantity (Kg)</th>
+                                                                                                        <th><div style="width: 120px;">Lot No.</div></th>
+                                                                                                        <th>Amount (Rs.)</th>
+                                                                                                        <th>Voucher No.</th>
+                                                                                                        <th><div style="width: 120px;">Voucher Date</div></th>
+                                                                                                        <th><div style="width: 120px;">Valid Upto</div></th>
+                                                                                                        <th>Redemption Amount (Rs.)</th>
+                                                                                                        <th><div style="width: 120px;">Redemption Date</div></th>
+                                                                                                        <th>Voucher Status</th>
+                                                                                                </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                                <tr *ngFor="let voucherData of applicantInfo.voucherData; let i = index">
+                                                                                                        <td>{{ i+1 }}</td>
+                                                                                                        <td>{{ voucherData.vchDealerName }}</td>
+                                                                                                        <td><a class="text-primary" (click)="getVoucherDetailsByID(voucherData.intVoucherId, voucherData.intOnlineServiceId)">{{ voucherData.vchCropName }}</a></td>
+                                                                                                        <td>{{ voucherData.vchVarietyName }}</td>
+                                                                                                        <td>{{ voucherData.vchBagSize }}</td>
+                                                                                                        <td>{{ voucherData.intNoOfBag }}</td>
+                                                                                                        <td>{{ voucherData.vchTotalQuantity }}</td>
+                                                                                                        <td>{{ voucherData.vchLotNo }}</td>
+                                                                                                        <td>{{ voucherData.decTotalAmount | currency:'INR':'' }}</td>
+                                                                                                        <td>{{ (voucherData.approvalNo != '' && voucherData.approvalNo != null) ? voucherData.approvalNo : '--' }}</td>
+                                                                                                        <td>{{ (voucherData.approvalDate != '' && voucherData.approvalDate != null) ? (voucherData.approvalDate | date:"dd-MMM-YYYY") : '--' }}</td>
+                                                                                                        <td>{{ (voucherData.dtmValidUpto != '' && voucherData.dtmValidUpto != null) ? (voucherData.dtmValidUpto | date:"dd-MMM-YYYY") : '--' }}</td>
+                                                                                                        <td>{{ (voucherData.decVoucherAmountMandate != '' && voucherData.decVoucherAmountMandate != null) ? (voucherData.decVoucherAmountMandate | currency:'INR':'') : '--' }}</td>
+                                                                                                        <td>{{ (voucherData.redeemptionDate != '' && voucherData.redeemptionDate != null) ? (voucherData.redeemptionDate | date:"dd-MMM-YYYY") : '--' }}</td>
+                                                                                                        <td>{{ voucherData.tinVoucherStatus }}</td>
+                                                                                                </tr>
+                                                                                        </tbody>
+                                                                                </table>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </ng-container>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="applicantInfo.processId == seedDBTPre">
+                                                <ng-container *ngIf="applicantInfo.voucherData.length > 0">
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">District</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].districtName}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">Block</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].blockName}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="col-md-6 col-lg-4">
+                                                                <p class="mb-3 ">
+                                                                        <small class="text-gray screen__reader">Application Type</small>
+                                                                        <span class="d-block mt-1 text-dark screen__reader">{{ applicantInfo.voucherData[0].vchApplyType}}</span>
+                                                                </p>
+                                                        </div>
+                                                        <div class="row ">
+                                                                <div class="col-md-12 col-lg-12 pt-3">
+                                                                        <div class="table-responsive">
+                                                                                <table class="table table-bordered">
+                                                                                        <thead>
+                                                                                                <tr>
+                                                                                                        <th width="40px">Sl#</th>
+                                                                                                        <th><div style="width: 150px;">Dealer Name</div></th>
+                                                                                                        <th>Seed to be purchased</th>
+                                                                                                        <th>Seed Variety</th>
+                                                                                                        <th>Bag Size (Kg)</th>
+                                                                                                        <th>No. of Bag</th>
+                                                                                                        <th>Quantity (Kg)</th>
+                                                                                                        <th>Total Amount (Rs.)</th>
+                                                                                                        <th *ngIf="applicantInfo.voucherData[0].vchApplyType == 'Farmer'">Voucher Amount (Rs.)</th>
+                                                                                                        <th>Booking Amount (Rs.)</th>
+                                                                                                        <th>Payable Amount for Seed Collection (Rs.)</th>
+                                                                                                </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                                <tr *ngFor="let voucherData of applicantInfo.voucherData; let i = index">
+                                                                                                        <td>{{ i+1 }}</td>
+                                                                                                        <td>{{ voucherData.vchDealerName }}</td>
+                                                                                                        <td>{{ voucherData.vchCropName }}</td>
+                                                                                                        <td>{{ voucherData.vchVarietyName }}</td>
+                                                                                                        <td>{{ voucherData.vchBagSize }}</td>
+                                                                                                        <td>{{ voucherData.intNoOfBag }}</td>
+                                                                                                        <td>{{ voucherData.vchTotalQuantity }}</td>
+                                                                                                        <td>{{ voucherData.vchseedFinalTotCost | currency:'INR':'' }}</td>
+                                                                                                        <td *ngIf="applicantInfo.voucherData[0].vchApplyType == 'Farmer'">{{ voucherData.decTotalAmount | currency:'INR':'' }}</td>
+                                                                                                        <td>{{ voucherData.vchPayableBookingCost | currency:'INR':'' }}</td>
+                                                                                                        <td>{{ voucherData.vchpayableAmtFarmer | currency:'INR':'' }}</td>
+
+                                                                                                </tr>
+                                                                                        </tbody>
+                                                                                </table>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+
+                                                        <div class="text-center py-3" *ngIf="applicantInfo.voucherData[0].tinPayStatus !=2">
+                                                                <a href="{{applicantInfo.receiptUrl}}" target="_blank" class="btn btn-success text-right" title="Receipt Download"><i class="icon-file-pdf"></i> Download Receipt</a>&nbsp;
+                                                                <a href="javascript:void(0)" class="btn btn-danger text-right" (click)="bookingCancel(applicantInfo)" *ngIf="applicantInfo.isCancel == 1">Cancel Booking</a>
+                                                        </div>
+                                                </ng-container>
+                                        </ng-container>
+                                </div>
+                                          <div class="separator separator-dashed my-10"></div>
+
+                                          </div>
+
+                                </div>
+                            </div>
+                                <ng-template #other_content>
+
+
+
+                                        <h6 class="no-content" *ngIf="isSubmitted; else elseMsgF"> No Application details found</h6>
+                                        <ng-template #elseMsgF>
+                                                <h6 class="no-content"> Please enter your Application / Phone No. to check application Details.</h6>
+                                        </ng-template>
+
+                                </ng-template>
+
+                                <ng-template #someSeedDBTVoucherModal id="someSeedDBTVoucherModal" let-modal [hidden]="IsmodelShow" [hidden]="IsmodelShow">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-basic-title">Voucher Details</h4>
+                                            <div class="p-none">
+                                                <a (click)="printSeedDBTVoucherPage()" href="javascript:void(0)" class="h5 text-info  mx-3"><i class="icon-print-solid"></i></a>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                (click)="modal.dismiss('Cross click')">
+                                                <i class="icon-times-solid"></i>
+                                            </button>
+                                                </div>
+
+                                        </div>
+                                        <div id="printSeedDBTVoucher" class="modal-body">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                <th width="20%">Dealer Name</th>
+                                                <td>: {{voucherModalDetails['vchDealerName']}}</td>
+                                                </tr>
+                                                <tr>
+                                                <th width="20%">Dealer Contact Number</th>
+                                                <td>: {{voucherModalDetails['vchDealerMobileNo']}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th width="20%">Type of Seed</th>
+                                                    <td>: {{(voucherModalDetails['tinCropCode'] == 1) ? 'Paddy':'Non-Paddy'}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                    <th width="30%">Seed to be Purchased</th>
+                                                    <td>: {{voucherModalDetails['vchCropName']}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="20%">Seed Variety</th>
+                                                        <td>: {{voucherModalDetails['vchVarietyName']}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="20%">Lot No.</th>
+                                                        <td>: {{voucherModalDetails['vchLotNo']}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th width="20%">Bag Size (Kg)</th>
+                                                        <td>: {{voucherModalDetails['vchBagSize']}}</td>
+                                                        </tr>
+
+                                                            <tr>
+                                                                <th width="20%">No. of Bag</th>
+                                                                <td>: {{voucherModalDetails['intNoOfBag']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th width="20%">Quantity (Kg)</th>
+                                                                <td>: {{voucherModalDetails['vchTotalQuantity']}}</td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <th width="20%">Total Cost (Rs.)</th>
+                                                                    <td>: {{voucherModalDetails['vchseedFinalTotCost']}}</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th width="20%">Subsidy Amount (Rs.)</th>
+                                                                    <td>: {{voucherModalDetails['decTotalAmount']}}</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <th width="20%">Payable Amount by Farmer (Rs.)</th>
+                                                                    <td>: {{voucherModalDetails['vchpayableAmtFarmer']}}</td>
+                                                                </tr>
+                                                                    <tr>
+                                                                        <th width="20%">Voucher No.</th>
+                                                                        <td>: {{((voucherModalDetails['vchReqApprovalNo'] != '' && voucherModalDetails['vchReqApprovalNo'] != null) ? voucherModalDetails['vchReqApprovalNo'] : '--')}}</td>
+                                                                    </tr>
+
+                                                                        <tr>
+                                                                            <th width="20%" >Voucher Date</th>
+                                                                            <td>:
+                                                                            {{((voucherModalDetails['dtmReqDate'] != '' && voucherModalDetails['dtmReqDate'] != null) ? (voucherModalDetails['dtmReqDate'] | date:'dd-MMM-yyyy') : '--')}} </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <th width="20%" >Voucher Valid Upto</th>
+                                                                            <td >: {{((voucherModalDetails['dtmValidUpto'] != '' && voucherModalDetails['dtmValidUpto'] != null) ? (voucherModalDetails['dtmValidUpto'] | date:'dd-MMM-yyyy HH:mm:ss') :  '--')}}</td>
+                                                                            </tr>
+
+
+                                            </table>
+                                        </div>
+                                    </ng-template>
+
+</div>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,76 @@
+
+
+  
+    <div class="accesibility__section">
+
+      <!-- accesibility dropdown -->
+      <div class="dropdown-menubottom">
+
+       <div class="access__headings pos__reset"> 
+            <a href="#"  (click)="handleClick($event)" title="Reset"> <i class="bi bi-arrow-clockwise screen__reader"></i> </a>
+           </div>
+
+         
+         <ul class="accesbility_mode">
+           <li class="accesbility__item screen__reader" *ngFor="let button of buttons; let i = index">
+              
+              <button
+                [class.accesbility__btn]="true"
+                [class.active]="button.active"
+                [attr.title]="button.title"
+                 [routerLink]="button.iconType === 'screenReader' ? '/home/screen-reader' : button.routerLink"
+                (click)="toggleActive(i);">
+                
+                <ng-container [ngSwitch]="button.iconType">
+                  <ng-container *ngSwitchCase="'monoChrome'">
+                    <i class="icomoon icon-monochrome screen__reader"></i> 
+                  </ng-container>
+            
+                  <ng-container *ngSwitchCase="'lightTheme'">
+                    <i class="icomoon icon-light-theme screen__reader"></i>
+                  </ng-container>
+            
+                  <ng-container *ngSwitchCase="'darkTheme'">
+                    <i class="icomoon icon-dark-theme screen__reader"></i>
+                  </ng-container>
+            
+                  <ng-container *ngSwitchCase="'hilightLink'">
+                    <i class="icomoon icon-highlight-link screen__reader"></i>
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'screenReader'">
+                    <i class="icomoon icon-screen-reader screen__reader"></i>
+                  </ng-container>
+            
+                 
+                </ng-container>
+            
+                <span class="acces_btn_label screen__reader">{{ button.label }}</span>
+              </button>
+              
+            </li>
+            </ul>
+
+         <div class="font__accesibility screen__reader">
+            <div class="font__arrows" [attr.data-font-count]="fontCount">
+               <span class="font__label screen__reader">Font size</span>
+               <span class="font__bar screen__reader"></span>
+               <span class="font__size screen__reader">{{ fontSize }}px</span>
+ 
+               <button class="font__dec" (click)="decreaseFont()" aria-label="Decrease font size" title="Decrease font size">
+               <i class="bi bi-dash screen__reader"></i>
+               </button>
+ 
+               <button class="font__inc" (click)="increaseFont()" aria-label="Increase font size" title="Increase font size">
+               <i class="bi bi-plus screen__reader"></i>
+               </button>
+            </div>
+         </div>
+
+         
+      </div>
+      <!-- accesibility dropdown -->
+   </div>
+ 
+ 
+ 

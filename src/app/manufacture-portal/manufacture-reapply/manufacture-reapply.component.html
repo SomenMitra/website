@@ -1,0 +1,156 @@
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>
+
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading">Manufacture Re-Registration</h5><a title="Back" ngbtooltip="back" class="text-dark h5">
+        <!-- <i class="bi bi-arrow-left"></i>    -->
+    </a>
+</div>
+<div class="renew-patch" *ngIf="isReRegister!=1">
+    <div>
+        <span class="renew-head">Dear {{miName}},</span>
+        <p *ngIf="!isExpired() && isReRegister==0">
+            {{ "Your agreement is going to expire in 30 days (on " + formatDate(expiryDate) + ")." }}
+        </p>
+        <div  *ngIf="isReRegister==2">
+            <p> {{ "Your Request for Re-Registration has been Reverted by EE" }}</p>
+            <p>Remarks : <strong class="text-danger">{{ remarkByOff}}</strong> </p>
+        </div>
+        <div  *ngIf="isReRegister==3">
+            <p> {{ "Your Request for Re-Registration has been Successfully Approved" }}</p>
+            <p>Remarks : <strong class="text-success">{{ remarkByOff}}</strong> </p>
+        </div>
+
+        <p *ngIf="isExpired() && isReRegister!=2 && isReRegister!=3" class="renew-text">
+            {{'Your agreement has expired on '+formatDate(expiryDate)}}.
+        </p>
+        <button class="btn btn-success renew-btn" *ngIf="isReRegister!=3"
+            (click)="showRenewForm()">{{isReRegister==0?'Renew':'Re-Upload'}}</button>
+    </div>
+    <div class="renew-form">
+        <form *ngIf="isRenewFormVisible" [formGroup]="reRegister" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload BG <span class="text-danger">*</span></label>
+                        <div class="d-flex align-items-center">
+                            <input class="form-control" type="file" id="formFile" formControlName="formFile"
+                                (change)="onFileSelect($event)">
+                            <a href="javascript:void(0)" class="btn btn-outline-success px-2 py-1 ms-2" title="View"
+                                *ngIf="showHideUploadedFiles" (click)="previewFile(uploadedFiles,$event)"><i
+                                    class="bi bi-eye"></i></a>
+                        </div>
+                        <div class="text-danger">(Only jpg,jpeg,png,pdf.)</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="mb-3 date-field">
+                        <label for="txtValidityFromDate" class="form-label">From Date <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control input_datefield txtValidityFromDate"
+                            placeholder="Validity Date" ngbDatepicker #fromDate="ngbDatepicker"
+                            (click)="fromDate.toggle()" name="txtValidityFromDate" id="txtValidityFromDate"
+                            formControlName="testingFromDate" autocomplete="off" (dateSelect)="onDateSelectTest()"
+                            (keydown)="preventInput($event)" (paste)="preventInput($event)"
+                            (input)="preventInput($event)" [maxDate]="maxDate">
+                        <span class="input_datefield_icon"><i class="bi bi-calendar3"></i></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="mb-3 date-field">
+                        <label for="txtValidityToDate" class="form-label">To Date <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control input_datefield txtValidityToDate"
+                            placeholder="Validity Date" ngbDatepicker #toDate="ngbDatepicker" (click)="toDate.toggle()"
+                            name="txtValidityToDate" id="txtValidityToDate" formControlName="testingToDate"
+                            autocomplete="off" (dateSelect)="onDateSelectTest()" (keydown)="preventInput($event)"
+                            (paste)="preventInput($event)" (input)="preventInput($event)">
+                        <span class="input_datefield_icon"><i class="bi bi-calendar3"></i></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="mb-3">
+                        <label for="remark" class="form-label">Remark <span class="text-danger">*</span></label>
+                        <textarea class="form-control" formControlName="remark" (paste)="preventInput($event)"
+                            (keypress)="vldChkLst.isCharWithSpace($event)"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" class="isReRegisterSts" name="isReRegisterSts" id="isReRegisterSts" [value]="isReRegister">
+
+
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12">
+                    <div class="">
+                        <button type="submit" class="btn btn-success ">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div>
+
+
+    <div class="border-radius details-card" *ngIf="isReRegister==1">
+        <div class="card__apply">
+            <div class="row">
+                <div class="col-md-7 col-lg-9">
+                    <!-- <h5 class=""><span class="d-block"><strong>Manufacture Re-Registration</strong></span></h5> -->
+                    <div class="card-body mt-4">
+                        <!-- <div class="row grid_bottom">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <div class="flex-item">Reference Number : </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-12">
+                            <div class="flex-item"><strong>MI1725011382000050</strong></div>
+                        </div>
+                    </div> -->
+                        <div class="row grid_bottom">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                                <div class="flex-item">Re-Registered On : </div>
+                            </div>
+                            <div class="col-xl-8 col-lg-8 col-md-6 col-12">
+                                <div class="flex-item"><strong>{{formatAppliedDate(appliedOn)}} </strong></div>
+                            </div>
+                        </div>
+                        <div class="row grid">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                                <div class="flex-item">Status : </div>
+                            </div>
+                            <div class="col-xl-8 col-lg-8 col-md-6 col-12">
+                                <div class="flex-item"><strong class="text-warning">
+                                        <p>{{status}}</p>
+                                    </strong></div>
+                            </div>
+                        </div>
+                        <!-- <div class="row grid_bottom">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <div class="flex-item">Remark : </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-6 col-12">
+                            <div class="flex-item"><strong>
+
+                                    <p>OK</p>
+
+                                </strong></div>
+                        </div>
+                    </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="pb-3 px-4">
+        <a href="javascript:void(0);">View Application</a>
+        <a href="javascript:void(0);">Edit/Upload Document</a>
+    </div> -->
+    </div>
+
+</div>

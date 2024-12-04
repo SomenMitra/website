@@ -1,0 +1,95 @@
+<app-header></app-header>
+<div class="pagenavigation">
+
+<div class="container">
+        <h2>Services</h2>
+</div>    
+</div>
+<div class="container">
+        <div class="page-container content-section position-relative">
+                <!-- <div class="schame-search">
+                        <i class="icon-search1"></i>
+                  <input type="text" class="form-control" placeholder="Enter Text For Search ...  ">
+          </div> -->
+          <div class="vertical-tab-section">
+                <div class="tabs-div">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                                <li class="nav-item" role="presentation" *ngFor="let directorateinfo of groupedDirectorate;let aRwCnt=index;">
+                                        
+                                                <button class="nav-link active"  *ngIf="directorateinfo.service !== '0'" value={{directorateinfo.directorate}} (click)="getSchemeList($event.target.value)" [ngClass]="{ active: tab === 'tab'+ directorateinfo.directorate }" > {{((directorateinfo.directorateName!='') ? directorateinfo.directorateName:'--') }} <span value={{directorateinfo.directorate}} (click)="getSchemeList($event.target.value)" [ngClass]="{ active: tab === 'tab'+ directorateinfo.directorate }" >{{directorateinfo.service}}</span></button>
+                                              </li>
+
+                       
+                       
+                      </ul>
+                      </div>
+                      
+                      <div class="tab-content">
+                         
+                <div *ngIf="isFlag; else norecord">
+            <div *ngFor="let schemInfo of respList | filter:filterText">
+                <div class="scheme-list" >
+              
+                  
+                   
+                    <div class="scheme-desc">
+                        
+                        <h5>{{schemInfo.vchProcessName}}</h5>
+            
+            
+                        <div>
+
+                                <ng-container *ngIf="schemInfo.strServiceGdln">
+                                        <a  href="{{schemInfo.strServiceGdln}}" class="readMore2 me-2" download="{{schemInfo.strServiceGdln}}" target="_blank"> {{'Guideline' | translate }}</a>
+                                            </ng-container>
+                                            <ng-container *ngIf="schemInfo.briefDescription">
+                                                    <a href="{{schemInfo.briefDescription}}" class="readMore2 me-2" target="_blank">Brief Description</a>
+                                                </ng-container>
+                           <ng-container *ngIf="loginSts; then aftrLgIn else bfrLgIn"></ng-container>
+                           <ng-template #aftrLgIn>
+                                   <ng-container *ngIf="schemInfo.intSchmCnt>0; then schemView else schemApply"></ng-container>
+                                            <ng-template #schemView>
+                                                <a href="javascript:void(0)" (click)="viewAppliedScheme(schemInfo.intProcessId);">View</a>
+                                            </ng-template>
+                                            <ng-template #schemApply>
+                                                <a href="javascript:void(0)" (click)="doServiceApply(schemInfo.intProcessId+':0:'+schemInfo.intDocument, schemInfo.vchProcessName);">Apply</a>
+                                            </ng-template>
+                           </ng-template>
+                           <ng-template #bfrLgIn>
+                                   <a routerLink="/citizen-portal/login" class="readMore2" >{{'Apply' | translate }}</a>
+                           </ng-template>
+                        </div>
+                       
+                       
+                    </div>
+                    <div class="scheme-img ">
+                            <ng-container *ngIf="schemInfo.strServiceImg">
+                                    <img src="{{schemInfo.strServiceImg}}">
+                                </ng-container>
+                      
+                    </div>
+               
+            
+            </div>
+            </div>
+            <!-- <div class="d-flex justify-content-end">
+                    <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+                    </div> -->
+            </div>
+            <ng-template #norecord>
+                <h6 class="no-content"> No Record Found</h6>
+            
+            </ng-template>
+</div>
+</div>
+</div>
+
+    </div>
+
+    <div class="loader" *ngIf="loading">
+            <div class="loader-item"></div>
+            <p>Loading...</p>
+        </div>
+    <app-footer></app-footer>
+

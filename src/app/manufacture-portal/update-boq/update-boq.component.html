@@ -1,0 +1,318 @@
+<div class="p-3 bg-light mb-3 schemename row">    
+    <h5 class="col-md-8 common-heading2 mb-0">Scheme : <span
+        class="text-success">{{this.schemeName}}</span></h5>
+<h5 class="col-md-4 common-heading2 mb-0 text-right">Application ID :<span
+            class="text-success">{{this.serviceId}}</span></h5>
+</div>
+<div class="accordion" id="accordionExample">
+<div class="accordion-item">
+<h5 class="accordion-header" id="heading">
+    <a class="accordion-button farmerInfoAccordian"  type="button" data-bs-toggle="collapse" data-bs-target="#collapse"
+        aria-expanded="true" aria-controls="collapse">
+        Farmer Information
+    </a>
+</h5> 
+<div id="collapse" class="accordion-collapse collapse" aria-labelledby="heading"
+    data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+        <div class="control-div">
+
+            <h5 class="common-heading2">Basic Information</h5>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="txtApplicantName" class="form-label"> Name </label>
+                                <p class="mb-0 text-dark">{{ ((applicantName!='') ? applicantName : '--')}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="txtEmail" class="form-label"> Email Id </label>
+                                <p class="mb-0 text-dark">{{ ((emailId!='') ? emailId : '--')}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="txtMobile" class="form-label"> Mobile Number </label>
+                                <p class="mb-0 text-dark">{{ ((mobileNo!='') ? mobileNo : '--')}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="rdoGender" class="form-label"> Gender </label>
+                                <p class="mb-0 text-dark">{{ ((gender!='') ? gender : '--')}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="txtDob" class="form-label"> Date of Birth </label>
+                                <p class="mb-0 text-dark">{{ ((dob!='') ? dob : '--')}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="selCategory" class="form-label"> Category </label>
+                                <p class="mb-0 text-dark">{{ ((castCatg!='') ? castCatg : '--')}}</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="txtFatherNm" class="form-label"> Father's/ Husband's Name
+                                </label>
+                                <p class="mb-0 text-dark">{{ ((fatherNm!='') ? fatherNm : '--')}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="txtAadhaarNo" class="form-label"> Aadhaar Number </label>
+                                <p class="mb-0 text-dark">{{ ((aadhaarNo!='') ? aadhaarNo : '--')}}</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-4" *ngIf="applicationStatus==3">
+                            <div class="form-group">
+                                <label for="txtAadhaarNo" class="form-label"> Applied On </label>
+                                <p class="mb-0 text-dark">{{ ((dtmAppliedOn!='') ? dtmAppliedOn : '--')}}</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="img-div mb-2">
+                        <img *ngIf="profImgUrl" [src]="profImgUrl" alt="Government of Odisha"
+                            class="dark-logo" />
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-dashed"></div>
+            <h5 class="common-heading2">Communication Address</h5>
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <label for="txtDistrict" class="form-label"> District </label>
+                    <div class="form-group">
+                        <p class="mb-0 text-dark">{{ ((districtNm!='') ? districtNm : '--')}}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <label for="txtBlock" class="form-label"> Block/ ULB </label>
+                    <div class="form-group">
+                        <p class="mb-0 text-dark">{{ ((blockNm!='') ? blockNm : '--')}}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <label for="txtGpWard" class="form-label"> GP/ Ward </label>
+                    <div class="form-group">
+                        <p class="mb-0 text-dark">{{ ((gpNm!='') ? gpNm : '--')}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" *ngIf="(villageNm!='')">
+                    <label for="txtVillage" class="form-label"> Village </label>
+                    <div class="form-group">
+                        <p class="mb-0 text-dark">{{ ((villageNm!='') ? villageNm : '--')}}</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="txtAddress" class="form-label"> Address </label>
+                    <div class="form-group">
+                        <p class="mb-0 text-dark">{{ ((address!='') ? address : '--')}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+<div>
+                            <div class="container-fluid">  
+                                        <form [formGroup]="itemPrice" (ngSubmit)="submitItemPrice();">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-6 col-lg-12">                                               
+                                              <ng-container *ngFor="let items of
+                                              arritemgroups;let i = index">
+                                              <ng-container *ngIf="arritems[i].length > 0">
+                                              <h6>{{items.vchItemGroupName}}</h6>
+                                              <table class="m-0">
+                                                  <tr>
+                                                        <!-- <th *ngIf="items.vchItemGroupName=='Optional Component'"></th> -->
+                                                        <th></th>
+                                                        <th>Component</th>
+                                                        <th>Unit</th>
+                                                        <th>MI Price (INR Per Unit)</th>
+                                                        <th>Quantity</th>
+                                                        <th>Total Price (INR)</th>
+                                                  </tr>
+                                                  <tr *ngFor="let item
+                                                  of arritems[i];">
+                                                      <td *ngIf="items.vchItemGroupName=='Optional Component'"><input type="checkbox" name="chkOptional" id="chkOptional_{{items.intItemGroupId}}_{{item.intItemId}}" class="chkOptional" (click)="calTotalMIPrice()"></td>
+                                                      <td *ngIf="items.vchItemGroupName!='Optional Component'"><input type="checkbox" name="chkMandatory" id="chkMandatory_{{items.intItemGroupId}}_{{item.intItemId}}" class="chkMandatory" (click)="calTotalMIPrice()"></td>
+                                                      <td width="35%">{{item.ItemName}}</td>
+                                                      <td>{{item.vchUnit}}</td>
+                                                      <td><input type="text" id="miPrice_{{items.intItemGroupId
+                                                      }}_{{item.intItemId}}" class="form-control miPrice" value="{{item.vchmiPrice}}" readonly></td>
+      
+                                                      <td><input type="text" id="quantity_{{items.intItemGroupId
+                                                      }}_{{item.intItemId}}" class="form-control quantity" value="{{item.vchQntity}}" (keyup)="onKeyPress(items.intItemGroupId,item.intItemId)" autocomplete="off" [readonly]="item.vchQntity" (keypress)="vldChkLst.isNumberKey($event)"></td>
+      
+                                                      <td><input type="text" id="totalPrice_{{items.intItemGroupId
+                                                      }}_{{item.intItemId}}" class="form-control totalPrice" readonly value="{{item.vchTotPrice}}"></td>
+      
+                                                      <input type="hidden" id="itemGrId_{{items.intItemGroupId
+                                                      }}_{{item.intItemId}}" value="{{items.intItemGroupId}}" class="itemGroupId">
+      
+                                                      <input type="hidden" id="itemId_{{items.intItemGroupId
+                                                      }}_{{item.intItemId}}" value="{{item.intItemId}}" class="itemId">
+      
+                                                      <input type="hidden" id="itemName_{{items.intItemGroupId
+                                                      }}_{{item.intItemId}}" value="{{item.ItemName}}" class="itemName">
+                                                  </tr>
+                                                  
+                                              </table>      
+                                            </ng-container>                                
+                                             </ng-container>
+
+
+                                             <!-- <div class="row">
+                                                <div class="col-xl-2">
+                                                    adsa
+                                                </div>
+                                             </div> -->
+
+                                             <div class="border-n">
+                                                <div class="row">
+                                                <div class="col-xl-10 total-fix" align="right"> <div class="total-sc"> Total </div> </div>
+                                                <div class="col-xl-2 total-fix2"> {{totalItemPrice}} </div>
+                                             </div>
+
+                                             <div class="row">
+                                                <div class="col-xl-10 total-fix" align="right"> <div class="total-sc"> Fittings/Instalation& Accessories ({{fittingPercentage}}%) </div> </div>
+                                                <div class="col-xl-2 total-fix2"> {{totalFittingPrice}} </div>
+                                             </div>
+
+                                             <div class="row">
+                                                <div class="col-xl-10 total-fix" align="right"> <div class="total-sc"> GST (12%) </div> </div>
+                                                <div class="col-xl-2 total-fix2"> {{totalGSTAmount}} </div>
+                                             </div>
+
+                                             <div class="row">
+                                                <div class="col-xl-10 total-fix" align="right"> <div class="total-sc"> Total Price </div> </div>
+                                                <div class="col-xl-2 total-fix2"> {{totalMIGSTPrice}} </div>
+                                             </div>
+
+                                            </div>
+
+                                             
+
+
+                                             <!-- <table class="table table-bordered">
+                                                <tr>
+                                                    <td colspan="5" align="right">Total</td>
+                                                    <td align="left">{{totalItemPrice}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" align="right">Fitting Charges (5%)</td>
+                                                    <td align="left">{{totalFittingPrice}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" align="right">GST (12%)</td>
+                                                    <td align="left">{{totalGSTAmount}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" align="right">Total Price</td>
+                                                    <td align="left">{{totalMIGSTPrice}}</td>
+                                                </tr>
+                                             </table> -->
+      
+                                                  <div class="row">
+      
+                                                  <table>
+                                                    <tr>
+                                                        <th colspan="2">Documents to be uploaded</th>
+                                                    </tr>
+                                                <tr *ngFor="let item of this.staticArray; let j = index">
+                                                    <td width="35%">
+                                                        <span *ngIf="!(farmerType === '1' && (castCatg === 'SC' || castCatg === 'ST') && item === 'SF/MF Certificate from AHO')" class="text-danger">*</span>&nbsp;{{item}}
+                                                    </td>
+                                                    <td>
+                                                        <div class="file_upload">
+                                                            <input type="file" id="file{{j}}" class="form-control uploadFile" (change)="onFileChange($event, j)">
+                                                            <small class="text-danger">Only PDF, JPG, JPEG, PNG max size 1 MB</small>
+                                                            <div *ngIf="uploadedFiles[j]" class="file-preview">
+                                                                <button (click)="previewFile(uploadedFiles[j],$event)" class="btn btn-link">
+                                                                    <i class="icon-eye-solid"></i> </button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                    
+                                                </table>
+      
+                                                  </div>
+      
+                                            </div>
+                                          </div>
+                                        <!-- <form [formGroup]="itemPrice" (ngSubmit)="submitItemPrice();">  -->
+                                            <!-- <div class="row">
+                                                <div class="col-sm-3 col-md-6 col-lg-12">
+                                                    <table>
+                                                        <tr>
+                                                            <th>
+                                                                Water Test Report 
+                                                            </th>
+                                                            <th>
+                                                                Soil Test Report  
+                                                            </th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="file" id="" class="waterTest"/>
+                                                            </td>
+                                                            <td><input type="file" id="" class="soilTest"/></td>
+                                                        </tr>
+                                                    </table>
+                                                    
+                                                </div>
+                                            </div>                                            -->
+                                    <div class="row" *ngIf="this.appStatus==resubmitManufacture">
+                                        <div class="form-check mb-4">
+                                            <label><span class="text-danger">*</span> {{ 'Remark' | translate}} </label>
+                                            <textarea class="form-control" rows="4" cols="4" maxlength="250" formControlName="resubmitRmrkMI" id="resubmitRmrkMI"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4" *ngIf="this.up!=1">
+                                            <div class="row ">
+                                                    <div class="col-md-6 col-lg-4">
+                                                            <button type="submit" id="Submit" class="btn btn-success">Update BOQ</button> 
+                                                            <button (click)="goBack($event)" style="margin-left: 1rem;" class="btn btn-danger">Cancel</button> 
+                                                    </div>
+                                            </div>
+                                            </div>
+                                    </form>
+                                  </div>
+                    </div>
+                        <ng-template #other_content>
+
+              
+
+                                <h6 class="no-content"> No Record found</h6>
+                              
+                        </ng-template>
+
+                <div class="loader" *ngIf="loading">
+                    <div class="loader-item"></div>
+                    <p>Loading...</p>
+            </div>

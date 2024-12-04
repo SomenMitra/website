@@ -1,0 +1,122 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icons/icomoon.eot?jddrlt');
+  src:  url('../fonts/icons/icomoon.eot?jddrlt#iefix') format('embedded-opentype'),
+    url('../fonts/icons/icomoon.ttf?jddrlt') format('truetype'),
+    url('../fonts/icons/icomoon.woff?jddrlt') format('woff'),
+    url('../fonts/icons/icomoon.svg?jddrlt#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  /* font-family: 'icomoon' !important; */
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icomoon {
+  font-family: 'icomoon' !important;
+}
+
+.icon-screen-reader:before {
+  content: "\e91e";
+}
+.icon-monochrome:before {
+  content: "\e91b";
+}
+.icon-light-theme:before {
+  content: "\e91c";
+}
+.icon-highlight-link:before {
+  content: "\e91d";
+}
+.icon-dark-theme:before {
+  content: "\e91a";
+}
+.icon-animal:before {
+  content: "\e910";
+}
+.icon-argiculture:before {
+  content: "\e911";
+}
+.icon-call:before {
+  content: "\e913";
+}
+.icon-fish:before {
+  content: "\e914";
+}
+.icon-horticulture:before {
+  content: "\e915";
+}
+.icon-lang:before {
+  content: "\e916";
+}
+.icon-plant:before {
+  content: "\e917";
+}
+.icon-setting:before {
+  content: "\e918";
+}
+.icon-theme:before {
+  content: "\e919";
+}
+.icon-back:before {
+  content: "\e900";
+}
+.icon-date:before {
+  content: "\e901";
+  color: #8b8b8b;
+}
+.icon-delete:before {
+  content: "\e902";
+}
+.icon-down-arrow:before {
+  content: "\e903";
+}
+.icon-download:before {
+  content: "\e904";
+}
+.icon-edit:before {
+  content: "\e905";
+}
+.icon-file:before {
+  content: "\e906";
+}
+.icon-file-update:before {
+  content: "\e907";
+}
+.icon-menu:before {
+  content: "\e908";
+}
+.icon-minus:before {
+  content: "\e909";
+}
+.icon-plus:before {
+  content: "\e90a";
+}
+.icon-reset:before {
+  content: "\e90b";
+}
+.icon-right-arrow:before {
+  content: "\e90c";
+}
+.icon-search:before {
+  content: "\e90d";
+}
+.icon-up-arrow:before {
+  content: "\e90e";
+}
+.icon-view:before {
+  content: "\e90f";
+}

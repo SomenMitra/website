@@ -1,0 +1,50 @@
+<div class="reg-body">
+    <div class="registration-form">
+            <div class="reg-header">
+                    <img src="{{siteURL}}assets/images/slogo2.png">
+                    <!-- <h1 class="">
+                        {{'SUGAM' | translate}}
+                        <small class="d-block"> {{ 'Fisheries & Animal Resources Development Department' | translate }},</small>
+
+                            <span class="d-block">{{'Department of Agriculture and Farmer Empowerment' | translate}}</span>
+                       
+                    </h1>
+ -->
+                </div>
+                <div class="control-div">
+                   
+
+                    <div class="login__content">
+                            <h4>{{'Beneficiary Login  By Password' | translate}} </h4>
+            
+                            <div class="form-group">
+                                <label>{{'Mobile Number' | translate}}  </label>
+                                <input type="text" class="form-control vchEmail" placeholder="Mobile Number" id="vchEmailId"
+                                    name="vchEmailId" value="" autocomplete="off" [(ngModel)]="citizenUserId"
+                                    (keypress)="vldChkLst.isNumberKey($event)" maxlength="10" />
+                                <div class="addon"><i class="icon-user-solid"></i></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{'Password' | translate}} </label>
+                                <input type="password" class="form-control password" readonly=""
+                                    onfocus="this.removeAttribute('readonly');" id="Upassword" name="Upassword"
+                                    placeholder="Password" autocomplete="off" value="" [(ngModel)]="citizenPassword" />
+                                <div class="addon"><i class="icon-lock-solid"></i></div>
+                                <a class="passwordshowbtn" (click)="showPassword()">
+                                    <img src='{{siteURL}}assets/images/hide.png' alt='hide'>
+                                </a>
+                            </div>
+
+
+                        <input type="submit" value="Login" (click)="doLogin();" id="login-btn"
+                        class="log-link mb-2 mt-4 otp-btn">
+                    <p class="text-center mb-0 mt-3">
+                        <a class="link" [routerLink]="[ '/']"><i class="icon-home-solid"></i>  {{'Back to Home' | translate}}</a>
+                    </p>
+                  
+                    </div> 
+            </div>
+        </div>
+
+</div>

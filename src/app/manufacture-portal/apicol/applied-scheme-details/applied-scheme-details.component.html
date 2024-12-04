@@ -1,0 +1,266 @@
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading">Application Details</h5>
+     <a class="text-dark h5" title="Back" (click)="goBack()" ngbTooltip="back"><i class="bi bi-arrow-left"></i></a>
+</div>
+
+<div>
+</div>
+<ng-container *ngIf="respSts==1; then shwContnt"></ng-container>
+<ng-template #shwContnt>
+
+    <div class="border-radius details-card" *ngFor="let schemInfo of respList;let aRwCnt=index;">
+        <div class="row">
+            <div class="col-md-7 col-lg-9">
+                <h5 class="mb-4">
+                    <span class="d-block mt-1 text-info"><strong>{{schemInfo.strSchmServcNm}}</strong></span>
+                </h5>
+                <p class="mb-2">Application Id : <strong>{{schemInfo.strAppltnNo}}</strong></p>
+                <p class="mb-2" *ngIf="schemInfo.integrationReferenceNo!=null">{{refText}} : <strong>{{schemInfo.integrationReferenceNo}}</strong></p>
+                <p class="mb-2">Applied On : <strong>{{schemInfo.strApplOn}}</strong></p>
+                <p class="mb-2">Status : <strong class="text-warning">{{schemInfo.strAppSts}}</strong></p>
+                <ng-container *ngIf="schemInfo.strAppRemarks.txDeptNoting">
+                    <p class="mb-2 "
+                        *ngIf="schemInfo.strAppRemarks.intStatus==3 || schemInfo.strAppRemarks.intStatus==6 || schemInfo.strAppRemarks.intStatus==7">Remark :
+                        <strong innerHtml={{schemInfo.strAppRemarks.txDeptNoting}}
+                            style="display: inline-block;"></strong></p>
+                </ng-container>
+            </div>
+            <div class="col-md-5 col-lg-3">
+                <div class="letters-div">
+                    <div *ngIf="schemInfo.letterArray.length > 0">
+                        <h5>Letters</h5>
+                        <ul class="letter-list">
+                            <li class="" *ngFor="let letterdetials of schemInfo.letterArray ">
+                                <a href="{{letterdetials.letterFile}}"
+                                    target="_blank"><span>{{letterdetials.letterName}}</span> <i
+                                        class="icon-file-pdf"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="mt-5" *ngIf="schemInfo.apprvRsubmCnt>0">
+                        No of Re-applied : <button class="btn btn-sm btn-warning"
+                            (click)="getRsmHist(schemInfo.intAppltnId);"><strong
+                                class="text-warning">{{schemInfo.apprvRsubmCnt}}</strong></button>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div *ngIf="schemInfo.intServiceMode==1 && schemeId!=sujogProcessId">
+            <!-- {{schemInfo.subsidyList.length}} -->
+            <!--ADDDDDDD-->
+            <ng-container *ngIf="schemInfo.intAppltnSts==3; then shwPrvBtn else shwEdtBtn;"></ng-container>
+            <ng-template #shwPrvBtn>
+                <!-- <ng-container
+                *ngIf="schemInfo.intServiceMode==2 && (schemInfo.integrationReferenceNo!=null);else shwEdtBtn"> -->
+                <div class="mt-4">
+                    <a href="javascript:void(0);" (click)="doSchemePreview(schemeId+':'+schemInfo.intAppltnId);">View Application</a>
+                    <ng-container *ngIf="schemInfo.intGoAheadLtrSts!=2 && schemInfo.strAppRemarks.intStatus!=Env.APP_CANCEL_REQUEST && schemInfo.strAppRemarks.intStatus!=Env.APPROVE_APP_CANCEL ">
+                        <a href="javascript:void(0);" (click)="doSchemeCancel(schemeId,schemInfo.intAppltnId);">Cancel Application</a>
+                    </ng-container>
+                        <a href="javascript:void(0);" *ngIf="aRwCnt==0 && schemInfo.dupCntScheme==0" (click)="doSchemeApply(schemeId+':0:'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">{{'Apply for Another Application' | translate }}</a>
+                        <ng-container *ngIf="(schemeId==seedDBTProcessId && schemInfo.intAppltnSts==3); then showVoucherDetails"></ng-container>
+                        <ng-template #showVoucherDetails>
+                            <a href="javascript:void(0)"  class="readMore2"
+                            (click)="doSchemePreview(schemeId+':'+schemInfo.intAppltnId+':0:0:1');">{{'Show Voucher Details' | translate}}</a>
+                        </ng-template>
+                        <ng-container *ngIf="(schemeId==seedDBTProcessId &&  (seedDBTTotQuantityValidation > seedDBTPaddytotalQuantity || seedDBTTotQuantityValidation > seedDBTNonPaddytotalQuantity) && aRwCnt == 0  && schemInfo.intAppltnSts==3 && maxNoOfSeedDBT > noOfTimeSeedApplied); then seedDBTReapply"></ng-container>
+                        <ng-template #seedDBTReapply>
+                            <a href="javascript:void(0)"  class="readMore2"
+                            (click)="doSchemeSeedDBTApply(schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm,schemeId+':0:1');">{{'Apply for Additional Seeds' | translate }}</a>
+                        </ng-template>
+                    <ng-container *ngIf="schemInfo.apprvSts==30 && schemInfo.pendingAt==0;">
+                        <a href="javascript:void(0);"
+                            (click)="doUploadPaymentReceipt(schemeId+':'+schemInfo.intAppltnId);">Upload Payment
+                            Receipt</a>
+                    </ng-container>
+                    <ng-container *ngIf="schemInfo.apprvSts==31">
+                        <a *ngIf="schemInfo.racDoc!='';" download title="Download" target="_blank"
+                            href="{{schemInfo.racDoc}}">View RC</a>
+                    </ng-container>
+                    <ng-container *ngIf="schemInfo.apprvSts==30 && schemInfo.uploadedPaymentDocument;">
+                        <a *ngIf="schemInfo.uploadedPaymentDocument!='';" download title="Download" target="_blank"
+                            href="{{schemInfo.uploadedPaymentDocument}}">View Payment Receipt</a>
+                    </ng-container>
+                  
+                    <ng-container *ngIf="schemInfo.subsidyList.length > 0">
+
+
+
+                        <ng-container class="" *ngFor="let subsidy of schemInfo.subsidyList ">
+
+                            <ng-container *ngIf="subsidy.FarmerUpdateSts >= 1 && schemInfo.letterStatus == 2  && schemInfo.strAppRemarks.intStatus!=Env.APP_CANCEL_REQUEST && schemInfo.strAppRemarks.intStatus!=Env.APPROVE_APP_CANCEL">
+                                <a
+                                    (click)="updateScheme(schemeId+':'+schemInfo.intAppltnId+':'+subsidy.subsidyCtr+':'+1);">View Phase - {{subsidy.subsidyCtr}} Activities
+                                </a>
+                            </ng-container>
+
+                            <!-- {{subsidy.FarmerUpdateSts}}, {{subsidy.AuthUpdateSts}} -->
+                        </ng-container>
+                        
+                        <ng-container class="" *ngFor="let subsidy of schemInfo.subsidyList ">
+
+                            <ng-container
+                                *ngIf="((subsidy.FarmerUpdateSts == 0 && schemInfo.letterStatus == 2) && (schemInfo.letterStatus == 2 && schemInfo.apprvRsubmSts == 1) &&  schemInfo.strAppRemarks.intStatus!=Env.APP_CANCEL_REQUEST && schemInfo.strAppRemarks.intStatus!=Env.APPROVE_APP_CANCEL && schemInfo.strAppRemarks.intStatus!=51);">
+                                <a
+                                    (click)="updateScheme(schemeId+':'+schemInfo.intAppltnId+':'+subsidy.subsidyCtr+':'+0);">Update
+                                    <!-- Phase - {{subsidy.subsidyCtr}} -->
+                                     Activities</a>
+                            </ng-container>
+                            <ng-container *ngIf="(subsidy.FarmerUpdateSts == 1 && schemInfo.letterStatus == 2) && AuthUpdateSts== 0 &&  schemInfo.strAppRemarks.intStatus!=Env.APP_CANCEL_REQUEST && schemInfo.strAppRemarks.intStatus!=Env.APPROVE_APP_CANCEL">
+                              <a
+                                  (click)="updateScheme(schemeId+':'+schemInfo.intAppltnId+':'+subsidy.subsidyCtr+':'+0 +':'+AuthUpdateSts);">Edit
+                                  Phase - {{subsidy.subsidyCtr}} Activities
+                              </a>
+                          </ng-container>
+
+
+                        </ng-container>
+
+
+
+
+                    </ng-container>
+
+                    <ng-container
+                        *ngIf="schemInfo.apprvSts == appRsmSts && schemInfo.apprvRsubmSts == 1 && schemInfo.letterStatus != 2;">
+                        <a
+                            (click)="doSchemeApply(schemeId+':'+schemInfo.intAppltnId+':'+schemInfo.docSts,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Re
+                            apply </a>
+                    </ng-container>
+
+                    <ng-container *ngIf="schemInfo.apprvSts == appQrySts && schemInfo.apprvQryTo == 2;">
+                        <a
+                            (click)="doQueryReply(schemeId+':'+schemInfo.intAppltnId,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Reply
+                            to Query </a>
+                    </ng-container>
+                </div>
+            </ng-template>
+            <ng-template #shwEdtBtn>
+                <div class="mt-4">
+                    <a href="javascript:void(0);"
+                        (click)="doSchemeApply(schemeId+':'+schemInfo.intAppltnId+':'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Edit</a>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="schemInfo.intServiceMode==2 || schemeId==sujogProcessId">
+            <ng-container
+                *ngIf="schemInfo.integrationResultCode >= 200; then showIntegrationPreview else editIntegration;">
+            </ng-container>
+            <ng-template #showIntegrationPreview>
+                <ng-container
+                    *ngIf="schemInfo.vchAPIStatusURL == '' || schemInfo.vchAPIStatusURL == null; then viewApplicationPreview else viewIntegrationPreview;">
+                </ng-container>
+                <ng-template #viewApplicationPreview>
+                <a href="javascript:void(0);" (click)="doSchemePreview(schemeId+':'+schemInfo.intAppltnId);">View
+                    Application</a>
+                </ng-template>
+                <ng-template #viewIntegrationPreview>
+                    <a href="javascript:void(0);" (click)="doIntegrationPreview(schemeId,schemInfo.intAppltnId);">View
+                        Application</a>
+                </ng-template>
+                <ng-container *ngIf="aRwCnt==0 && schemInfo.dupCntSchemeIntegration==0">
+                    <a href="javascript:void(0);" (click)="doSchemeApply(schemeId+':0:'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">{{'Apply for Another Application' | translate }}
+                    </a>
+                </ng-container>
+                <ng-container *ngIf="schemInfo.integrationResultCode==201;">
+                    <a href="javascript:void(0);" (click)="doReply(schemeId,schemInfo.intAppltnId);">Reply
+                    </a>
+                </ng-container>
+
+                <ng-container *ngIf="schemInfo.integrationResultCode==204;">
+                    <a href="{{schemInfo.integrationDocPath}}" target="_blank">View Certificate
+                        </a>
+                </ng-container>
+
+            </ng-template>
+            <ng-template #editIntegration>
+                <div class="mt-4">
+                    <a href="javascript:void(0);"
+                        (click)="doSchemeApply(schemeId+':'+schemInfo.intAppltnId+':'+schemInfo.docSts+':'+schemInfo.intServiceMode+':'+schemInfo.intBaseType,schemInfo.strSchmServcNm,schemInfo.schmServTypeId,schemInfo.schmServTypeNm);">Edit</a>
+                </div>
+            </ng-template>
+
+        </div>
+        <!--ADDDDDDD-->
+
+    </div>
+</ng-template>
+
+<ng-template #rsmModal id="rsmModal" let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Resubmission Details</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <i class="icon-times-solid"></i>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="fix-height">
+            <div class="row" *ngIf="isRsmFlg>0;else norecord">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="50px">Sl#</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Note</th>
+                                <th scope="col">Reverted On</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rsmObj of rsmInfo;let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{rsmObj.authActnBy}}</td>
+                                <td>
+                                    <p innerHtml={{rsmObj.authMsg}}></p>
+                                </td>
+                                <td>{{rsmObj.authActnOn}}</td>
+                                <td><button class="btn btn-sm btn-success"
+                                        (click)="doSchemePreview(schemeId+':'+rsmObj.appltnId+':0:'+rsmObj.appHistId);">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <ng-template #norecord>
+                <h6 class="no-content"> No Record Found</h6>
+            </ng-template>
+        </div>
+    </div>
+</ng-template>
+<ng-template #someModal id="someModal" let-modal>
+    <form [formGroup]="appCancelForm" (ngSubmit)="doCancelRequest();">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Application Cancel Request</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <i class="icon-times-solid"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="form-group">
+                        <label class="form-label"><span class="text-danger">*</span> {{ 'Remark' | translate}} </label>
+                        <!-- <textarea class="form-control" formControlName="vchCancelRemark" ></textarea> -->
+                        <textarea class="form-control" rows="4" cols="4" maxlength="250" formControlName="vchCancelRemark" [ngClass]="{ 'is-invalid': cancelSubmitted && g.vchCancelRemark.errors }"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="float:right">
+                <div class="col-md-12 col-lg-12 mt-3 ">
+                    <div class="form-group">
+                        <button class="btn btn-success" style="margin-right: 10px;">Submit</button>
+                        <button type="button" class="btn btn-danger close"  data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</ng-template>

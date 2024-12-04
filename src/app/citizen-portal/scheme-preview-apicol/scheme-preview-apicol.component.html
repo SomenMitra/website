@@ -1,0 +1,711 @@
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading noPrint">Preview Details </h5>
+    <div class="p-none">
+        <a (click)="printPage()" href="javascript:void(0)" class="h5 text-info "><i class="icon-print-solid"></i></a>
+       
+
+        <ng-container *ngIf="!DBTscheme; then aftrLgIn"></ng-container>
+        <ng-template #aftrLgIn>
+            <a class="text-dark h5 ml-1"  title="Back" href="javascript:void(0)" (click)="goBack()"><i
+                class="icon-arrow-left-solid"></i></a>
+        </ng-template>
+
+        
+    </div>
+</div>
+
+<div class="p-3 bg-light mb-3 schemename row">    
+    <h5 class="col-md-8 common-heading2 mb-0">{{(schmHrDt?.schmServTypeNm!='')?schmHrDt?.schmServTypeNm:''}} : <span
+            class="text-success">{{(schmHrDt?.schmServNm!='')?schmHrDt?.schmServNm:''}}</span></h5>
+    <h5 class="col-md-4 common-heading2 mb-0 text-right" *ngIf="editSts!=1">{{(schmHrDt?.strApplicationNo!='')?schmHrDt?.strApplicationNo:''}} : <span
+                class="text-success">{{(schmHrDt?.vchApplicationNo!='')?schmHrDt?.vchApplicationNo:''}}</span></h5>
+</div>
+<div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h5 class="accordion-header" id="headingOne">
+                <a class="accordion-button farmerInfoAccordian"  type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Farmer Information
+                </a>
+            </h5> 
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+
+                        <h5 class="common-heading2">Basic Information</h5>
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtApplicantName" class="form-label"> Name </label>
+                                            <p class="mb-0 text-dark">{{ ((applicantName!='') ? applicantName : '--')}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtEmail" class="form-label"> Email Id </label>
+                                            <p class="mb-0 text-dark">{{ ((emailId!='') ? emailId : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtMobile" class="form-label"> Mobile Number </label>
+                                            <p class="mb-0 text-dark">{{ ((mobileNo!='') ? mobileNo : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="rdoGender" class="form-label"> Gender </label>
+                                            <p class="mb-0 text-dark">{{ ((gender!='') ? gender : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtDob" class="form-label"> Date of Birth </label>
+                                            <p class="mb-0 text-dark">{{ ((dob!='') ? dob : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="selCategory" class="form-label"> Category </label>
+                                            <p class="mb-0 text-dark">{{ ((castCatg!='') ? castCatg : '--')}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtFatherNm" class="form-label"> Father's/ Husband's Name
+                                            </label>
+                                            <p class="mb-0 text-dark">{{ ((fatherNm!='') ? fatherNm : '--')}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="txtAadhaarNo" class="form-label"> Aadhaar Number </label>
+                                            <p class="mb-0 text-dark">{{ ((aadhaarNo!='') ? aadhaarNo : '--')}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-4" *ngIf="applicationStatus==3">
+                                        <div class="form-group">
+                                            <label for="txtAadhaarNo" class="form-label"> Applied On </label>
+                                            <p class="mb-0 text-dark">{{ ((dtmAppliedOn!='') ? dtmAppliedOn : '--')}}</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="img-div mb-2">
+                                    <img *ngIf="profImgUrl" [src]="profImgUrl" alt="Government of Odisha"
+                                        class="dark-logo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed"></div>
+                        <h5 class="common-heading2">Communication Address</h5>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3">
+                                <label for="txtDistrict" class="form-label"> District </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((districtNm!='') ? districtNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="txtBlock" class="form-label"> Block/ ULB </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((blockNm!='') ? blockNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="txtGpWard" class="form-label"> GP/ Ward </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((gpNm!='') ? gpNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-3" *ngIf="(villageNm!='')">
+                                <label for="txtVillage" class="form-label"> Village </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((villageNm!='') ? villageNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="txtAddress" class="form-label"> Address </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((address!='') ? address : '--')}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h5 class="accordion-header" id="headingTwo">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    {{schmHrDt?.schmServTypeNm}} Information
+                </a>
+            </h5>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <ng-container *ngIf="schemeId==seedDBT;else secondng"><h5 class="common-heading2" *ngIf="schemeId!=sujogPortal">Address where seeds to be purchased</h5></ng-container>
+                        <ng-template #secondng>
+                            <h5 class="common-heading2" *ngIf="schemeId!=sujogPortal">Address where unit has to be set-up</h5>
+                        </ng-template>
+                       
+                        <h5 class="common-heading2" *ngIf="schemeId==sujogPortal">Address details</h5>
+                        <div class="row" *ngIf="schemeId==sujogPortal">
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">City</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ sujogCity}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="schemeId!=sujogPortal">
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">{{distLabel}}</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.districtNm!='') ? schmHrDt?.districtNm :
+                                        '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3" *ngIf="schemeId != seedDBT ">
+                                <label class="form-label">{{blockLabel}}</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.blockNm!='') ? schmHrDt?.blockNm : '--')}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3" *ngIf="schemeId != seedDBT ">
+                                <label class="form-label">{{gpLabel}}</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.gpNm!='') ? schmHrDt?.gpNm : '--')}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3" *ngIf="(schmHrDt?.marineType == 0 && schemeId != seedDBT && schmHrDt?.villageId!=0)">
+                                <label class="form-label">Village</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.villageNm!='') ? schmHrDt?.villageNm :
+                                        '--')}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4" *ngIf="isServcFlg">
+                                <label class="form-label">Veterinary Officer</label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">{{ ((schmHrDt?.vtOfcrNm!='') ? schmHrDt?.vtOfcrNm : '--')}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator separator-dashed"></div>
+
+                        <div *ngFor="let sectnInfo of schmData;let aRwCnt=index;">
+                            <h5 class="common-heading2">{{sectnInfo.sectionName}}</h5>
+                            <div class="row">
+                                <ng-container *ngFor="let ctrlInfo of sectnInfo.sectionCtrls;let i=index;">
+                                    <ng-container *ngIf="ctrlInfo.tinControlType==8; then shwAddMore else shwOther;">
+                                    </ng-container>
+                                    <ng-template #shwAddMore>
+
+                                        <div class="col-md-12" *ngIf="ctrlInfo?.vchFieldValue?.columnData?.length>0;">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="5px">Sl#</th>
+                                                        <th
+                                                            *ngFor="let addMoreColInfo of ctrlInfo.vchFieldValue.columnData;let adCnt=index;">
+                                                            {{addMoreColInfo.colName}}
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr
+                                                        *ngFor="let addMoreRowInfo of ctrlInfo.vchFieldValue.addMoreData;let adRCnt=index;">
+                                                        <td>{{adRCnt+1}}</td>
+                                                        <td 
+                                                            *ngFor="let addMoreRowColInfo of addMoreRowInfo;let adRclCnt=index;" class="{{addMoreRowColInfo.colName}}">
+                                                        
+                                                            {{getAddMoreVal(addMoreRowColInfo.elementVal,addMoreRowColInfo.colType)}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </ng-template>
+
+                                    <ng-template #shwOther>
+                                        <div class="col-md-6 col-lg-4"
+                                            [ngClass]="ctrlInfo.jsnDispTagArray[0].tagFieldSts == 1 && ctrlInfo.vchDispFieldValue==''?'d-none' : ''">
+                                            <label class="form-label">{{ctrlInfo.vchLabelName}}</label>
+                                            <div class="form-group">
+                                                <p class="mb-0 text-dark">{{ ((ctrlInfo.vchDispFieldValue!='') ?
+                                                    ctrlInfo.vchDispFieldValue : '--')}}</p>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
+
+                                </ng-container>
+                            </div>
+                            <div class="separator separator-dashed"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item p-none" *ngIf="docSectnSts">
+            <h5 class="accordion-header" id="headingThree">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Documents
+                </a>
+            </h5>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+
+                        <div class="row" *ngIf="resDocSts; else norecord">
+                            <ng-container *ngFor="let docInfo of resDocList;let aRwCnt=index;">
+                                <div class="col-md-8 col-lg-4">
+                                    <label class="form-label">{{docInfo.vchDocumentName}} <span
+                                            *ngIf="docInfo.optnDataType==2">({{docInfo.optnDataVal}})</span></label>
+                                    <div class="form-group">
+                                        <p class="mb-0 text-dark">
+                                            <ng-container *ngIf="docInfo.dataUrlDoc!='';else noDocFnd">
+                                                <a class="text-danger h5" href="{{docInfo.dataUrlDoc}}"
+                                                    target="_blank"><i class="icon-file-pdf"></i></a>
+                                            </ng-container>
+                                            <ng-template #noDocFnd>
+                                                <span>--</span>
+                                            </ng-template>
+                                        </p>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <ng-template #norecord>
+                            <h6 class="no-content"> No Document Uploaded </h6>
+                        </ng-template>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item" *ngIf="paySectnSts && (resPaySts==1) && !(editSts==0 && qryArr.length>0)">
+            <h5 class="accordion-header" id="headingFour">
+                <a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                aria-expanded="true" aria-controls="collapseFour">
+                    Payment Details
+                </a>
+            </h5>
+            <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-right" width="150px">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="resPaySts; else norecord">
+                                   <tr *ngIf="resPayList.amount!=null && resPayList.amount!='0.00'">
+                                        <td>Processing Fee</td>
+                                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span class="paybleAmt">{{resPayList.amount}}</span></strong></td>
+                                   </tr> 
+                                   <tr *ngIf="resPayList.newValuationCost!=null && resPayList.newValuationCost!='0.00'">
+                                    <td>Valuation Fee</td>
+                                    <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span class="paybleAmt ">{{resPayList.newValuationCost}}</span></strong></td>
+                               </tr> 
+                               <tr *ngIf="resPayList.decGST!=null && resPayList.decGST!='0'">
+                                <td>GST ({{resPayList.decGST}}%)</td>
+                                <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span class="paybleAmt ">{{resPayList.gstCost}}</span></strong></td>
+                           </tr> 
+                           <tr *ngIf="resPayList.decOtherTax!=null && resPayList.decOtherTax!=0">
+                            <td>Other Tax ({{resPayList.decOtherTax}}%)</td>
+                            <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span class="paybleAmt">{{resPayList.otherTaxCost}}</span></strong></td>
+                       </tr> 
+                       <tr *ngIf="resPayList.valueCostWithGST!=null && resPayList.valueCostWithGST!='0.00'">
+                        <td>Total Valuation Fee</td>
+                        <td class="text-right"><i class="icon-rupee-sign-solid"></i><strong><span class="paybleAmt ">{{resPayList.valueCostWithGST}}</span></strong></td>
+                   </tr> 
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="row" >
+                  
+                           
+                            <div class="col-sm-12 text-right">
+                                <div class="p-2">
+                                <h5><strong>Payable Amount  : <i class="icon-rupee-sign-solid"></i><span class="paybleAmt ">{{resPayList.totalPaybleAmount}}</span></strong></h5>
+                                 </div>
+                            </div>
+                        </div>
+                       
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item" *ngIf="paySectnSts && (resPaySts==2)">
+            <h5 class="accordion-header" id="headingFive">
+                <a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                aria-expanded="true" aria-controls="collapseFour">
+                    Payment Details
+                </a>
+            </h5>
+            <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+
+                        <div class="row" *ngIf="resPaySts==2; else norecord">
+                            <div class="col-md-8 col-lg-4">
+                                <label class="form-label">Paid Amount </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">
+                                     <i class="fa fa-inr"></i>
+                                     <span class="paybleAmt ">{{paymentDetails.decTotalPayment}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-lg-4">
+                                <label class="form-label">Transaction ID </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">
+                                     <i class="fa fa-inr"></i>
+                                     <span class="paybleAmt ">{{paymentDetails.vchUniqueTransNo}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-lg-4">
+                                <label class="form-label">Bank Transaction ID </label>
+                                <div class="form-group">
+                                    <p class="mb-0 text-dark">
+                                     <i class="fa fa-inr"></i>
+                                     <span class="paybleAmt ">{{paymentDetails.vchBankTransNo}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                       
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item" *ngIf="editSts==0 && qryArr.length>0 ">
+            <h5 class="accordion-header" id="headingSix">
+                <a class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Query Details
+                </a>
+            </h5>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <ng-container *ngFor="let qryInfo of qryArr | keyvalue;let qRwCnt=index;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h5 class="common-heading2">{{qryInfo.value.qryMsg}} <small>On:
+                                            {{(qryInfo.value.authActnOn!='')?qryInfo.value.authActnOn:'--'}}</small>
+                                    </h5>
+                                    <div class="form-group">
+                                        <label class="form-label"> Message </label>
+                                        <div innerHtml={{qryInfo.value.authMsg}}></div>
+                                    </div>
+                                    <div class="form-group"
+                                        *ngIf="(qryInfo.value.qrySts).toLowerCase() =='rpy' && (qryInfo.value.qryRplyDoc).length>0">
+                                        <label class="form-label"> Document List </label>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th width="5%">Sl#</th>
+                                                    <th>Document Name</th>
+                                                    <th width="5%">Document</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let docItm of qryInfo.value.qryRplyDoc;let docR = index">
+                                                    <td><label>{{docR+1}}</label></td>
+                                                    <td>{{(docItm.docName!='')?docItm.docName:'--'}}</td>
+                                                    <td>
+                                                        <p class="mb-0 text-dark">
+                                                            <ng-container *ngIf="docItm.docFile!='';else noQryDocFnd">
+                                                                <a class="text-danger h5" href="{{docItm.docFile}}"
+                                                                    target="_blank"><i class="icon-file-pdf"></i></a>
+                                                            </ng-container>
+                                                            <ng-template #noQryDocFnd>
+                                                                <span>--</span>
+                                                            </ng-template>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="separator separator-dashed"
+                                *ngIf="(qryInfo.value.qrySts).toLowerCase() =='rpy'"></div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item table-responsive"  *ngIf="schemeId == seedDBT && intApplicationStatus==3">
+            <h5 class="accordion-header" id="headingSeven">
+                <a class="accordion-button voucherDetailAccordian collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    Voucher Details
+                </a>
+            </h5> 
+            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="control-div">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="5px">Sl#</th>
+                                    <th>Dealer Name</th>
+                                    <th>Seed to be purchased </th>
+                                    <th>Seed Variety</th>
+                                    <th>Bag Size (Kg)</th>
+                                    <th>No. of Bag </th>
+                                    <th>Quantity (Kg) </th>
+                                    <th>Voucher Cost (Rs.) </th>
+                                    <th>Lot No. </th>
+                                    <th>Voucher No. </th>
+                                    <th>Voucher Date </th>
+                                    <th>Voucher Status</th>
+                                    <th>Voucher Valid Upto</th>
+                                    </tr></thead>
+                                    <tbody>
+
+                        <ng-container *ngFor="let voucherInfo of voucherDetails;let ctr = index">
+                         <tr>
+                                <td>{{ctr+1}}</td>
+                                <td>{{voucherDetails[ctr]['vchDealerName']}}</td>
+                                <td><a class="text-primary" href="javascript:void(0)" (click)="getVoucherDetailsByID(voucherDetails[ctr]['intVoucherId'])">{{voucherDetails[ctr]['vchCropName']}}</a> </td>
+                                <td>{{voucherDetails[ctr]['vchVarietyName']}}</td>
+                                <td>{{voucherDetails[ctr]['vchBagSize']}}</td>
+                                <td>{{voucherDetails[ctr]['intNoOfBag']}}</td>
+                                <td>{{voucherDetails[ctr]['vchTotalQuantity']}}</td>
+                                <td>{{voucherDetails[ctr]['decTotalAmount']}}</td>
+                                <td>{{voucherDetails[ctr]['vchLotNo']}}</td>
+                                <td>{{((voucherDetails[ctr]['vchReqApprovalNo'] != '' && voucherDetails[ctr]['vchReqApprovalNo'] != null) ? voucherDetails[ctr]['vchReqApprovalNo'] : '--')}}</td>
+                                <td>{{((voucherDetails[ctr]['dtmReqDate'] != '' && voucherDetails[ctr]['dtmReqDate'] != null) ? (voucherDetails[ctr]['dtmReqDate'] | date:'dd-MMM-yyyy') : '--')}}</td>
+                               
+                               <td>
+                                  <ng-container *ngIf="(voucherDetails[ctr]['tinVoucherStatus'] ==1 || voucherDetails[ctr]['tinVoucherStatus'] ==4);else second"><span class="text-warning">Initiated</span></ng-container>
+                                  <ng-template #second>
+                                      <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 2;else three"><span class="text-primary">Generated</span></ng-container>
+                                  </ng-template>
+                                  <ng-template #three>
+                                    <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 3;else five"><span class="text-danger">Failure</span></ng-container>
+                                </ng-template>
+                               
+                                  <ng-template #five>
+                                    <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 5;else six"><span class="text-success">Redeemed</span></ng-container>
+                                 </ng-template>
+                                 <ng-template #six>
+                                    <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 6;else seven"><span class="text-danger">Revoked</span></ng-container>
+                                 </ng-template>
+                                 <ng-template #seven>
+                                    <ng-container *ngIf="voucherDetails[ctr]['tinVoucherStatus'] == 7;"><span class="text-warning">Processed</span></ng-container>
+                                 </ng-template>
+                                </td> 
+                                <td>{{((voucherDetails[ctr]['dtmValidUpto'] != '' && voucherDetails[ctr]['dtmValidUpto'] != null) ? (voucherDetails[ctr]['dtmValidUpto'] | date:'dd-MMM-yyyy HH:mm:ss') :  '--')}}</td>
+
+                            </tr> 
+                        </ng-container>
+                    </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="noPrint">
+    <ng-container *ngIf="editSts==1; then shwModBtn"></ng-container>
+    <ng-template #shwModBtn>
+        <form focusInvalidInput [formGroup]="finalForm" (submit)="onFinalSubmit()">
+
+            <div class="form-check mb-4" *ngIf="apprRsmSts==1">
+                <label><span class="text-danger">*</span> {{ 'Remark' | translate}} </label>
+                <textarea class="form-control" rows="4" cols="4" maxlength="250" formControlName="resubmitRmrk"
+                    [ngClass]="{ 'is-invalid': finalSubmitted && g.resubmitRmrk.errors }"></textarea>
+            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="declarationCheck" formControlName="terms"
+                    [ngClass]="{ 'is-invalid': finalSubmitted && g.terms.errors }" (change)="onCheckboxChange($event)" >
+                <label class="form-check-label" for="declarationCheck">
+                    I hereby declare that the information given in this application is true and
+                    correct to the best of my knowledge and belief. In case any information
+                    given in this application proves to be false or incorrect, I shall be
+                    responsible for the consequences.
+                </label>
+            </div>
+            <div class="text-center">
+                <ng-container *ngIf="!DBTscheme; then aftrLgIn"></ng-container>
+                <ng-template #aftrLgIn>
+                    <a href="javascript:void(0);" class="btn btn-warning" (click)="doSchmModify();">Modify</a>
+                </ng-template>
+                 &nbsp;
+                <button class="btn btn-success"><span *ngIf="paySectnSts && (resPaySts==1) && !(editSts==0 && qryArr.length>0)">Pay</span><span *ngIf="!(paySectnSts && (resPaySts==1) && !(editSts==0 && qryArr.length>0))">Submit</span></button>
+            </div>
+        </form>
+    </ng-template>
+</div>
+</div>
+
+<ng-template #someSeedDBTVoucherModal id="someSeedDBTVoucherModal" let-modal [hidden]="IsmodelShow" [hidden]="IsmodelShow">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Voucher Details</h4>
+        <div class="p-none">
+            <a (click)="printSeedDBTVoucherPage()" href="javascript:void(0)" class="h5 text-info  mx-3"><i class="icon-print-solid"></i></a>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <i class="icon-times-solid"></i>
+        </button>
+            </div>
+        
+    </div>
+    <div id="printSeedDBTVoucher" class="modal-body">
+        <table class="table table-bordered">
+            <tr>
+            <th width="20%">Dealer Name</th>
+            <td>: {{voucherModalDetails['vchDealerName']}}</td>
+            </tr>
+            <tr>   
+            <th width="20%">Dealer Contact Number</th>
+            <td>: {{voucherModalDetails['vchDealerMobileNo']}}</td>
+            </tr>
+            <tr>
+                <th width="20%">Type of Seed</th>
+                <td>: {{(voucherModalDetails['tinCropCode'] == 1) ? 'Paddy':'Non-Paddy'}}</td>
+                </tr>
+                <tr>
+                <th width="30%">Seed to be Purchased</th>
+                <td>: {{voucherModalDetails['vchCropName']}}</td>
+                </tr>
+                <tr>
+                    <th width="20%">Seed Variety</th>
+                    <td>: {{voucherModalDetails['vchVarietyName']}}</td>
+                </tr>
+                <tr>
+                    <th width="20%">Lot No.</th>
+                    <td>: {{voucherModalDetails['vchLotNo']}}</td>
+                </tr>
+                <tr>
+                    <th width="20%">Bag Size (Kg)</th>
+                    <td>: {{voucherModalDetails['vchBagSize']}}</td>
+                    </tr>
+                   
+                        <tr>
+                            <th width="20%">No. of Bag</th>
+                            <td>: {{voucherModalDetails['intNoOfBag']}}</td>
+                        </tr>
+                        <tr>
+                            <th width="20%">Quantity (Kg)</th>
+                            <td>: {{voucherModalDetails['vchTotalQuantity']}}</td>
+                            </tr>
+                              
+
+                            <tr>
+                                <th width="20%">Total Cost (Rs.)</th>
+                                <td>: {{voucherModalDetails['vchseedFinalTotCost']}}</td>
+                            </tr>
+
+                            <tr>
+                                <th width="20%">Voucher Cost (Rs.)</th>
+                                <td>: {{voucherModalDetails['decTotalAmount']}}</td>
+                            </tr>
+
+                            <tr>
+                                <th width="20%">Payable Amount by Farmer (Rs.)</th>
+                                <td>: {{voucherModalDetails['vchpayableAmtFarmer']}}</td>
+                            </tr>
+                                <tr>
+                                    <th width="20%">Voucher No.</th>
+                                    <td>: {{((voucherModalDetails['vchReqApprovalNo'] != '' && voucherModalDetails['vchReqApprovalNo'] != null) ? voucherModalDetails['vchReqApprovalNo'] : '--')}}</td>
+                                </tr>
+                              
+                                    <tr>
+                                        <th width="20%" >Voucher Date</th>
+                                        <td>:
+                                        {{((voucherModalDetails['dtmReqDate'] != '' && voucherModalDetails['dtmReqDate'] != null) ? (voucherModalDetails['dtmReqDate'] | date:'dd-MMM-yyyy') : '--')}} </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th width="20%" >Voucher Status</th>
+                                        <td>:
+                                            <ng-container *ngIf="(voucherModalDetails['tinVoucherStatus'] ==1 || voucherModalDetails['tinVoucherStatus'] ==4);else second"><span class="text-warning">Initiated</span></ng-container>
+                                            <ng-template #second>
+                                                <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 2;else three"><span class="text-primary">Generated</span></ng-container>
+                                            </ng-template>
+                                            <ng-template #three>
+                                              <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 3;else five"><span class="text-danger">Failure</span></ng-container>
+                                          </ng-template>
+                                         
+                                            <ng-template #five>
+                                              <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 5;else six"><span class="text-success">Redeemed</span></ng-container>
+                                           </ng-template>
+                                           <ng-template #six>
+                                              <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 6;else seven"><span class="text-danger">Revoked</span></ng-container>
+                                           </ng-template>
+                                           <ng-template #seven>
+                                              <ng-container *ngIf="voucherModalDetails['tinVoucherStatus'] == 7;"><span class="text-warning">Processed</span></ng-container>
+                                           </ng-template>
+                                            </td>
+                                       </tr>
+
+                                 
+                                    <tr>
+                                        <th width="20%" >Voucher Valid Upto</th>
+                                        <td >: {{((voucherModalDetails['dtmValidUpto'] != '' && voucherModalDetails['dtmValidUpto'] != null) ? (voucherModalDetails['dtmValidUpto'] | date:'dd-MMM-yyyy HH:mm:ss') :  '--')}}</td>
+                                        </tr>
+                                        
+                    
+        </table>
+    </div>
+</ng-template>
+
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

@@ -1,0 +1,37 @@
+<div class="d-flex align-items-start justify-content-between mb-2">
+  <h5 class="common-heading">Update Payment Receipt</h5>
+  <a class="text-dark h5" title="Back" href="javascript:void(0)" (click)="backClicked()"><i
+          class="icon-arrow-left-solid"></i></a>
+</div>
+<form [formGroup]="updateForm">
+  <ng-container>
+    <div class="row">    
+    
+        <div class="col-md-4 col-lg-4">
+          <div class="form-group">
+            <label class="form-label"><span class="text-danger">*</span> Upload Payment Receipt</label>                
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4">
+            <div class="form-group">                
+              <input type="file" id="intmnFile" class="form-control" />                
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="text-center">
+    
+          <button class="btn btn-success me-1" (click)="onSubmit()">Update</button>
+
+          <button class="btn btn-danger" (click)="onReset()">Cancel</button>
+    
+    </div>
+ </ng-container>
+</form>
+
+<div class="loader" *ngIf="loading">
+  <div class="loader-item"></div>
+  <p>Loading...</p>
+</div>

@@ -1,0 +1,57 @@
+/* @import '~swiper/swiper-bundle.css'; */
+
+  .inner-content{
+    padding-top: 3rem;
+    font-size: 1rem;
+    background-color: var(--white-black);
+  }
+ .about-inner{
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 3rem 0;
+    background-color: var(--white-black);
+    line-height: 1.5;
+  }
+  .about-feature{
+    padding: 3rem 0;
+    background-color: var(--grey-dark);
+  }
+  .about-feature h3 {
+    text-align: center;
+    color: #588158;
+    margin-bottom: 3rem;
+  }
+ .about-feature .feature-item{
+   margin-bottom: 1.5rem;
+  }
+
+  .swiper-container {
+    width: 100%;
+    height: 300px; /* Set the height of the swiper */
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #fff;
+    background: #007aff; /* Set your background color */
+  }
+
+
+
+  @media screen and (max-width:1366px) {
+    .about-inner {
+      text-align: center;
+      font-size: 1rem;
+    }
+  }
+  @media screen and (max-width:1200px) {
+    .about-inner .about_heading {
+      font-size: 5rem;
+      color: #588158;
+      line-height: 1;
+  }
+  }
+  

@@ -1,0 +1,77 @@
+<form [formGroup]="statusform">
+    <div class="row ">
+            <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                            <label class="form-label"><span class="text-danger">*</span> {{'Financial Year' | translate}}  </label>
+                            <select formControlName="selFinancialYear" class="form-select" #financialYear id=
+                            "fYear" name="financial_year">
+                            <option value="">-- Select --</option>
+
+                            </select>
+                             </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                  <div class="form-group">
+                          <label class="form-label"><span class="text-danger">*</span> {{'Scheme' | translate}}  </label>
+                          <select formControlName="selscheme" class="form-select" name="scheme" id="scheme" #schemeId (change)='getItemPrice(financialYear.value,schemeId.value)'>
+                                  <option value="0">-- Select --</option>
+                          </select>
+                           </div>
+              </div>
+    </div>
+  </form>
+  <div class="separator separator-dashed"></div>
+
+  <div class="container-fluid"> 
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit();">
+                <div class="row">
+                        <div class="col-sm-3 col-md-6 col-lg-12">
+                                <ng-container *ngFor="let items of
+                                        arritemgroups;let i = index">
+                                        <ng-container *ngIf="arritems[i].length > 0">
+                                        <h6>{{items.vchItemGroupName}}</h6>
+                                        <table>
+                                                <tr>
+                                                <th>Component</th>
+                                                <th>Unit</th>
+                                                <th>Price (INR Per Unit)</th>
+                                                </tr>
+                                                <tr *ngFor="let item
+                                                of arritems[i];" >
+                                                <td width="35%" *ngIf="items.intItemGroupId==item.intItemGroupId">{{item.ItemName}}</td>
+                                                <td *ngIf="items.intItemGroupId==item.intItemGroupId">{{item.vchUnit}}</td>
+                                                <td *ngIf="items.intItemGroupId==item.intItemGroupId"><input type="text" id="itemPrice_{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" name="{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" class="form-control itemPrice" value="{{item.itemPrice}}" (keypress)="vldChkLst.isNumberKey($event)" autocomplete="off"></td>
+
+                                                <input type="hidden" id="itemGrId_{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" name="{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" value="{{items.intItemGroupId}}" class="itemGroupId">
+
+                                                <input type="hidden" id="itemId_{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" name="{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" value="{{item.intItemId}}" class="itemId">
+
+                                                <input type="hidden" id="itemName_{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" name="{{items.intItemGroupId
+                                                }}_{{item.intItemId}}" value="{{item.ItemName}}" class="itemName">
+                                                </tr>
+                                                
+                                        </table>      
+                                        </ng-container>                                
+                                        </ng-container>  
+                        </div>
+                </div>
+                <div class="mb-4" *ngIf="sbBtton">
+                        <div class="row ">
+                                <div class="col-md-6 col-lg-4">
+                                        <button type="submit" id="Submit" class="btn btn-success">Update Price</button> 
+                                </div>
+                        </div>
+                </div>
+        </form>
+</div>
+<div class="loader" *ngIf="loading">
+        <div class="loader-item"></div>
+        <p>Loading...</p>
+        </div>

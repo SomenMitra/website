@@ -1,0 +1,94 @@
+<!-- start scheme tab -->
+<div class="mb-3">
+  <h5 class="common-heading2 mb-0 ">{{schemeType}} : <span class="text-success">{{schemeName}}</span></h5>
+</div>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" value="1" (click)="goToSectn($event.target.value)" id="profile-tab" type="button" role="tab" aria-controls="profile" aria-selected="true">{{'Farmer Information' | translate}}</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" value="2" (click)="goToSectn($event.target.value)" id="scheme-tab" type="button" role="tab" aria-controls="scheme" aria-selected="false">{{schemeType}} {{'Information' | translate}}</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" value="3" (click)="goToSectn($event.target.value)" id="document-tab" type="button" role="tab" aria-controls="document" aria-selected="false">{{'Documents' | translate}} </button>
+  </li>
+</ul>
+<!-- end scheme tab -->
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade  show active" id="document" role="tabpanel" aria-labelledby="document-tab">
+    <form [formGroup]="uploadForm" (ngSubmit)="onFormSubmit()">
+      <div class="control-div">
+        <div>
+          <div class="row" *ngFor="let docInfo of resDocList; let i=index">
+              <div class="col-md-4 col-lg-4">
+                <div class="">
+                  <label class="form-label">
+                    <ng-container *ngIf="docInfo.tinIsMandatory==1; then docMndSpn"></ng-container>
+                    <ng-template #docMndSpn>
+                      <span class="text-danger">*</span>
+                    </ng-template>
+
+                    {{docInfo.vchDocumentName}}
+                  </label>
+                  <input type="hidden" value="{{docInfo.optnType}}" id="optntype{{docInfo.intDocumentId}}" formControlName="optntype{{docInfo.intDocumentId}}" />
+
+                  <select *ngIf="docInfo.optnType==2" class="form-select" id="optndata{{docInfo.intDocumentId}}" formControlName="optndata{{docInfo.intDocumentId}}">
+                      <option value="">Select</option>
+                      <option *ngFor="let optInfo of docInfo.optnDataArr;let optK=index;"
+                          value="{{optInfo.optionValue}}" [selected]="optInfo.optionValue == docInfo.optnDataVal">{{optInfo.optionText}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 col-lg-4">
+                  <div class="form-group">
+                    <label class="form-label" *ngIf="docInfo.optnType==2">&nbsp;</label>
+                    <input type="file" id="file{{docInfo.intDocumentId}}" [formControlName]="docInfo.intDocumentId"
+                    (change)="getFileDetails($event,schemeId,docInfo.intDocumentId)" class="form-control" />
+                    <input type="hidden" value="{{docInfo.vchDocumentFile}}" name="hdnDoc_{{docInfo.intDocumentId}}" id="hdnDoc_{{docInfo.intDocumentId}}" />
+                    <div class="d-flex justify-content-between">
+                    <small class="text-danger">Only {{docInfo.vchFileType | uppercase}} max size {{docInfo.smiFileSize}}
+                      <ng-container *ngIf="docInfo.tinSizeType==1; then docSzTypKb else docSzTypMb"></ng-container>
+                      <ng-template #docSzTypKb>KB</ng-template>
+                      <ng-template #docSzTypMb>MB</ng-template>
+                    </small>
+                    <ng-container *ngIf="docInfo.dataUrlDoc!='';">
+
+                      <label class="form-label"><a class="text-danger h5" download title="Download" target="_blank"  href="{{docInfo.dataUrlDoc}}" ><i class="icon-file-download-solid"></i> </a> </label>
+                  </ng-container>
+                  </div>
+                  <input type="hidden" name="hdnFileStoreId_{{docInfo.intDocumentId}}" id="hdnFileStoreId_{{docInfo.intDocumentId}}" value="{{docInfo.vchSujogFileNm}}">
+                </div>
+              </div>
+
+          </div>
+
+          <div class="separator separator-dashed"></div>
+          <div class="text-center">
+            <a class="btn btn-danger me-2" (click)="goToBack()">Back</a>
+            <ng-container *ngIf="((applctnSts>=appDraftSts && applctnSts<appPrevwSts && applctnId>0) || apprRsmSts>0 || applctnId>0); then shwModBtn"></ng-container>
+            <ng-template #shwModBtn>
+              <button class="btn btn-warning me-2" *ngIf="intOnlineProfileId>0" (click)="onSaveAsDraftClick()">Save As Draft</button>
+              <!-- <button class="btn btn-success me-2"  (click)="onSaveNextClick()">Save & Next</button> -->
+              <button class="btn btn-success me-2"  *ngIf="intOnlineProfileId>0"  (click)="onSaveNextClick()">Save & Next</button>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <ng-template #docNoSection>
+          <h6 class="no-content"> There is no document</h6>
+        </ng-template>
+
+
+
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isMultipleUploaded" class="success">File uploaded and form submitted successfully.</div>
+<div class="loader" *ngIf="loading">
+  <div class="loader-item"></div>
+  <p>Loading...</p>
+</div>

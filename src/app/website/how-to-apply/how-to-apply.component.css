@@ -1,0 +1,191 @@
+.how-apply-list{
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--shadow);
+}
+.how-apply-list .left-section{   
+    flex: 0 0 50%;
+    padding-right: 3rem;
+}
+.how-apply-list .left-section i{
+    font-size: 2rem;
+   margin-right: 1rem;
+    }
+.how-apply-list .left-section h5{    
+    margin-bottom: 0.6rem;
+    color: #399b11;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center
+}
+
+
+
+
+.how-apply-list .process-section{
+
+    flex: 0 0 50%;
+}
+
+
+.how-apply-list .left-section p{
+   margin-bottom: 0;
+   font-size: .9rem;
+}
+
+
+.how-apply-list .process-section ul{
+    list-style: none;
+    margin-bottom: 0rem;
+}   
+
+.how-apply-list .process-section ul li{
+    margin: 0;
+    padding: .5rem 0 0 2rem;
+    position: relative;
+    font-size: .9rem;
+}
+.how-apply-list .process-section a{text-decoration: underline;}
+.accordion-button:not(.collapsed) {
+
+    background-color: var(--accrodion-bg)!important;
+  
+}
+
+.inner-content{
+    padding: 3rem 0;
+    font-size: 1rem;
+  }
+.accordion-item li{
+    position: relative;
+}
+.accordion-item li:before {
+    content: '\e942';
+    color: var(--bs-orange);
+    position: absolute;
+    left: 0;
+    width: 2rem;
+    text-align: center;
+    font-size: 1em;
+    font-family: icons;
+}
+
+.accordion{
+    margin-bottom: 1rem;
+    border: none;
+    /* by reshma */
+    /* border: 1px solid #f0f5f8; */
+   /* by reshma */
+  }
+  .accordion .accordion-header{
+  background: #f0f5f8;
+  position: relative;
+  border-radius: 6px;
+  
+  }
+
+
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+
+  .accordion .accordion-header h5{
+  font-size: 1.1rem;
+  padding: .5rem 1rem;
+  font-weight: 400;
+  color: #565656;
+  
+  }
+  .accordion .accordion-header h5 a{
+  display: block;
+  
+  }
+  .accordion .accordion-header h5 a:after{
+  position:absolute;
+  right: 1rem;
+  font-family: icons;
+  content: '\ec98';
+  }
+  .accordion .accordion-header h5 a.collapsed:after{
+      content: '\ed19';
+  
+  }
+  .accordion-body{
+  padding: 1.25rem;
+      border: 1px solid var(--accrodion-border);
+    background: var(--white);
+
+  }
+  .accordion-button:not(.collapsed) {
+  /* color: #38ab09;
+  background-color: #effde9; */
+  /* by reshma */
+  color: var(--black);
+  background-color: #bdbdbd40;
+  /* by reshma */
+  box-shadow: none;
+  }
+  /* by reshma */
+  .accordion-button {
+   border: 1px solid var(--accrodion-border);
+   font-weight: 700;
+   background: var(--accrodion-bodybg);
+   color: var(--grey);
+  }
+  .accordion-button i{
+    font-size: 1.4rem;
+  }
+  .accordion-item {
+    border: none;
+    margin-bottom: 0.5rem;
+  }
+  .accordion-button:not(.collapsed)::after {
+    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000000%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e')!important;
+  }
+  
+  /* by reshma */
+
+@media screen and (max-width:992px) {
+    .how-apply-list{
+        flex-wrap:wrap
+    }
+    .how-apply-list .left-section {
+        flex: 0 0 100%;
+        padding-right: 0rem;
+    }
+    .how-apply-list .left-section h5 {
+        margin-bottom: 0.3rem;
+        
+        font-size: 1rem;
+       
+    }
+    .how-apply-list .left-section i {
+        font-size: 1.6rem;
+       
+    }
+    .how-apply-list .process-section {
+        flex: 0 0 100%;
+    }
+    .how-apply-list .left-section p {
+        margin-bottom: .7rem;
+       
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

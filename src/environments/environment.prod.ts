@@ -1,0 +1,88 @@
+export const environment = {
+  production: true,
+
+  url: '',
+  // serviceURL: 'http://164.164.122.169:8060/Fard_stg/admin/api/',
+  // siteURL: 'http://164.164.122.169:8060/Fard_stg/website/',
+  // websiteserviceURL: 'http://164.164.122.169:8060/Fard_stg/cms/api/',
+  // fileUrl: 'http://164.164.122.169:8060/Fard_stg/cms/storage/uploads/images/',
+  // domainUrl:'http://164.164.122.169:8060/Fard_stg/admin/',
+  // cmsdomainUrl:'http://164.164.122.169:8060/Fard_stg/cms/',
+
+  // serviceURL: 'https://sugam.odisha.gov.in/admin/api/',
+  // siteURL: 'https://sugam.odisha.gov.in/website/',
+  // websiteserviceURL: 'https://sugam.odisha.gov.in/cms/api/',
+  // fileUrl: 'https://sugam.odisha.gov.in/cms/storage/uploads/images/',
+  // domainUrl:'https://sugam.odisha.gov.in/admin/',
+  // cmsdomainUrl:'https://sugam.odisha.gov.in/cms/',
+
+
+  serviceURL: 'http://192.168.10.75/Fard_testI/admin/api/',
+  siteURL: 'http://192.168.10.75/Fard_testI/website/',
+  websiteserviceURL: 'https://sugam.odisha.gov.in/cms/api/',
+  fileUrl: 'http://192.168.10.75/Fard_testI/cms/storage/uploads/images/',
+  domainUrl:'http://192.168.10.75/Fard_testI/admin/',
+  cmsdomainUrl:'http://192.168.10.75/Fard_testI/cms/',
+
+
+
+  // serviceURL: 'https://stgsugam.csm.co.in:8443/admin/api/',
+  // siteURL: 'https://stgsugam.csm.co.in:8443/website/',
+  // websiteserviceURL: 'https://stgsugam.csm.co.in:8443/cms/api/',
+  // fileUrl: 'https://stgsugam.csm.co.in:8443/cms/storage/uploads/images/',
+  // domainUrl:'https://stgsugam.csm.co.in:8443/admin/',
+  // cmsdomainUrl:'https://stgsugam.csm.co.in:8443/cms/',
+
+  // serviceURL: 'http://164.164.122.169:8060/Fard_AI/admin/api/',
+  // siteURL: 'http://164.164.122.169:8060/Fard_AI/website/',
+  // websiteserviceURL: 'http://164.164.122.169:8060/Fard_AI/cms/api/',
+  // fileUrl: 'http://164.164.122.169:8060/Fard_AI/cms/storage/uploads/images/',
+  // domainUrl:'http://164.164.122.169:8060/Fard_AI/admin/',
+  // cmsdomainUrl:'http://164.164.122.169:8060/Fard_AI/cms/',
+
+  // serviceURL: 'http://164.164.122.169:8060/Fard_testI/admin/api/',
+  // siteURL: 'http://164.164.122.169:8060/Fard_testI/website/',
+  // websiteserviceURL: 'http://164.164.122.169:8060/Fard_testI/cms/api/',
+  // fileUrl: 'http://164.164.122.169:8060/Fard_testI/cms/storage/uploads/images/',
+  // domainUrl:'http://164.164.122.169:8060/Fard_testI/admin/',
+  // cmsdomainUrl:'http://164.164.122.169:8060/Fard_testI/cms/',
+  apiUrl:'',
+
+  encryptKey: 'AA74CDCC2BBRT935136',
+  encryptIV: '26102021@qwI',
+  my_bearer_auth : 'Bearer ' + sessionStorage.getItem('loggedtoken'),
+  my_auth : 'Basic ' + btoa('admin' + ':' + 'admin'),
+  errorMsg:'Some Error Occured',
+  constScheme:1,
+  constService:2,
+
+  constDrftSts:1,
+  constDocSts:2,
+  constPrevwSts:3,
+
+  constQrySts:6,
+  constRsmSts:3,
+  constMatchValue:0.7,
+  sujogPortal:34 ,
+  agricultureDirectory:6,
+  directoryListicons:{'1':'fish.png','2':'animal-care.png','3':'apicol.png','4':'horticulture.png','5':'shovel.png','6':'planting.png','7':'paresram.jpg','8':'odisha-govt-ogo.png','9':'sujog.jpg','10':'mosarkar.png','11':'ospcb-logo.png'},
+  APICOL_Directorate:3,
+  how_to_use_yt_link:'https://www.youtube.com/embed/F6FpHQPjP0Q',
+  redirectMsg:'This will be redirected to external URL for filling up rest of the information',
+  seedDBT:55,
+  seedDBTPre:72,
+  seedDBTTotQuantityValidation:150,
+  maxNoOfTimeSeedDbtToBeApplied:4,
+  seedDBTTOTHECTValdn:3,
+  prefixArr:{'344':'ANG', '345':'BOL', '346':'BAL', '347':'BAR', '348':'BHA', '349':'BOU', '350':'CUT', '351':'DEO', '352':'DHE', '353':'GAJ', '354':'GAN', '355':'JAG', '356':'JAJ', '357':'JHA', '358':'KAL', '359':'KAN', '360':'KEN', '361':'KEO', '362':'KHU', '363':'KOR', '364':'MAL', '365':'MAY', '366':'NAB', '367':'NAY', '368':'NUA', '369':'PUR', '370':'RAY', '371':'SAM', '372':'SON', '373':'SUN'},
+  seedDBTBOOKINGAMTPERCNT:10,
+  APICOL_SCHEME_IDS:['44','32'],
+  APICOL_CAGE_CULTURE:62,
+  APICOL_BHULKEH_LAND_INFO:'Bhulkeh_Land_Info',
+  APICOL_CAGE_CULTURE_LAND_INFO:'Cage_Culture_Land_Info',
+  KO_SCHEME_IDS:['28','29','30','31','40','41','42','51','52','53','54','55','56','57','59','60'],
+  MKUY_SELF:'NO',
+  NO_NET_PROFIT_YEAR :'7',
+  AIFPortal:58
+
+};

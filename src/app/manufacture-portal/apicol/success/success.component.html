@@ -1,0 +1,128 @@
+<div class="text-center py-5">
+  <h1 class="text-success mb-2 p-none" style="font-size:5rem">
+          <i class="icon-check-circle"></i>
+  </h1>
+  <h1 class="text-success mb-5 p-none">Congratulations !</h1>
+
+  <div>
+          <p class="p-none fw-bold">
+                  You have successfully applied for {{applctnNm}}
+          </p>
+          <p class="mb-5 p-none">
+                  Please use your Application ID
+                  <span class="text-success  fw-bold">{{applctnNo}}</span> for further tracking of
+                  application status
+          </p>
+
+          <div class="container py-5" id="acknowledgementSlip">
+                  <h4 class="fw-bold">Acknowledgement Slip</h4>
+                  <button type="button" style="border:none;" class="hidden-print float-end mb-1 p-none fw-bold"
+                          (click)="printPage()">
+                          <i class="icon-print-solid" style="color: #00bcd4;font-size: 27px;"></i>
+                  </button>
+
+                  <table>
+                          <tbody>
+
+
+                                  <tr >
+                                          <td class="text-center fw-bold text-success">
+                                                  Application ID : {{applctnNo}}
+                                          </td>
+                                          <td class="text-center fw-bold text-success">
+                                                  Submission Date : {{appliedOn}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black"
+                                                   >Name
+                                          </td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{applicantName}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">
+                                                  Mobile Number
+                                          </td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{mobileno}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">Email Id</td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{email}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">Gender</td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{gender}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">Category</td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{category}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">Service Name</td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{strSchmServcNm}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">Directorate</td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{directorate}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">
+                                                  Communication Address
+                                          </td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{communication_address}}
+                                          </td>
+                                  </tr>
+
+                                  <tr>
+                                          <td class="text-start fw-bold text-black">
+                                                  Address of the unit
+                                          </td>
+                                          <td class="text-start fw-bold text-black">
+                                                  {{setup_address}}
+                                          </td>
+                                  </tr>
+                          </tbody>
+                  </table>
+
+                  <h6 class="fw-bold">
+                          <i class="icon-phone-volume-solid icon-2x">&nbsp;</i>Farmer Helpline
+                          Number :155333
+                  </h6>
+          </div>
+  </div>
+
+  <p class="mb-5 text-success p-none" *ngIf="targetResult==2">
+          Your application has been duly received and has been kept in wait list
+  </p>
+
+  <a routerLink="/citizen-portal/dashboard" class="btn btn-warning p-none">Go to Dashboard</a>
+</div>
+
+<div class="loader" *ngIf="loading">
+  <div class="loader-item"></div>
+
+  <p>Loading...</p>
+</div>

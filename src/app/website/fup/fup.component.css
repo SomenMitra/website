@@ -1,0 +1,93 @@
+.how-apply-list{
+    display: flex;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--shadow);
+}
+.how-apply-list .left-section{   
+    flex: 0 0 50%;
+    padding-right: 3rem;
+}
+.how-apply-list .left-section i{
+    font-size: 2rem;
+   margin-right: 1rem;
+    }
+.how-apply-list .left-section h5{    
+    margin-bottom: 0.6rem;
+    color: #399b11;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center
+}
+
+
+
+.how-apply-list .process-section{
+
+    flex: 0 0 50%;
+}
+
+
+.how-apply-list .left-section p{
+   margin-bottom: 0;
+   font-size: .9rem;
+}
+
+
+.how-apply-list .process-section ul{
+    list-style: none;
+    margin-bottom: 0rem;
+}   
+
+.how-apply-list .process-section ul li{
+    margin: 0;
+    padding: .5rem 0 0 2rem;
+    position: relative;
+    font-size: .9rem;
+}
+.how-apply-list .process-section a{text-decoration: underline;}
+
+
+@media screen and (max-width:992px) {
+    .how-apply-list{
+        flex-wrap:wrap
+    }
+    .how-apply-list .left-section {
+        flex: 0 0 100%;
+        padding-right: 0rem;
+    }
+    .how-apply-list .left-section h5 {
+        margin-bottom: 0.3rem;
+        
+        font-size: 1rem;
+       
+    }
+    .how-apply-list .left-section i {
+        font-size: 1.6rem;
+       
+    }
+    .how-apply-list .process-section {
+        flex: 0 0 100%;
+    }
+    .how-apply-list .left-section p {
+        margin-bottom: .7rem;
+       
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

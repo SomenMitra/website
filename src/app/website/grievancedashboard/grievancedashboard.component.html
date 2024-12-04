@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="citizenmenu">
+    <nav class="navbar">
+        <div class="container">
+            <div class=" navbar-collapse" id="navbarNav">
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="{{grievanceURL}}/home/grievance"><i class="icon-user-cog-solid"></i>Lodge Grievance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active"><i class="icon-search-solid"></i>View Grievance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="{{grievanceURL}}/home/grievancetrackstatus"><i class="icon-search-solid"></i>Track Status</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <div class="page-container content-section">
+        <h5 class="common-heading2">View Grievance</h5>
+        <div class="table-responsive">
+            <table class="table custom_table">
+                <thead>
+                  <tr>
+                    <th width="30">Sl#</th>
+                    <th width="100">Application no.</th>
+                    <th width="280">Name</th>
+                    <th width="100">Status</th>
+                    <th width="70" class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of respSts; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{list.vchApplicationNo}}</td>
+                    <td>{{list.NAME}}</td>
+                    <td>
+                        <span class="status_table rejected" *ngIf="list.tinStatus==7">Rejected</span>
+                        <span class="status_table resolved" *ngIf="(list.tinStatus==8 && list.tinTicketClosed==1)">Resolved</span>
+                        <span class="status_table active" *ngIf="(list.tinStatus==8 && list.intPendingAt.split(',').includes('20'))">Pending at Helpdesk</span>
+                        <span class="status_table active" *ngIf="(list.tinStatus==24 || list.tinStatus==0)">Open</span>
+                        <span class="status_table active" *ngIf="(list.tinStatus==4 && list.tinForwardSts==1)">Forwarded to Technical Team</span>
+                        <span class="status_table active" *ngIf="(list.tinStatus==27 && list.tinForwardSts==1)">Forwarded to Technical Team</span>
+                        <span class="status_table active" *ngIf="(list.tinStatus==4 && list.tinForwardSts==2)">Forwarded to Department</span>
+                         <span class="status_table active" *ngIf="(list.tinStatus==27 && list.tinForwardSts==2)">Forwarded to Department</span>
+                      </td>
+                    <td class="text-center"><a href="javascript:void(0);" class="view" (click)="doGrievancePreview(list.vchApplicationNo);" title="View"><i class="icon-eye1"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+       
+    </div>
+</div>
+<app-footer></app-footer>

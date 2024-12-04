@@ -1,0 +1,1260 @@
+<!-- Manufacture Document Upload -->
+<div class="d-flex align-items-start justify-content-between">
+    <h5 class="common-heading">Document Upload</h5>
+    <a class="text-dark h5" title="Back" (click)="goBack($event)" ngbTooltip="back"><i class="bi bi-arrow-left"></i></a>
+</div>
+<form [formGroup]="manufactureDocument">
+    <!-- (ngSubmit)="submitDocument($event)" -->
+
+    <!-- priyaranjan -->
+
+    <div id="stepper1" class="bs-stepper">
+        <!-- header part -->
+        <div class="bs-stepper-header" role="tablist">
+            <div class="step" [ngClass]="{'active': currentStep === 1}" (click)="setStep(1)">
+                <button type="button" class="btn btn-link step-trigger" role="tab" title="Basic Information">
+                    <span class="bs-stepper-circle">1</span>
+                    <span class="bs-stepper-label">Basic Information</span>
+                </button>
+            </div>
+            <div class="line"></div>
+
+            <div class="step" [ngClass]="{'active': currentStep === 2}" (click)="setStep(2)">
+                <button type="button" class="btn btn-link step-trigger" role="tab" title="Products Manufactured">
+                    <span class="bs-stepper-circle">2</span>
+                    <span class="bs-stepper-label">Products Manufactured</span>
+                </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" [ngClass]="{'active': currentStep === 3}" (click)="setStep(3)">
+                <button type="button" class="btn btn-link step-trigger" role="tab" title="Prodoucts Procurement">
+                    <span class="bs-stepper-circle">3</span>
+                    <span class="bs-stepper-label">Prodoucts Procurement</span>
+                </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" [ngClass]="{'active': currentStep === 4}" (click)="setStep(4)">
+                <button type="button" class="btn btn-link step-trigger" role="tab" title="Technical Staff">
+                    <span class="bs-stepper-circle">4</span>
+                    <span class="bs-stepper-label"> Technical Staff</span>
+                </button>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step" [ngClass]="{'active': currentStep === 5}" (click)="setStep(5)">
+                <button type="button" class="btn btn-link step-trigger" role="tab" title="Reports">
+                    <span class="bs-stepper-circle">5</span>
+                    <span class="bs-stepper-label"> Reports </span>
+                </button>
+            </div>
+
+
+        </div>
+        <!-- header part -->
+
+
+        <!-- body part -->
+
+
+        <div class="text-danger text-right mb-3 small"> (* Only PDF, JPG, JPEG, PNG max size 1 MB) </div>
+
+        <div class="bs-stepper-content border">
+            <!-- step 1 tab -->
+            <div *ngIf="currentStep === 1" class="content" aria-labelledby="stepper1trigger1">
+
+
+                <div class="customtop__heading">
+                    <h5> Manufacture Registration Details </h5>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 preview__mi">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                            <label class="mi_label_txt">Refer No. </label>
+                            <div class="txt_manpreview"> {{vchReferenceNo}}</div>
+                        </div>
+                    </div>
+                    <div class="border-bottom"></div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label class="mi_label_txt"> Name of Firm </label>
+                            <div class="txt_manpreview"> {{vchApplicantName}}</div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label class="mi_label_txt"> Company Registration No. </label>
+                            <div class="txt_manpreview"> {{vchCompanyRegNo}} </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label class="mi_label_txt"> Comapany Head Name </label>
+                            <div class="txt_manpreview">{{vchComanyHead}} </div>
+                        </div>
+
+                    </div>
+                    <div class="border-bottom"></div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label class="mi_label_txt"> Mobile Number </label>
+                            <div class="txt_manpreview"> {{vchMobileNo}} </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label class="mi_label_txt"> Email Id </label>
+                            <div class="txt_manpreview">{{vchEmail}} </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                            <label class="mi_label_txt">GSTIN </label>
+                            <div class="txt_manpreview">{{vchGSTIN}} </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="customtop__heading">
+                    <h5>Upload All Documents</h5>
+                </div>
+                <div class="table_custom">
+                    <table class="table_custom">
+                        <thead>
+                            <tr>
+                                <th width="40%">Document Name</th>
+                                <th width="30%">
+                                    <div> Document Details </div>
+                                    <small class="text-danger">(Only PDF, JPG, JPEG, PNG max size 1
+                                        MB)</small>
+                                </th>
+                                <th width="15%">Status</th>
+                                <th width="15%" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr *ngFor="let item of tableData; let j = index">
+                                <td>
+                                    <div class="custom_form_inputgroup">
+                                        <div class="input-group">
+                                            <span class="input-group-text"
+                                                *ngIf="['Pan Card', 'Aadhaar Card', 'GST Registration', 'DIC Registration', 'MSME Udyam No.'].includes(item.name)">
+                                                {{ item.name }}
+                                                <span class="mandatory ms-1">*
+                                                </span>
+                                            </span>
+                                            <input id="inputField_{{item.name}}_{{j}}" type="text"
+                                                class="form-control inputName" placeholder="Enter {{ item.name }}"
+                                                *ngIf="['Pan Card', 'Aadhaar Card', 'GST Registration', 'DIC Registration', 'MSME Udyam No.'].includes(item.name)"
+                                                [formControlName]="getControlName(item.name)"
+                                                [maxlength]="getMaxLength(item.name)"
+                                                [minlength]="getMinLength(item.name)"
+                                                (keypress)="onKeyPress($event, item.name)"
+                                                (change)="onInputChange($event.target.value, item.name, j)"
+                                                [attr.readonly]="item.name === 'GST Registration' ? true : null"
+                                                appBlockCopyPaste>
+                                            <div class="text_table"
+                                                *ngIf="['Test Report of Govt. notified /certified laboratory', 'Previous Dealership Certificate for Experience in MI', 'State Pollution Certificate', 'IT Return Copy', 'Turn over Certificate with Balance Sheet and P and L Account'].includes(item.name)">
+                                                {{ item.name }}
+                                                <span class="mandatory ms-1">*
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <ng-container *ngIf="['GST Registration'].includes(item.name)">
+                                            <div class="row mt-3">
+                                                <div class="custom_form_inputgroup mb-3">
+                                                    <div class="input-group">
+                                                        <label class="input-group-text"> From Date <span
+                                                                class="mandatory ms-1">*</span>
+                                                        </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="gstFromDate" placeholder="DD/MM/YYYY"
+                                                            ngbDatepicker #gstFromDatePicker="ngbDatepicker"
+                                                            (dateSelect)="onDateSelect('gstFromDate', 'gstToDate')"
+                                                            autocomplete="off" [maxDate]="maxDate"
+                                                            (keydown)="preventInput($event)"
+                                                            (paste)="preventInput($event)"
+                                                            (input)="preventInput($event)"
+                                                            (click)="gstFromDatePicker.toggle()">
+                                                        <button *ngIf="isDateSelected('gstFromDate')"
+                                                            class="icon_removedate" title="Remove"
+                                                            (click)="resetDate($event,'gstFromDate')"> <i
+                                                                class="bi bi-x-lg"></i> </button>
+                                                        <span class="input_datefield_icon"><i
+                                                                class="bi bi-calendar3"></i></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="custom_form_inputgroup">
+                                                    <div class="input-group">
+                                                        <label class="input-group-text"> To Date <span
+                                                                class="mandatory ms-1">*</span>
+                                                        </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="gstToDate" placeholder="DD/MM/YYYY"
+                                                            ngbDatepicker #gstToDatePicker="ngbDatepicker"
+                                                            (dateSelect)="onDateSelect('gstFromDate', 'gstToDate')"
+                                                            autocomplete="off" (keydown)="preventInput($event)"
+                                                            (paste)="preventInput($event)"
+                                                            (input)="preventInput($event)"
+                                                            (click)="gstToDatePicker.toggle()" [minDate]="maxDate">
+                                                        <button *ngIf="isDateSelected('gstToDate')"
+                                                            class="icon_removedate" title="Remove"
+                                                            (click)="resetDate($event,'gstToDate')"> <i
+                                                                class="bi bi-x-lg"></i> </button>
+                                                        <span class="input_datefield_icon"><i
+                                                                class="bi bi-calendar3"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="['DIC Registration'].includes(item.name)">
+                                            <div class="row mt-3">
+                                                <div class="custom_form_inputgroup mb-3">
+                                                    <div class="input-group">
+                                                        <label class="input-group-text"> From Date <span
+                                                                class="mandatory ms-1">*</span>
+                                                        </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="dicFromDate" [maxDate]="maxDate"
+                                                            placeholder="DD/MM/YYYY" ngbDatepicker
+                                                            #dicFromDatePicker="ngbDatepicker"
+                                                            (dateSelect)="onDateSelect('dicFromDate', 'dicToDate')"
+                                                            autocomplete="off" (keydown)="preventInput($event)"
+                                                            (paste)="preventInput($event)"
+                                                            (input)="preventInput($event)"
+                                                            (click)="dicFromDatePicker.toggle()">
+                                                        <button *ngIf="isDateSelected('dicFromDate')"
+                                                            class="icon_removedate" title="Remove"
+                                                            (click)="resetDate($event,'dicFromDate')"> <i
+                                                                class="bi bi-x-lg"></i> </button>
+                                                        <span class="input_datefield_icon"><i
+                                                                class="bi bi-calendar3"></i></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="custom_form_inputgroup">
+                                                    <div class="input-group">
+                                                        <label class="input-group-text"> To Date <span
+                                                                class="mandatory ms-1">*</span>
+                                                        </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="dicToDate" placeholder="DD/MM/YYYY"
+                                                            ngbDatepicker #dicToDatePicker="ngbDatepicker"
+                                                            (dateSelect)="onDateSelect('dicFromDate', 'dicToDate')"
+                                                            autocomplete="off" (keydown)="preventInput($event)"
+                                                            (paste)="preventInput($event)"
+                                                            (input)="preventInput($event)"
+                                                            (click)="dicToDatePicker.toggle()" [minDate]="maxDate">
+                                                        <button *ngIf="isDateSelected('dicToDate')"
+                                                            class="icon_removedate" title="Remove"
+                                                            (click)="resetDate($event,'dicToDate')"> <i
+                                                                class="bi bi-x-lg"></i> </button>
+
+                                                        <span class="input_datefield_icon"><i
+                                                                class="bi bi-calendar3"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="tabl_pdf">
+                                            <a href="javascript:void(0)" title="{{ item.fileName}}"
+                                                (click)="previewFile(item.file, $event)">{{ item.fileName}}</a>
+                                            <!-- <a href="{{ item.file }}" title="{{ item.fileName }}" target="_blank">{{ item.fileName }}</a> -->
+                                        </div>
+                                        <div *ngIf="!item.showUpload; else zeroKb">
+                                            <div *ngIf="item.fileSize > 0">{{ item.fileSize }} KB</div>
+                                        </div>
+                                        <ng-template #zeroKb>
+                                            <div>{{ item.fileSize }} KB</div>
+                                        </ng-template>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="!item.showUpload; else notUploaded">
+                                        <div class="table__icons text-success">
+                                            <i class="icon-check-solid"></i>
+                                        </div>
+                                    </div>
+                                    <ng-template #notUploaded>
+                                        <div class="table__icons text-grey">Not Uploaded</div>
+                                    </ng-template>
+                                </td>
+                                <td class="text-center">
+                                    <div class="table__icons text-grey" *ngIf="item.showUpload">
+                                        <input type="file" id="fileUpload{{j}}" style="display: none;"
+                                            (change)="onFileChange($event, j)"
+                                            class="form-control clsuploadFile{{j}}" />
+                                        <label for="fileUpload{{j}}" ngbTooltip="Upload" class="upload_doc"><i
+                                                class="bi bi-upload"></i></label>
+                                    </div>
+                                    <div class="table__icons text-grey" *ngIf="!item.showUpload">
+                                        <a href="javascript:void(0)" ngbTooltip="Refresh" (click)="refresh(j)"><i
+                                                class="bi bi-trash"></i></a>
+                                    </div>
+                                    <input type="hidden" id="fileUpload{{j}}_hdnFile" class="form-control"
+                                        value="{{item.originalFileName}}" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <label class="heading_upload"> Annual Turnover <span class="mandatory ms-1">*</span> </label>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table width="100%" class="add_row_table m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="p-2" width="5%"> #SN</th>
+                                                    <th class="p-2" width="20%"> Year </th>
+                                                    <th class="p-2" width="20%"> Turnover (in Lakhs) <small
+                                                            class="text-danger text-right mb-3 small">(upto two decimal
+                                                            place is allowed)</small></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let fYear of financialYear; let j = index">
+                                                    <td class="p-2"> {{j+1}} </td>
+                                                    <td class="p-2"> {{fYear}} </td>
+                                                    <input type="hidden" class="clstxtAnnualYear_{{j}}"
+                                                        id="txtAnnualYear_{{j}}" value="{{fYear}}">
+                                                    <td class="p-2"> <input type="text"
+                                                            class="form-control clsAnnualTurnOver_{{j}}"
+                                                            placeholder="Enter Turnover" id="txtAnnualTurnOver_{{j}}"
+                                                            (keypress)="isNumberKey($event)" (change)="onChange($event)" (blur)="onBlur($event)" maxLength="10" appBlockCopyPaste> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- step 1 tab -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-2 text-end">
+                    <button type="submit" id="Submit" class="log__btns" title="Save as Next"
+                        (click)="nextStep1($event)">Save as Next <i class="bi bi-arrow-right ms-2"></i> </button>
+                    <!-- <a class="btn btn-warning me-2" class="log__btns" (click)="nextStep1($event);">Save as Next</a> -->
+                </div>
+            </div>
+            <!-- step 1 tab -->
+
+            <!-- step 2 tab -->
+            <div *ngIf="currentStep === 2" class="content" aria-labelledby="stepper1trigger2">
+                <div class="component__gap">
+                    <div class="col-xl-12">
+                        <div class="customtop__heading">
+                            <h5>Select Component Type</h5>
+                        </div>
+                        <div class="custom_radio">
+                            <div class="check_radio">
+                                <input type="radio" id="selComponent1" name="radio-group" value="1"
+                                    (change)="onSelectChange($event)" class="selComponent">
+                                <label for="selComponent1">Drip Irrigation</label>
+                            </div>
+                            <div class="check_radio">
+                                <input type="radio" id="selComponent2" name="radio-group" value="2"
+                                    (change)="onSelectChange($event)" class="selComponent">
+                                <label for="selComponent2">Sprinkler Irrigation</label>
+                            </div>
+                            <div class="check_radio">
+                                <input type="radio" id="selComponent3" name="radio-group" value="3"
+                                    (change)="onSelectChange($event)" class="selComponent">
+                                <label for="selComponent3">Both</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="manufacture__sections">
+                    <ng-container>
+                        <div class="mt-3">
+
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="customtop__heading">
+                                    <h5 class="m-0"> Manufactured </h5>
+                                </div>
+
+                                <div class="d-block text-danger dripMandatory" *ngIf="showDripMandatory">
+                                    <small> (* Lateral,Drippers,Emitter Pipes mandatory for Drip Irrigation) </small>
+                                </div>
+                                <div class="d-block text-danger sprinklerMandatory" *ngIf="showSprinklerMandatory">
+                                    <small> (* HDPE Pipes/Sprinkler Nozzles mandatory for Sprinkler Irrigation) </small>
+                                </div>
+                                <div class="d-block text-danger sprinklerMandatory" *ngIf="showBothMandatory">
+                                    <small> (* Lateral,Drippers,Emitter Pipes mandatory for Drip Irrigation and HDPE
+                                        Pipes/Sprinkler Nozzles mandatory for Sprinkler Irrigation) </small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="add__section">
+                                <div class="custom_form_inputgroup">
+                                    <div class="row bottom__gap">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Component Name <span
+                                                        class="mandatory ms-1">*</span></span>
+                                                <select class="form-select selManufactured" name="selManufactured"
+                                                    id="selManufactured" (change)="fillBis($event);" autocomplete="off">
+                                                    <option value="">--Select--</option>
+                                                    <option *ngFor="let itemList of itemLists"
+                                                        value="{{itemList.intMasterId}}"
+                                                        [attr.data-id]="itemList.vchBisCode">{{itemList.vchItemName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <span class="input-group-text">BIS Code <span
+                                                        class="mandatory ms-1">*</span></span>
+                                                <input type="text" class="form-control txtManufacturedBis"
+                                                    placeholder="BIS Code" name="txtManufacturedBis" id="txtManufacturedBis"
+                                                    autocomplete="off" maxlength="15" appBlockCopyPaste>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <span class="input-group-text"> CM/L No <span
+                                                        class="mandatory ms-1">*</span></span>
+                                                <input type="text" class="form-control txtManufacturedCML"
+                                                    name="txtManufacturedCML" id="txtManufacturedCML"
+                                                    placeholder="CM/L No" autocomplete="off" maxlength="15"
+                                                    (keypress)="vldChkLst.isNumberKey($event)" appBlockCopyPaste>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row bottom__gap">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Validity Date <span
+                                                        class="mandatory ms-1">*</span></span>
+                                                <input type="text"
+                                                    class="form-control input_datefield txtManufacturedValidity"
+                                                    placeholder="Validity Date" ngbDatepicker
+                                                    #d="ngbDatepicker" (click)="d.toggle()"
+                                                    name="txtManufacturedValidity" id="txtManufacturedValidity"
+                                                    autocomplete="off" (keydown)="preventInput($event)"
+                                                    (paste)="preventInput($event)" (input)="preventInput($event)" [minDate]="maxDate">
+                                                <span class="input_datefield_icon"><i
+                                                        class="bi bi-calendar3"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Manufacture Name <span
+                                                        class="mandatory ms-1">*</span></span>
+                                                <input type="text" class="form-control txtManufacturedManufactureName"
+                                                    name="txtManufacturedManufactureName"
+                                                    id="txtManufacturedManufactureName" placeholder="Manufacture Name"
+                                                    autocomplete="off" maxlength="50"
+                                                    (keypress)="vldChkLst.isCharWithSpace($event)" appBlockCopyPaste>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <span class="input-group-text"> Production Capacity <small
+                                                        class="mandatory ms-1">*</small></span>
+                                                <input type="text" class="form-control txtManufacturedProdCapacity"
+                                                    placeholder="Production Capacity" name="txtManufacturedProdCapacity"
+                                                    id="txtManufacturedProdCapacity" autocomplete="off" maxlength="10"
+                                                    (keypress)="isNumberKey($event)" (change)="onChange($event)" (blur)="onBlur($event)" appBlockCopyPaste>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                            <div class="input-group">
+                                                <div class="input-group custom-file-upload">
+                                                    <div class="input-group-text">Upload Certificates <span
+                                                            class="mandatory ms-1">*</span>
+                                                     </div>
+
+
+                                                
+                                                    <input type="file" id="file-upload"
+                                                        class="custom-file-input txtManufacturedUploadDoc"
+                                                        name="txtManufacturedUploadDoc" id="txtManufacturedUploadDoc"
+                                                        (change)="onFileChangeManufactured($event)">
+                                                    <label for="file-upload" class="file-name">No file chosen</label>
+
+                                                  
+
+
+
+                                                   
+                                                    <div class="Remove__sec justify-content-end"
+                                                    [hidden]="!showHidemanufacturedUploadedFiles">
+                                                    <div *ngIf="manufacturedUploadedFiles" class="file-preview">
+                                                        <div>
+                                                            <a href="javascript:void(0)"
+                                                                class="btn btn-outline-secondary btn-sm" ngbTooltip="View"
+                                                                target="_blank" title="View"
+                                                                (click)="previewFile(manufacturedUploadedFiles,$event)"><i
+                                                                    class="bi bi-eye"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-12 add__btns text-end ">
+                            <button type="button" class="btn btn-outline-success me-3"
+                                (click)="addTableManufactured()" title="Add"> Add <i class="bi bi-plus"></i> </button>
+                            <button type="button" class="btn btn-outline-danger" title="Clear"
+                                (click)="resetManufacturedFields('1')"> Clear <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table width="100%" class="add_row_table m-0">
+                                <thead>
+                                    <tr>
+                                        <th width="5%"> #SN</th>
+                                        <th width="15%"> Component Name </th>
+                                        <th width="12%"> BIS Code </th>
+                                        <th width="12%"> CM/L No </th>
+                                        <th width="12%"> Validity Date </th>
+                                        <th width="12%"> Manufacture Name </th>
+                                        <th width="10%"> Prodouction Capacity </th>
+                                        <th width="10%"> Upload BIS Certificate </th>
+                                        <th width="10%" class="text-center"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let rowMI of rowManufactured let i = index">
+                                        <td> {{i+1}} </td>
+                                        <td> {{rowMI.componentSelectName}} </td>
+                                        <td> {{rowMI.bisCode}} </td>
+                                        <td> {{rowMI.cmlNo}} </td>
+                                        <td> {{rowMI.validDate}} </td>
+                                        <td> {{rowMI.manufactureName}} </td>
+                                        <td> {{rowMI.productionCapacity}} </td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-outline-success btn-sm"
+                                                ngbTooltip="View" target="_blank" title="View"
+                                                (click)="previewFile(rowMI.certificate,$event)"><i
+                                                    class="bi bi-eye"></i></a>
+                                            <input type="hidden" class="hidManufactured_doc{{i}}"
+                                                id="hidManufactured_doc{{i}}" value="{{rowMI.hdnCertificate}}">
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="table__icons" (click)="deleteManufactured(i)"
+                                                ngbTooltip="Delete"> <i class="bi bi-trash"></i> </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-container>
+                </div>
+                <!-- step 2 tab -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-2 text-end">
+                    <button type="submit" id="Submit" class="log__btns__outline me-3" title="Prev" (click)="setStep(1)">
+                        <i class="bi bi-arrow-left me-2"></i> Prev </button>
+                    <button type="submit" id="Submit" class="log__btns" title="Save as Next"
+                        (click)="nextStep2($event)">Save as Next <i class="bi bi-arrow-right"></i> </button>
+                </div>
+            </div>
+            <!-- step 2 tab -->
+
+            <!-- step 3 tab -->
+            <div *ngIf="currentStep === 3" class="content text-center" aria-labelledby="stepper1trigger3">
+                <!-- step-3 tab -->
+                <div class="manufacture__sections">
+                    <div class="mt-3">
+                        <div class="customtop__heading">
+                            <h5> Products Procurement </h5>
+                        </div>
+                        <div class="add__section">
+                            <div class="custom_form_inputgroup">
+                                <div class="row bottom__gap">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Component Name <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <select class="form-select selProcured" name="selProcured" id="selProcured"
+                                                (change)="fillProcuredBis($event);" autocomplete="off">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let itemList of itemLists"
+                                                    value="{{itemList.intMasterId}}"
+                                                    [attr.data-id]="itemList.vchBisCode">{{itemList.vchItemName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">BIS Code <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtProcuredBis"
+                                                placeholder="BIS Code" name="txtProcuredBis" formControlName="dripBisNo"
+                                                id="txtProcuredBis" autocomplete="off" maxlength="15" appBlockCopyPaste>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text"> CM/L No <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtProcuredCML" name="txtProcuredCML"
+                                                id="txtProcuredCML" placeholder="CM/L No" autocomplete="off"
+                                                maxlength="15" (keypress)="vldChkLst.isNumberKey($event)"
+                                                appBlockCopyPaste>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row bottom__gap">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Validity Date <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control input_datefield txtProcuredValidity"
+                                                placeholder="Validity Date" ngbDatepicker #d="ngbDatepicker"
+                                                (click)="d.toggle()" name="txtProcuredValidity" id="txtProcuredValidity"
+                                                autocomplete="off" (keydown)="preventInput($event)"
+                                                (paste)="preventInput($event)" (input)="preventInput($event)" [minDate]="maxDate">
+                                            <span class="input_datefield_icon"><i class="bi bi-calendar3"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Outsource Company <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtProcuredManufactureName"
+                                                name="txtProcuredManufactureName" id="txtProcuredManufactureName"
+                                                placeholder="Outsource Company" autocomplete="off" maxlength="50"
+                                                (keypress)="vldChkLst.isCharWithSpace($event)" appBlockCopyPaste>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <div class="input-group custom-file-upload">
+                                                <div class="input-group-text">MOU Certificates <span
+                                                        class="mandatory ms-1">*</span> </div>
+                                                <input type="file" id="file-upload"
+                                                    class="custom-file-input txtProcuredUploadDoc"
+                                                    name="txtProcuredUploadDoc" id="txtProcuredUploadDoc"
+                                                    (change)="onFileChangeProcured($event)">
+                                                <label for="file-upload" class="file-name">No file chosen</label>
+                                                <div class="Remove__sec justify-content-end"
+                                                [hidden]="!showHideprocuredUploadedFiles">
+                                                <div *ngIf="procuredUploadedFiles" class="file-preview">
+                                                    <div>
+                                                        <a href="javascript:void(0)"
+                                                            class="btn btn-outline-secondary btn-sm" ngbTooltip="View"
+                                                            target="_blank" title="View"
+                                                            (click)="previewFile(procuredUploadedFiles,$event)"><i
+                                                                class="bi bi-eye"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+
+                                            <div class="input-group custom-file-upload">
+                                                <div class="input-group-text">BIS Certificates <span
+                                                        class="mandatory ms-1">*</span> </div>
+                                                <input type="file" id="file-upload"
+                                                    class="custom-file-input txtProcuredBISUploadDoc"
+                                                    name="txtProcuredBISUploadDoc" id="txtProcuredBISUploadDoc"
+                                                    (change)="onFileChangeProcuredBIS($event)">
+                                                <label for="file-upload" class="file-name">No file chosen</label>
+                                                <div class="Remove__sec justify-content-end"
+                                                [hidden]="!showHideprocuredBISUploadedFiles">
+                                                <div *ngIf="procuredBISUploadedFiles" class="file-preview">
+                                                    <div>
+                                                        <a href="javascript:void(0)"
+                                                            class="btn btn-outline-secondary btn-sm" ngbTooltip="View"
+                                                            target="_blank" title="View"
+                                                            (click)="previewFile(procuredBISUploadedFiles,$event)"><i
+                                                                class="bi bi-eye"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 add__btns text-end ">
+                        <button type="button" class="btn btn-outline-success me-3" (click)="addTableProcured()"
+                            title="Add"> Add <i class="bi bi-plus"></i> </button>
+                        <button type="button" class="btn btn-outline-danger" title="Clear"
+                            (click)="resetProcurementFields()"> Clear <i class="bi bi-arrow-clockwise"></i> </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table width="100%" class="add_row_table m-0">
+                            <thead>
+                                <tr>
+                                    <th width="5%"> #SN</th>
+                                    <th width="15%"> Component Name </th>
+                                    <th width="12%"> BIS Code </th>
+                                    <th width="12%"> CM/L No </th>
+                                    <th width="12%"> Validity Date </th>
+                                    <th width="12%"> Outsourcing Company Name </th>
+                                    <th width="10%"> Upload MOU Certificates </th>
+                                    <th width="10%"> Upload BIS Certificate </th>
+                                    <th width="10%" class="text-center"> Action </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rowPO of rowProcured let i = index">
+                                    <td> {{i+1}} </td>
+                                    <td> {{rowPO.componentSelectName}} </td>
+                                    <td> {{rowPO.bisCode}} </td>
+                                    <td> {{rowPO.cmlNo}} </td>
+                                    <td> {{rowPO.validDate}} </td>
+                                    <td> {{rowPO.manufactureName}} </td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn btn-outline-success btn-sm"
+                                            ngbTooltip="View" target="_blank" title="View"
+                                            (click)="previewFile(rowPO.certificate,$event)"><i
+                                                class="bi bi-eye"></i></a>
+                                        <input type="hidden" class="hidProcured_doc{{i}}" id="hidProcured_doc{{i}}"
+                                            value="{{rowPO.hdnCertificate}}">
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn btn-outline-success btn-sm"
+                                            ngbTooltip="View" target="_blank" title="View"
+                                            (click)="previewFile(rowPO.bisCertificate,$event)"><i
+                                                class="bi bi-eye"></i></a>
+                                        <input type="hidden" class="hidProcuredBIS_doc{{i}}"
+                                            id="hidProcuredBIS_doc{{i}}" value="{{rowPO.hdnBISCertificate}}">
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="table__icons" (click)="deleteProcured(i)" ngbTooltip="Delete"> <i
+                                                class="bi bi-trash"></i> </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- step 3 tab -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-2 text-end">
+                    <button type="submit" id="Submit" class="log__btns__outline me-3" title="Prev" (click)="setStep(2)">
+                        <i class="bi bi-arrow-left me-2"></i> Prev </button>
+                    <button type="submit" id="Submit" class="log__btns" title="Save as Next"
+                        (click)="nextStep3($event)">Save as Next <i class="bi bi-arrow-right ms-2"></i> </button>
+                </div>
+            </div>
+            <!-- step 3 tab -->
+
+            <!-- step 4 tab -->
+            <div *ngIf="currentStep === 4" class="content text-center" aria-labelledby="stepper1trigger4">
+
+                <div class="mb-4">
+                    <div class="customtop__heading">
+                        <h5> If Technical staffs appointed </h5>
+                    </div>
+                    <div class="custom_radio">
+                        <div class="check_radio">
+                            <input type="radio" id="selTechnical1" name="radio-group" value="1"
+                                (change)="onRadioChange(1)" class="selTechnical">
+                            <label for="selTechnical1">Yes</label>
+                        </div>
+                        <div class="check_radio">
+                            <input type="radio" id="selTechnical2" name="radio-group" value="2"
+                                (change)="onRadioChange(2)" class="selTechnical">
+                            <label for="selTechnical2">No</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="manufacture__sections" *ngIf="showStaffvalue === 1">
+                    <div class="mt-3">
+                        <div class="add__section">
+                            <div class="custom_form_inputgroup">
+                                <div class="row bottom__gap">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text"> Staff Name <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtStaffName"
+                                                placeholder="Staff Name" name="txtStaffName" id="txtStaffName"
+                                                autocomplete="off" maxlength="50"
+                                                (keypress)="vldChkLst.isCharWithSpace($event)" appBlockCopyPaste>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Designation <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtDesignation"
+                                                placeholder="Designation" name="txtDesignation" id="txtDesignation"
+                                                autocomplete="off" maxlength="40"
+                                                (keypress)="vldChkLst.isCharWithSpace($event)" appBlockCopyPaste>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Date of Joining <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control input_datefield txtJoiningDate"
+                                                placeholder="Joining Date" ngbDatepicker #d="ngbDatepicker"
+                                                (click)="d.toggle()" name="txtJoiningDate" id="txtJoiningDate"
+                                                autocomplete="off" (keydown)="preventInput($event)"
+                                                (paste)="preventInput($event)" (input)="preventInput($event)" [maxDate]="maxDate">
+                                            <span class="input_datefield_icon"><i class="bi bi-calendar3"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row bottom__gap mb-0">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Serving State <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <select *ngIf="stateLists" class="form-select selStaffState"
+                                                name="selStaffState" id="selStaffState">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let stateList of stateLists"
+                                                    value="{{stateList.intStateId}}">{{stateList.vchStateName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Qualification <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtQualification"
+                                                placeholder="Qualification" name="txtQualification"
+                                                id="txtQualification" autocomplete="off" maxlength="20"
+                                                appBlockCopyPaste
+                                                pattern="^(10th|11th|12th|\+2|\+3|[A-Za-z\s\d\.\-]+)$" (input)="validateQualificationInput($event)"
+                                                title="Valid inputs: 10th, 11th, 12th, +2,+3 and standard qualifications" >
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <div class="input-group custom-file-upload">
+                                                <div class="input-group-text"> Document <span
+                                                        class="mandatory ms-1">*</span> 
+                                                    </div>
+
+                                                <input type="file" id="file-upload"
+                                                    class="custom-file-input txtStaffUploadDoc" name="txtStaffUploadDoc"
+                                                    id="txtStaffUploadDoc" (change)="onFileChangeStaffDoc($event)">
+
+                                                <label for="file-upload" class="file-name">No file chosen</label>
+
+                                                <div class="Remove__sec justify-content-end" [hidden]="!showHideStaffUploadedFiles">
+                                                    <div *ngIf="staffUploadedFiles" class="file-preview">
+                                                        <div>
+                                                            <a href="javascript:void(0)" class="btn btn-outline-secondary btn-sm" ngbTooltip="View" target="_blank"
+                                                                title="View" (click)="previewFile(staffUploadedFiles,$event)"><i class="bi bi-eye"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                           
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 add__btns text-end ">
+                        <button type="button" class="btn btn-outline-success me-3"
+                            (click)="addTableTechnicalStaff()" title="Add"> Add <i class="bi bi-plus"></i> </button>
+                        <button type="button" class="btn btn-outline-danger" (click)="resetTechnicalStaff()"
+                            title="Clear"> Clear <i class="bi bi-arrow-clockwise"></i> </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table width="100%" class="add_row_table m-0">
+                            <thead>
+                                <tr>
+                                    <th width="5%"> #SN</th>
+                                    <th width="15%"> Staff Name </th>
+                                    <th width="12%"> Designation </th>
+                                    <th width="12%"> Date of Joining </th>
+                                    <th width="12%"> Serving Date </th>
+                                    <th width="12%"> Qualification </th>
+                                    <th width="10%"> Document </th>
+                                    <th width="10%" class="text-center"> Action </th>
+                                </tr>
+                            </thead>
+                            <tr *ngFor="let rowTS of rowTechnicalStaff let i = index">
+                                <td> {{i+1}} </td>
+                                <td>{{rowTS.staffName}} </td>
+                                <td> {{rowTS.designationName}} </td>
+                                <td> {{rowTS.joiningDate}} </td>
+                                <td> {{rowTS.servingStateText}} </td>
+                                <td> {{rowTS.qualification}} </td>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-outline-success btn-sm"
+                                        ngbTooltip="View" target="_blank" title="View"
+                                        (click)="previewFile(rowTS.document,$event)"><i class="bi bi-eye"></i></a>
+                                    <input type="hidden" class="hidDocument_doc{{i}}" id="hidDocument_doc{{i}}"
+                                        value="{{rowTS.hdnDocument}}">
+                                </td>
+                                <td class="text-center">
+                                    <div class="table__icons" (click)="deleteTechnicalStaff(i)" ngbTooltip="Delete"> <i
+                                            class="bi bi-trash"></i> </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-2 text-end">
+                    <button type="submit" id="Submit" class="log__btns__outline me-3" title="Prev" (click)="setStep(3)">
+                        <i class="bi bi-arrow-left me-2"></i> Prev </button>
+                    <button type="submit" id="Submit" class="log__btns" title="Save as Next"
+                        (click)="nextStep4($event)">Save as Next <i class="bi bi-arrow-right ms-2"></i> </button>
+                </div>
+            </div>
+            <!-- step 4 tab -->
+
+            <!-- step 5 tab -->
+            <div *ngIf="currentStep === 5" class="content text-center" aria-labelledby="stepper1trigger5">
+
+                <div class="mb-4">
+                    <div class="customtop__heading">
+                        <h5> If Performance Report </h5>
+                    </div>
+
+                    <div class="custom_radio">
+                        <div class="check_radio">
+                            <input type="radio" id="selPerformance1" name="radio-group" value="1"
+                                (change)="onRadioPerformance(1)" class="selPerformance" />
+                            <label for="selPerformance1">Yes</label>
+                        </div>
+                        <div class="check_radio">
+                            <input type="radio" id="selPerformance2" name="radio-group" value="2"
+                                (change)="onRadioPerformance(2)" class="selPerformance" />
+                            <label for="selPerformance2">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="manufacture__sections" *ngIf="showPerformancevalue === 1">
+                    <div class="mt-3">
+                        <div class="add__section">
+                            <div class="custom_form_inputgroup">
+                                <div class="row bottom__gap">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text"> State empaneled <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <select *ngIf="stateLists" class="form-select selEmpaneledState"
+                                                name="selEmpaneledState" id="selEmpaneledState">
+                                                <option value="">--Select--</option>
+                                                <option *ngFor="let stateList of stateLists"
+                                                    value="{{stateList.intStateId}}">{{stateList.vchStateName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Year Empanelment <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <select class="form-select selEmpanelmentYear" name="selEmpanelmentYear"
+                                                id="selEmpanelmentYear">
+                                                <option value=""> --Select-- </option>
+                                                <option *ngFor="let year of years" value="{{year}}"> {{year}} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text" title="Physical Achievement">Phys. Achievement <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtPhyAchievement"
+                                                placeholder="Phys. Achievement" name="txtPhyAchievement" id="txtPhyAchievement"
+                                                maxLength="10" (keypress)="vldChkLst.isNumberKey($event)"
+                                                appBlockCopyPaste autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row bottom__gap mb-0">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text" title="Financial Achievement"> Fin. Achievement &#8377;<span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtFinAchievement"
+                                                placeholder="Fin. Achievement"  name="txtFinAchievement" id="txtFinAchievement"
+                                                maxLength="10" (keypress)="vldChkLst.isNumberKey($event)"
+                                                appBlockCopyPaste autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 add__btns text-end ">
+                        <button type="button" class="btn btn-outline-success me-3"
+                            (click)="addTablePerformance()" title="Add"> Add <i class="bi bi-plus"></i> </button>
+                        <button type="button" class="btn btn-outline-danger" (click)="resetPerformanceReport()"
+                            title="Clear"> Clear <i class="bi bi-arrow-clockwise"></i> </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table width="100%" class="add_row_table m-0">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" width="5%"> #SN</th>
+                                    <th rowspan="2" width="15%"> State Empaneled Name </th>
+                                    <th rowspan="2" width="12%" class="border-end"> Year of Empanelment </th>
+                                    <th colspan="2" class="text-center border-bottom border-end" width="12%">
+                                        Acheivement </th>
+                                    <th rowspan="2" width="10%" class="text-center border-start"> Action </th>
+                                </tr>
+                                <tr>
+                                    <th width="12%" class="border-end"> Physical </th>
+                                    <th width="12%"> Financial </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rowPR of rowPerformanceReport let i = index">
+                                    <td> {{i+1}} </td>
+                                    <td> {{rowPR.empaneledStateText}}</td>
+                                    <td> {{rowPR.empaneledYearText}} </td>
+                                    <td> {{rowPR.physicalAchievement}} </td>
+                                    <td> {{rowPR.financialAchievement}} </td>
+                                    <td class="text-center">
+                                        <div class="table__icons" (click)="deletePerformanceReport(i)"
+                                            ngbTooltip="Delete"> <i class="bi bi-trash"></i> </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-4 mt-4">
+                    <div class="customtop__heading">
+                        <h5> If Testing Report </h5>
+                    </div>
+                    <div class="custom_radio">
+                        <div class="check_radio">
+                            <input type="radio" id="selTesting1" name="radio-group1" value="1"
+                                (change)="onRadioTesting(1)" class="selTesting" />
+                            <label for="selTesting1">Yes</label>
+                        </div>
+                        <div class="check_radio">
+                            <input type="radio" id="selTesting2" name="radio-group1" value="2"
+                                (change)="onRadioTesting(2)" class="selTesting" />
+                            <label for="selTesting2">No</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="manufacture__sections" *ngIf="showTestingvalue === 1">
+                    <div class="mt-3">
+                        <div class="add__section">
+                            <div class="custom_form_inputgroup">
+                                <div class="row bottom__gap">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text"> Type <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <select class="form-select selType" name="selType" id="selType"
+                                                autocomplete="off">
+                                                <option value="">--Select--</option>
+                                                <option value="Govt"> Govt </option>
+                                                <option value="Private"> Private </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Institute Name <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control txtInstituteName"
+                                                placeholder="Institute Name" name="txtInstituteName"
+                                                id="txtInstituteName" autocomplete="off" maxLength="50"
+                                                (keypress)="vldChkLst.isCharWithSpace($event)" appBlockCopyPaste>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <div class="input-group custom-file-upload">
+                                                <div class="input-group-text">Document <span
+                                                        class="mandatory ms-1">*</span> </div>
+                                                <input type="file" id="file-upload"
+                                                    class="custom-file-input txtTestingUploadDoc"
+                                                    name="txtTestingUploadDoc" id="txtTestingUploadDoc"
+                                                    (change)="onFileChangeTestingDoc($event)">
+                                                <label for="file-upload" class="file-name">No file chosen</label>
+                                                <div class="Remove__sec d-flex justify-content-end"
+                                            [hidden]="!showHideTestingUploadedFiles">
+                                            <div *ngIf="testingUploadedFiles" class="file-preview">
+
+                                                <a href="javascript:void(0)" ngbTooltip="View"
+                                                    class="btn btn-outline-secondary btn-sm" target="_blank"
+                                                    title="View" (click)="previewFile(testingUploadedFiles,$event)">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                            </div>
+
+                                            
+
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row bottom__gap mb-0">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text"> Validity From Date <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control input_datefield txtValidityFromDate"
+                                                placeholder="Validity Date" ngbDatepicker #fromDate="ngbDatepicker"
+                                                (click)="fromDate.toggle()" name="txtValidityFromDate"
+                                                id="txtValidityFromDate"
+                                                autocomplete="off" (dateSelect)="onDateSelectTest()"
+                                                (keydown)="preventInput($event)" (paste)="preventInput($event)"
+                                                (input)="preventInput($event)" [maxDate]="maxDate">
+                                            <span class="input_datefield_icon"><i class="bi bi-calendar3"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-12 ">
+                                        <div class="input-group">
+                                            <span class="input-group-text"> Validity To Date <span
+                                                    class="mandatory ms-1">*</span></span>
+                                            <input type="text" class="form-control input_datefield txtValidityToDate"
+                                                placeholder="Validity Date" ngbDatepicker #toDate="ngbDatepicker"
+                                                (click)="toDate.toggle()" name="txtValidityToDate"
+                                                id="txtValidityToDate"
+                                                autocomplete="off" (dateSelect)="onDateSelectTest()"
+                                                (keydown)="preventInput($event)" (paste)="preventInput($event)"
+                                                (input)="preventInput($event)" [minDate]="maxDate">
+                                            <span class="input_datefield_icon"><i class="bi bi-calendar3"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 add__btns text-end ">
+                        <button type="button" class="btn btn-outline-success me-3" (click)="addTableTesting()"
+                            title="Add"> Add <i class="bi bi-plus"></i> </button>
+                        <button type="button" class="btn btn-outline-danger" (click)="resetTestingReport()"
+                            title="Clear"> Clear <i class="bi bi-arrow-clockwise"></i> </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table width="100%" class="add_row_table m-0">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" width="5%"> #SN</th>
+                                    <th rowspan="2" width="15%"> Type </th>
+                                    <th rowspan="2" width="12%"> Institute Name </th>
+                                    <th rowspan="2" class="border-end" width="12%"> Documents </th>
+                                    <th colspan="2" class="text-center border-bottom border-end" width="12%"> Validity
+                                    </th>
+                                    <th rowspan="2" width="10%" class="text-center border-start"> Action </th>
+                                </tr>
+                                <tr>
+                                    <th width="12%" class="border-end"> From Date </th>
+                                    <th width="12%"> To Date </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let rowTR of rowTestingReport let i = index">
+                                    <td> {{i+1}} </td>
+                                    <td> {{rowTR.selTypeText}} </td>
+                                    <td> {{rowTR.instituteName}} </td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn btn-outline-success btn-sm"
+                                            ngbTooltip="View" target="_blank" title="View"
+                                            (click)="previewFile(rowTR.testingDocument,$event)"><i
+                                                class="bi bi-eye"></i></a>
+                                        <input type="hidden" class="hidTesting_doc{{i}}" id="hidTesting_doc{{i}}"
+                                            value="{{rowTR.hdnTestingDocument}}">
+                                    </td>
+                                    <td> {{rowTR.validityFromDate}} </td>
+                                    <td> {{rowTR.validityToDate}} </td>
+                                    <td class="text-center">
+                                        <div class="table__icons" (click)="deleteTestingReport(i)" ngbTooltip="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    
+
+
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12 text-start" *ngIf="type=='edit'">
+                    <label class="mt-4 mb-2"> Remarks <span class="text-danger">*</span></label>
+                    <div>
+                        <textarea rows="3" class="form-control" placeholder="Enter Resubmission Remarks..." id="remarks" name="remarks"
+                            formControlName="remarks" (paste)="preventInput($event)"
+                            (input)="vldChkLst.blockspecialchar_first($event)"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 mt-2 text-end">
+                    <button class="log__btns__outline me-3" title="Prev" (click)="setStep(4)"> <i
+                            class="bi bi-arrow-left me-2"></i> Prev </button>
+                    <button type="submit" id="Submit" class="log__btns" title="Submit Application"
+                        (click)="nextStep5($event)">Submit Application </button>
+                </div>
+            </div>
+            <!-- step 5 tab -->
+
+        </div>
+
+        <!-- body part -->
+
+
+
+
+    </div>
+
+    <!-- priyaranjan -->
+
+
+</form>
+
+
+
+
+<ng-template #other_content>
+    <h6 class="no-content"> No Record found</h6>
+</ng-template>
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>

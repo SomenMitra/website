@@ -1,0 +1,76 @@
+.accordion-button:not(.collapsed) {
+
+    background-color: var(--accrodion-bg)!important;
+  
+}
+.accordion{
+    margin-bottom: 1rem;
+    border: none;
+    /* by reshma */
+    /* border: 1px solid #f0f5f8; */
+   /* by reshma */
+  }
+  .accordion .accordion-header{
+    background: #f0f5f8;
+    position: relative;
+    border-radius: 6px;
+  
+  }
+  .accordion .accordion-header h5{
+  font-size: 1.1rem;
+  padding: .5rem 1rem;
+  font-weight: 400;
+  color: #565656;
+  
+  }
+  .accordion .accordion-header h5 a{
+  display: block;
+  
+  }
+  .accordion .accordion-header h5 a:after{
+  position:absolute;
+  right: 1rem;
+  font-family: icons;
+  content: '\ec98';
+  }
+  .accordion .accordion-header h5 a.collapsed:after{
+      content: '\ed19';
+  
+  }
+  .accordion-body{
+  padding: 1.25rem;
+  /* by reshma */
+  border: 1px solid var(--accrodion-border);
+    background: var(--white);
+  /* by reshma */
+  }
+  .accordion-button:not(.collapsed) {
+  /* color: #38ab09;
+  background-color: #effde9; */
+  /* by reshma */
+  color: var(--black);
+  background-color: #bdbdbd40;
+  /* by reshma */
+  box-shadow: none;
+  }
+
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+  
+  /* by reshma */
+  .accordion-button {
+    border: 1px solid var(--accrodion-border);
+    font-weight: 700;
+    color: var(--grey);
+    background: var(--accrodion-bodybg);
+  }
+  .accordion-item {
+    border: none;
+    margin-bottom: 0.5rem;
+  }
+  .accordion-button:not(.collapsed)::after {
+    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23000000%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e')!important;
+  }
+  
+  /* by reshma */

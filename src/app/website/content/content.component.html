@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="pagenavigation">
+
+    <div class="container">
+             <h2> {{page_info.vchPageName}}</h2> 
+             <!-- {{page_info.vchPageName}} -->
+    </div>    
+    </div>
+    <div class="container">
+    <div class="page-container content-section" innerHtml={{page_info.vchContent}}>
+    </div>
+    </div>
+    <!-- innerHtml={{page_info.vchContent}} -->
+<app-footer></app-footer> 
+<div class="loader" *ngIf="loading">
+                <div class="loader-item"></div>
+                <p>Loading...</p>
+        </div>

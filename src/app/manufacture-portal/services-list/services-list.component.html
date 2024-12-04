@@ -1,0 +1,99 @@
+<!-- <div class="d-flex align-items-center justify-content-between mb-3">
+    <h5 class="common-heading mb-0">{{((directorateName!='') ? directorateName:'--') }} Services</h5>
+    <div >
+            <a class="text-dark h5" title="Back" routerLink="/citizen-portal/service-directorate"><i class="icon-arrow-left-solid"></i></a> -->
+    <!-- <select class="form-select form-select-sm" (change)="getServiceList($event.target.value)">
+        <option value="0">All</option>
+        <option value="1">Fisheries</option>
+        <option value="2">Animal Husbandry</option>
+    </select> -->
+<!-- </div>
+</div> -->
+
+<div class="vertical-tab-section">
+    <div class="tabs-div">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation" *ngFor="let directorateinfo of groupedDirectorate;let aRwCnt=index;">
+                                        
+                        <button class="nav-link active"  *ngIf="directorateinfo.service !== '0'" value={{directorateinfo.directorate}} (click)="getServiceList($event.target.value)" [ngClass]="{ active: tab === 'tab'+ directorateinfo.directorate }" > {{((directorateinfo.directorateName!='') ? directorateinfo.directorateName:'--') }} <span value={{directorateinfo.directorate}} (click)="getServiceList($event.target.value)" [ngClass]="{ active: tab === 'tab'+ directorateinfo.directorate }" >{{directorateinfo.service}}</span></button>
+                      </li>
+        </ul>
+    </div>
+        <div class="tab-content">
+
+<div *ngIf="isServiceFlag; else norecord">
+
+<!-- <div *ngFor="let serviceList of respList | paginate: { itemsPerPage: 10, currentPage: p }"></div> -->
+<div *ngFor="let serviceList of respList">
+    <div class="scheme-list" >
+  
+      
+       
+        <div class="scheme-desc">
+            
+            <h5>{{serviceList.vchProcessName}}</h5>
+
+
+            <div>
+                    <ng-container *ngIf="innerWidth < 800; then mobileView else desktopView"></ng-container>
+                    <ng-template #mobileView>
+                            <ng-container *ngIf="serviceList.strServiceGdln">
+                                    <a  href="{{serviceList.strServiceGdln}}" class="readMore2 me-2"   download="{{serviceList.strServiceGdln}}" > Guideline</a>
+                        </ng-container>
+                        <ng-container *ngIf="serviceList.briefDescription">
+                                <a href="{{serviceList.briefDescription}}" class="readMore2 me-2">Brief Description</a>
+                            </ng-container>
+                    </ng-template>
+                    <ng-template #desktopView>
+
+                            <ng-container *ngIf="serviceList.strServiceGdln">
+                                    <a  href="{{serviceList.strServiceGdln}}" class="readMore2 me-2"  target="_blank" download="{{serviceList.strServiceGdln}}" > Guideline</a>
+                        </ng-container>
+                        <ng-container *ngIf="serviceList.briefDescription">
+                                <a href="{{serviceList.briefDescription}}" class="readMore2 me-2" target="_blank">Brief Description</a>
+                            </ng-container>  
+
+                         </ng-template>
+
+
+               
+              
+               <ng-container *ngIf="serviceList.intSchmCnt>0; then schemView else schemApply"></ng-container>
+            <ng-template #schemView>
+                <a href="javascript:void(0)" (click)="viewAppliedService(serviceList.intProcessId);">View</a>
+            </ng-template>
+            <ng-template #schemApply>
+                <a  href="javascript:void(0)" (click)="doServiceApply(serviceList.intProcessId+':0:'+serviceList.intDocument, serviceList.vchProcessName);">Apply</a>
+            </ng-template>
+            </div>
+           
+           
+        </div>
+      
+                <div class="scheme-img ">
+                        <ng-container *ngIf="serviceList.strServiceImg">
+                        <img src="{{serviceList.strServiceImg}}">
+                    </ng-container>
+                    </div>
+               
+      
+   
+
+</div>
+</div>
+<!-- <div class="d-flex justify-content-center mt-3">
+        <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+        </div> -->
+</div>
+<ng-template #norecord>
+    <h6 class="no-content"> No Record Found</h6>
+
+</ng-template>
+
+<div class="loader" *ngIf="loading">
+    <div class="loader-item"></div>
+    <p>Loading...</p>
+</div>
+</div>
+</div>
+<!-- (click)="doSchemeApply(serviceList.intProcessId+':'+serviceList.intSchmAppId);" -->

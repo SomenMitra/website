@@ -1,0 +1,300 @@
+<app-header></app-header>
+<div class="citizenmenu">
+
+
+</div>
+
+
+
+
+
+<div class="accknowlagecontainer">
+    <div class="d-flex justify-content-between mb-2">
+        
+         <p class="mb-0"> 
+            <i class="icon-phone-volume-solid icon-2x text-success me-2 mt-1 fw-bold"></i> Farmer Helpline Number : 
+            <strong class="helpnumber">155333</strong>
+        </p>
+        <button type="button" class="btn btn-outline-success btn-sm" (click)="printPage()">
+            <i class="icon-printer ml-2"></i> Print
+         </button>
+    </div>
+   
+   
+    <div class="congralation_area">
+        <div class="congratulation_text">
+            <!-- <i class="icon-check-circle"></i> -->
+            <svg xmlns="
+            http://www.w3.org/2000/svg" width="72px" height="72px">
+                <g fill="white" stroke="green" stroke-width="2">
+                    <circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
+                    <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;">
+                    </path>
+                </g>
+            </svg>
+            <h1>Congratulations!</h1></div>
+
+            <div class="congratulation_massage" *ngFor="let list of respSts">
+                <p class="grievance_text">Your grievance has been successfully registered.</p>
+                <p>Please use your Reference no. <span>{{list.vchApplicationNo}}</span> for further tracking of <br>grievance status.</p>
+            </div>
+
+        <!-- <div class="congratulation_massage">
+            <p>You have successfully applied for <span>Pradhan Mantri Krishi Sinchayee Yojana (PDMC-MI)</span></p>
+            <p>Please use your Application ID <span>HOT/24/00282690</span> for further tracking of application status.</p>
+        </div> -->
+    </div>
+    
+   
+    <div class="info">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h5>Acknowledgement Slip</h5>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <!-- <div>
+                    <table> 
+                        <tbody>
+
+                            <tr *ngFor="let listItemlist of respSts">
+                                <td width="150">
+                                    Application ID 
+                                </td>
+                                 
+                                <td class="fw-bold" class="border-right" width="200">{{listItemlist.vchApplicationNo}}</td>
+
+                                <td class="specing">
+                                    Submission Date 
+                                </td>
+                                <td class="fw-bold">
+                                    {{listItemlist.dtmCreatedOn}}
+                                </td>
+
+                            </tr>
+                    
+                           
+                            <tr *ngFor="let listItem of respSts">
+                                <td>Name </td>
+                               
+                                <td class="fw-bold" class="border-right">
+                                    {{listItem.NAME}}
+                                </td>
+
+                                <td class="specing">Email</td>
+                                
+                                <td class="fw-bold">
+                                    {{listItem.EMAIL}}
+                                </td>
+                            </tr>
+                    
+                    
+                    
+                           
+                    
+                            <tr *ngFor="let listItm of respSts">
+                                <td>
+                                    Mobile No.
+                                </td>
+                              
+                                <td class="fw-bold" class="border-right">
+                                    {{listItm.MOBILE}}
+                                </td>
+                                <td class="specing">Directorate</td>
+                               
+                                <td class="fw-bold">
+                                    {{listItm.DIRECTORATE}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="mb-3">
+                        <tbody>
+                            <tr *ngFor="let listSchem of respSts">
+                                <td width="150">Scheme Name</td>
+                               
+                                <td class="fw-bold">
+                                    {{listSchem.SCHEMENAME}}
+                                </td>
+                             
+                            </tr>
+
+                            <tr *ngFor="let listMessage of respSts">
+                                <td>Massage</td>
+                                
+                                <td class="fw-bold">
+                                    {{listMessage.VCHMESSAGE}}
+                                </td>
+                            
+                            </tr>
+                    
+                        </tbody>
+                    </table>
+                </div> -->
+
+
+                
+                <div class="row" *ngFor="let listDiv of respSts">
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <span class="value_text">Application ID  </span> 
+                        <span class="value">{{listDiv.vchApplicationNo}}</span>
+                    </div>
+                
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <span class="value_text" >Submission Date </span> 
+                        <!-- <span class="value">{{listDiv.dtmCreatedOn}}</span> -->
+                        <span class="value">{{ listDiv.dtmCreatedOn | date: 'dd-MM-yyyy' }}</span>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <span class="value_text">Name </span> 
+                        <span class="value">{{listDiv.NAME}}</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <span class="value_text">Email</span> 
+                        <span class="value">{{listDiv.EMAIL}}</span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <span class="value_text">Mobile No. </span>
+                         <span class="value">{{listDiv.MOBILE}}</span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-4">
+                        <span class="value_text">Directorate </span> 
+                        <span class="value">{{ funDir(listDiv.DIRECTORATE)}}</span>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mb-3">
+                        <div class="scheme">
+                            <span class="schme_value">Scheme Name </span> 
+                            <span class="scheme_name">{{listDiv.SCHEMENAME}}</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 text-center">
+                        <span class="value_text">Message : </span> 
+                        <span class="fw-bold">{{listDiv.VCHMESSAGE}}</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="mb-3 fs-6 text-center mt-2 mb-2 fw-bold massage">
+        Your application has been duly received and has been kept in wait list
+    </p>
+    <div class="text-center go-home">
+        <a href="#" class="btn btn-success"><i class="icon-home-solid me-2 fs-5"></i>&nbsp;Go to Home</a>
+    </div>
+        
+  
+</div>
+
+ <!-- <div class="container">
+    <div class="page-container content-section">
+        <div class="text-center py-5">
+            <h1 class="text-success mb-2 p-none" style="font-size:5rem">
+                <i class="icon-check-circle"></i>
+            </h1>
+            <h1 class="text-success mb-5 p-none">Congratulations !</h1>
+
+            <div>
+                <p class="p-none fw-bold"> You have successfully applied for Pradhan Mantri Krishi Sinchayee Yojana (PDMC-MI) </p>
+                <p class="mb-5 p-none">
+                    Please use your Application ID
+                    <span class="text-success  fw-bold">HOT/24/00282690 </span> for further tracking of
+                    application status
+                </p>
+
+                <div class="container py-5" id="acknowledgementSlip">
+                    <h4 class="fw-bold">Acknowledgement Slip</h4>
+                    <button type="button" class="hidden-print  mb-1 p-none fw-bold border-0 float-end" (click)="printPage()">
+                       <i class="icon-printer ml-2"></i> Print
+                    </button>
+                    <div class="table-responsive">
+                        <table>
+                            <tbody>
+                        
+                        
+                                <tr>
+                                    <td class="text-center fw-bold text-success">
+                                        Application ID : HOT/24/00282690
+                                    </td>
+                                    <td class="text-center fw-bold text-success">
+                                        Submission Date : 14-May-2024 04:19 PM
+                                    </td>
+                                </tr>
+                        
+                                <tr>
+                                    <td class="text-start fw-bold text-black">Name
+                                    </td>
+                                    <td class="text-start fw-bold text-black">
+                                        Ranjit Kumar Sahu
+                                    </td>
+                                </tr>
+                        
+                        
+                        
+                                <tr>
+                                    <td class="text-start fw-bold text-black">Email</td>
+                                    <td class="text-start fw-bold text-black">
+                                        ranjit@gmail.com
+                                    </td>
+                                </tr>
+                        
+                                <tr>
+                                    <td class="text-start fw-bold text-black">
+                                        Mobile No.
+                                    </td>
+                                    <td class="text-start fw-bold text-black">
+                                        7847801732
+                                    </td>
+                                </tr>
+                        
+                        
+                        
+                        
+                                <tr>
+                                    <td class="text-start fw-bold text-black">Directorate</td>
+                                    <td class="text-start fw-bold text-black">
+                                        Horticulture
+                                    </td>
+                                </tr>
+                        
+                                <tr>
+                                    <td class="text-start fw-bold text-black">Scheme Name</td>
+                                    <td class="text-start fw-bold text-black">
+                                        Pradhan Mantri Krishi Sinchayee Yojana (PDMC-MI)
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-start fw-bold text-black">Massage</td>
+                                    <td class="text-start fw-bold text-black">
+                                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente, placeat.
+                                    </td>
+                                </tr>
+                        
+                            </tbody>
+                        </table>
+                    </div>
+                   
+
+                     <h6 class="fw-bold">
+                                    <i class="icon-phone-volume-solid icon-2x">&nbsp;</i>Farmer Helpline
+                                    Number :155333
+                            </h6> 
+                </div>
+            </div>
+
+            <p class="mb-5 text-success p-none">
+                Your application has been duly received and has been kept in wait list
+            </p>
+
+            <a class="btn btn-warning p-none"><i class="icon-home-solid me-2"></i>Go to Home</a>
+        </div>
+
+    </div>
+</div>   -->
+<app-footer></app-footer>

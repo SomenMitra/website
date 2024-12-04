@@ -1,0 +1,17 @@
+.notification-list{
+    margin-bottom: 1.5rem;
+    background: #fff;
+    padding: 1.5rem;
+    transition: all ease-in-out .5s;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #dbdbdb;
+}
+.notification-list:hover{
+    box-shadow: 1px 1px 5px #858585;
+}
+@media screen and (max-width: 1160px) {
+    .notification-list{
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+}

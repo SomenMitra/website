@@ -1,0 +1,26 @@
+<div *ngIf="this.isLogin && !mobileReq; else mobileHeader">
+        <app-citizen-header></app-citizen-header>
+       
+        <div class="container ">
+
+           
+            <div class="page-container">
+            <router-outlet (activate)="onActivate($event)"></router-outlet>
+        </div>
+        </div>
+        <app-citizen-footer></app-citizen-footer>
+</div>
+
+<ng-template #mobileHeader >
+        <ng-container *ngIf="this.mobileReq; else withoutHeader">
+                <div class="container ">
+                        <div class="page-container">     
+            <router-outlet></router-outlet>
+            </div>
+            </div>
+        </ng-container>
+</ng-template>
+
+<ng-template #withoutHeader>
+    <router-outlet></router-outlet>
+</ng-template>

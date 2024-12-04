@@ -1,0 +1,118 @@
+.details-card {
+    padding: 0rem;
+    margin-bottom: 1rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+}
+
+.card__apply  .apply_head_text{
+
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    color: #339b60;
+}
+
+
+.grid_bottom {
+    margin-bottom: 1rem;
+}
+
+.card__apply .card-body {
+    padding: 0 1.4rem;
+}
+
+.details-card p {
+    font-size: .9rem;
+}
+
+.text-warning {
+    color: var(--bs-orange) !important
+}
+
+.details-card a {
+    display: inline-block;
+    min-width: 120px;
+    padding: 0.4rem 1rem;
+    text-align: center;
+    background: #fff;
+    margin-right: 0.5rem;
+
+    border-radius: 4px;
+    transition: all ease-in-out .5s;
+    color: #358737;
+    border: 1px solid #99cf9b;
+    cursor: pointer;
+}
+
+.details-card a:hover,
+.details-card a:focus {
+    background: #358737;
+    color: #fff;
+}
+
+
+.letter-list li {
+    position: relative;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.letter-list li::before {
+    position: absolute;
+    content: '\e921';
+    font-family: 'icons';
+    padding-left: 0rem;
+    left: 0;
+    top: 10px;
+    color: var(--base-color);
+    font-size: .8rem;
+}
+
+.letter-list li a {
+    all: unset;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed var(--border-color);
+    cursor: pointer;
+
+}
+
+.letter-list li a:hover {
+    color: var(--base-color)
+}
+
+.letter-list li a i {
+    color: #1d8f4e;
+    font-size: 1.2rem;
+}
+
+.letter-list li:last-child a {
+    border-bottom: 0
+}
+
+.letters-div {
+  
+}
+
+.letters-div h5 {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.modal_text {
+    position: relative;
+    color: red;
+    margin-left: 0.3rem;
+    text-align: justify;
+}
+
+.modal_text::before {
+    position: absolute;
+    left: -1.1rem;
+    content: "**";
+    ;
+}

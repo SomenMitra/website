@@ -1,0 +1,69 @@
+<!-- start scheme tab -->
+<div class="p-3 bg-light mb-3">
+  <h5 class="common-heading2 mb-0 ">{{schemeType}} : <span class="text-success">{{schemeName}}</span></h5>
+</div>
+<!-- end scheme tab -->
+
+<div class="control-div">
+  <h5 class="common-heading2">Query Reply</h5>
+
+  <div class="row">
+    <form [formGroup]="queryReplyForm" (submit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="form-label"> Query Message </label>
+            <div innerHtml={{authMsg}}></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"> Query On </label>
+            <p>{{(authActnOn!='')?authActnOn:'--'}}</p>
+          </div>
+
+          <div class="form-group">
+            <label><span class="text-danger">*</span> Reply </label>
+            <textarea class="form-control" formControlName="txtMessage" rows="4" cols="4"></textarea>
+          </div>
+          <h5 class="form-label"> Additional Document </h5>
+          <div class="form-group">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sl#</th>
+                  <th>Document Name</th>
+                  <th>Document Upload ({{fileType | uppercase }} only upto {{fileFileSize}} MB)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <ng-container *ngIf="queryReplyForm.get('queryDocs')">
+                <tbody formArrayName="queryDocs">
+                  <tr  *ngFor="let item of queryReplyForm.get('queryDocs').controls;let i = index" [formGroupName]="i">
+                    <td><label >{{i+1}}</label></td>
+                    <td><input type="text" id="docName{{i}}" class="form-control" /></td>
+                    <td><input type="file" id="docFile{{i}}" class="form-control" /></td>
+                    <td>
+                      <button type="button" (click)="addRow(i)" class="btn btn-sm btn-warning me-2">+</button>
+                      <button type="button" *ngIf="i>0" (click)="removeRow(i)" class="btn btn-sm btn-danger me-2">-</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </ng-container>
+            </table>
+          </div>
+
+        </div>
+        <div class="separator separator-dashed my-10"></div>
+        <div class="text-center">
+          <a class="btn btn-danger me-2" (click)="goToBack()">Back</a>
+          <a class="btn btn-warning me-2" (click)="submitReply();">Reply</a>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<div class="loader" *ngIf="loading">
+  <div class="loader-item"></div>
+  <p>Loading...</p>
+</div>
